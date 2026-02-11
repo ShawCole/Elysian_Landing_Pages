@@ -1,0 +1,394 @@
+Below is a landing-page oriented master document you can drop into an AI-powered landing page editor as the “source of truth.” It’s structured like a real creative system: inputs → rules → page sections → component specs → QA. Grounded in the Elysian Leaders brand guide.  ￼
+
+⸻
+
+Elysian Leaders
+
+Landing Page Master Document (AI Editor Source of Truth)
+
+Version
+
+Elysian 2026 — Landing Page System
+Source: Brand Guide  ￼
+
+⸻
+
+1) Brand Snapshot (for the editor’s global context)
+
+Brand promise
+
+Elysian Leaders helps ambitious professionals build sustainable high-ticket online businesses that create time + financial freedom—with proven systems and real-world results, not hype.  ￼
+
+Brand personality
+
+Relatable luxury: premium, clean, elevated, approachable. Aspirational but never pretentious; grounded but never dull.  ￼
+
+Brand principles (must be expressed in layout + copy)
+	1.	Empowering
+	2.	Authentic
+	3.	Aspirational
+	4.	Action-oriented  ￼
+
+⸻
+
+2) Audience + Desired Emotional Outcome
+
+Primary audience
+
+Ambitious professionals who want out of corporate constraints and into freedom—skeptical of “guru” hype; motivated by structure, sustainability, and credibility.  ￼
+
+Emotional targets to hit on every page
+	•	“This is real.” (credibility)
+	•	“This is for me.” (belonging + relatability)
+	•	“I can do this.” (empowerment)
+	•	“I know what to do next.” (action)
+
+⸻
+
+3) Voice & Copy Rules (non-negotiables)
+
+Voice guardrails
+
+Conversational yet authoritative; confident not aggressive; inspiring not preachy; personal but professional.  ￼
+
+Writing rules
+	•	Empowering without hype (no “overnight success,” no unrealistic promises).  ￼
+	•	Clarity over cleverness (plain language, no buzzword soup).  ￼
+	•	Conversational authority (human cadence + substance).  ￼
+	•	Aspirational realism (show what’s possible + what it takes).  ￼
+
+Approved language bank
+
+Use often: impact, purpose, alignment; wealth/abundance/fulfillment; freedom (time + financial); sustainable/long-term; build/create/design.  ￼
+
+Avoid list
+
+Hustle-culture language; get-rich-quick implications; corporate jargon; overly salesy urgency.  ￼
+
+Taglines (use for hero, CTA, headers)
+
+Primary: Build the business. Live the life.  ￼
+Alt: Your freedom starts here / High-ticket systems. Real-world results / Design your income. Reclaim your time  ￼
+
+⸻
+
+4) Messaging Architecture (Content Pillars → Page Angles)
+
+Every landing page must anchor to one primary pillar and optionally support with a secondary.
+	1.	Freedom Architecture (systems, leverage, scalable acquisition)  ￼
+	2.	Life Reclamation (exit the 9–5, reclaim time/relationships)  ￼
+	3.	Proven Pathways (frameworks, transparency, case studies)  ￼
+	4.	Sustainable Abundance (wealth + values + health + longevity)  ￼
+
+⸻
+
+5) Design Tokens (for the landing page builder)
+
+Colors
+
+Primary:
+	•	Turquoise #40E0D0 (signature: possibility + clarity)  ￼
+	•	Gold #FFD700 (premium + achievement)  ￼
+	•	White #FFFFFF (space + sophistication)  ￼
+
+Secondary:
+	•	Deep Navy #1B2B3A (grounding + readability)  ￼
+	•	Warm Charcoal #4A4A4A (secondary text/UI)  ￼
+	•	Soft Cream #F8F6F0 (warm background option)  ￼
+
+Gradient:
+	•	Gold Gradient #CCC08B → #9D8752 (premium overlays/buttons)  ￼
+
+Contrast rules
+	•	On Turquoise: white for large headlines; deep navy for body; optional navy overlay for heavy text.  ￼
+	•	On Gold: deep navy for text; don’t use gold as a long-form background; treat as accent.  ￼
+	•	On White: turquoise for headings/CTAs; deep navy for body; gold for accents.  ￼
+
+Typography
+	•	Headlines: Montserrat (Bold/SemiBold)  ￼
+	•	Body: Open Sans (Regular/Light)  ￼
+	•	Luxury accent (rare): Playfair Display  ￼
+
+Suggested web hierarchy (recommended defaults)
+	•	H1: 52–60px Montserrat Bold
+	•	H2: 36–44px Montserrat SemiBold
+	•	H3: 24–28px Montserrat SemiBold
+	•	Body: 16–18px Open Sans Regular
+	•	Small: 14–15px Open Sans Regular  ￼
+
+Layout style rules
+	•	Generous whitespace, clean grid, minimal clutter
+	•	Rounded “card” containers for lists/checklists
+	•	Turquoise as confident background panels; gold as accents (underline, badge, number, divider)
+	•	Premium but approachable (no loud, dense, aggressive layouts)  ￼
+
+⸻
+
+6) Photography + Visual Direction (for hero + section images)
+
+Visual concept
+
+Effortless luxury in motion: candid, present, flow-state. Elevated lifestyle, but grounded in meaning and real momentum.  ￼
+
+Must-have traits
+	•	Natural light (golden hour / dappled shade), texture details, negative space  ￼
+	•	Movement: mid-stride, working with intention, horizon gaze, travel transitions  ￼
+	•	Environments: boutique café, terrace, villa, lounge, curated spaces; marble/brass/textiles  ￼
+
+Avoid list (hard no)
+
+Corporate office vibes, stress imagery, staged stock-photo laptop posing, flashy logos, money stacks.  ￼  ￼
+
+⸻
+
+7) Landing Page Structure Templates
+
+Pick the structure based on offer type. The editor should generate sections in this order.
+
+Template A: “Lead Magnet / Free Audit / Free Training” (most common)
+	1.	Hero (promise + primary CTA)
+	2.	Social proof bar (logos/testimonials/metrics)
+	3.	Problem agitation (without doom)
+	4.	Solution overview (what they get)
+	5.	How it works (3 steps)
+	6.	Benefits (life + business outcomes)
+	7.	What’s included (deliverables list)
+	8.	Proof (case study or results snapshot)
+	9.	FAQ (objection handling)
+	10.	Final CTA (simple, action-forward)
+
+Template B: “High-Ticket Program / Application”
+	1.	Hero (identity + transformation)
+	2.	Credibility (why trust)
+	3.	Who it’s for / not for
+	4.	The framework (pillars/steps)
+	5.	What you get (modules, support, assets)
+	6.	Proof (testimonials, before/after)
+	7.	Offer details (timeline, commitment, investment framing)
+	8.	FAQ
+	9.	Application CTA + reassurance
+
+Template C: “Webinar / Event”
+	1.	Hero (topic + outcomes + date/time + CTA)
+	2.	What you’ll learn (bullets)
+	3.	Host credibility
+	4.	For who / not for who
+	5.	Agenda (3–5 items)
+	6.	Testimonials
+	7.	FAQ
+	8.	Final CTA (register)
+
+⸻
+
+8) Section-by-Section Component Specs (AI editor rules)
+
+8.1 Hero Section (non-negotiable)
+
+Goal: immediate clarity + credibility + desire + one action.
+
+Hero layout options
+	•	White background with turquoise accents OR
+	•	Full turquoise background with white H1 + gold underline/accent bar  ￼
+
+Hero must include
+	•	H1: Transformation statement (realistic + compelling)
+	•	Subhead: who it’s for + how it works (1–2 sentences)
+	•	Primary CTA button (turquoise or gold gradient)
+	•	Secondary CTA (text link): “See how it works” / “What’s included”
+	•	Supporting credibility line: “proven systems,” “real-world results,” etc.  ￼
+
+Hero CTA examples (brand-safe)
+	•	Get the free audit
+	•	Book your strategy call
+	•	Watch the training
+	•	Start here
+(avoid: “Get rich now,” “Instantly,” “Guaranteed,” etc.)  ￼
+
+⸻
+
+8.2 Social Proof Bar
+
+Goal: “This is legit.”
+
+Approved proof types:
+	•	Short testimonials (1–2 sentences)
+	•	Metrics (if real)
+	•	Simple logo row (if you have permission)
+Design:
+	•	White or cream background
+	•	Gold accents for numbers; navy for labels  ￼
+
+⸻
+
+8.3 Problem Section (Agitate without negativity)
+
+Goal: reflect their reality; don’t shame them.
+
+Copy tone:
+	•	empathetic, validating, calm
+	•	avoid fear-mongering
+Use framing:
+	•	“If you’re great at what you do, but…”
+	•	“If the 9–5 is starting to feel…” (brand examples include this style)  ￼
+
+⸻
+
+8.4 Solution Overview
+
+Goal: what the offer is in plain terms.
+
+Structure:
+	•	3–5 bullets or cards
+	•	Each item: outcome first → mechanism second
+Design:
+	•	Card grid with rounded corners
+	•	Turquoise headings; gold icons/numbers
+
+⸻
+
+8.5 How It Works (3 steps)
+
+Goal: “I can see the path.”
+
+Format:
+	•	Step 1: Clarify / Align
+	•	Step 2: Build / Implement
+	•	Step 3: Launch / Optimize
+(Adjust verbs per offer; keep parallel structure.)  ￼
+
+Design:
+	•	Big gold step numbers; navy text; optional turquoise header bar style (slide-inspired)  ￼
+
+⸻
+
+8.6 Benefits (Life + Business)
+
+Goal: blend aspiration + realism.
+
+Two-column pattern:
+	•	Business outcomes (revenue, clarity, acquisition system)
+	•	Life outcomes (time, flexibility, presence, fulfillment)  ￼
+
+⸻
+
+8.7 What’s Included (Deliverables)
+
+Goal: tangible value.
+
+Format options:
+	•	Checklist cards (best)
+	•	Icon list (minimal)
+Rules:
+	•	Keep it scannable
+	•	Avoid long paragraphs
+	•	“Premium but approachable” packaging language
+
+⸻
+
+8.8 Proof Section (Case Study / Results Snapshot)
+
+Goal: convert skepticism into belief.
+
+Use one of:
+	•	Before/after narrative
+	•	“What changed” bullets
+	•	Stats slide style (huge gold number + context)  ￼
+
+Tone:
+	•	transparent, grounded, no exaggerated claims  ￼
+
+⸻
+
+8.9 FAQ (Objection Handling)
+
+Goal: remove friction.
+
+Include:
+	•	Time commitment
+	•	“What if I’m starting from scratch?”
+	•	“Who is this for / not for?”
+	•	Support/implementation details
+	•	“How soon will I see results?” (answer realistically)
+
+⸻
+
+8.10 Final CTA Section (Singular focus)
+
+Design:
+	•	Full turquoise background
+	•	White headline (“Your Next Step” style)
+	•	Gold gradient CTA block/button  ￼
+
+Copy:
+	•	short, confident, action-forward
+	•	reassure: “simple next step,” “no pressure,” etc.
+
+⸻
+
+9) UI Components Library (Reusable Blocks)
+
+Buttons
+
+Primary button:
+	•	Background: turquoise OR gold gradient
+	•	Text: white (turquoise) or deep navy (gold)
+	•	Rounded corners; bold label; ample padding  ￼
+
+Secondary button:
+	•	Outline deep navy; text deep navy; hover subtle.
+
+Badges / tags
+	•	Gold outline or filled gold with navy text
+	•	Use sparingly: “Free,” “New,” “Limited seats” (avoid urgency spam)
+
+Cards
+	•	White/cream background
+	•	Thin navy border at low opacity OR soft shadow
+	•	Rounded corners
+	•	Turquoise header text, gold accents
+
+Dividers
+	•	Gold underline bars
+	•	Turquoise section blocks
+
+⸻
+
+10) AI Prompt Blocks (paste into your editor)
+
+Global landing page generation prompt
+
+“Generate a landing page for Elysian Leaders in the ‘relatable luxury’ style: premium, clean, modern, approachable. Use generous whitespace, grid layouts, rounded cards. Use palette: turquoise #40E0D0 (primary), gold #FFD700 (accent), deep navy #1B2B3A (text), charcoal #4A4A4A (secondary), cream #F8F6F0 (background alt), gold gradient #CCC08B→#9D8752 for premium accents. Typography: Montserrat for headings, Open Sans for body, Playfair Display only as rare accent. Tone: conversational yet authoritative; empowering without hype; clarity over cleverness; aspirational realism. Avoid hustle culture language, corporate jargon, and exaggerated promises. Include: Hero, proof bar, problem, solution, how-it-works, benefits, inclusions, proof/case study, FAQ, final CTA.”
+
+Image sourcing prompt
+
+“Select lifestyle imagery that feels like effortless luxury in motion: candid flow-state moments, elevated travel/café/terrace scenes, natural light, textures like marble/brass/linen, negative space, relaxed confident posture. Avoid corporate office scenes, staged laptop posing, stress imagery, flashy logos, money stacks.”
+
+Copy prompt (section-level)
+
+“Write landing page copy that highlights sustainable high-ticket business systems that create time + financial freedom, with proven pathways and real-world results. Keep it empowering, authentic, aspirational, and action-oriented. Use language like alignment, freedom, sustainable abundance, build/create/design. End each major section with a clear next step CTA.”
+
+⸻
+
+11) QA Checklist (before publishing)
+
+Brand alignment
+	•	Relatable luxury achieved (polished + approachable)  ￼
+	•	No hype / no get-rich-quick / no hustle culture  ￼
+	•	Clear pillar focus (one primary pillar is obvious)  ￼
+
+Design integrity
+	•	Correct palette usage + contrast rules  ￼
+	•	Montserrat/Open Sans hierarchy consistent  ￼
+	•	Plenty of whitespace; no clutter  ￼
+	•	Gold used as accent, not long-form background  ￼
+
+Conversion clarity
+	•	One primary CTA repeated consistently
+	•	Proof appears above the fold or shortly after
+	•	Offer described in plain language
+	•	FAQ addresses core objections
+	•	Final CTA is singular and confident  ￼
+
+⸻
+
+If you tell me what the specific offer is (free audit vs program vs webinar, plus the CTA and target persona), I can generate a ready-to-paste full page draft (hero → final CTA) using this system—still fully on-brand.

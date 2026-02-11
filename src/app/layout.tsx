@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Montserrat, Open_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { DevSwitcher } from "@/components/dev/dev-switcher";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
 });
 
 const playfair = Playfair_Display({
@@ -31,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
+        className={`${montserrat.variable} ${openSans.variable} ${playfair.variable} antialiased`}
       >
         {children}
         <DevSwitcher />
