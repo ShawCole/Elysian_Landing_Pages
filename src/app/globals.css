@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-open-sans);
@@ -45,7 +45,13 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --color-v2-turquoise: var(--v2-turquoise);
+  --color-v2-gold: var(--v2-gold);
+  --color-v2-navy: var(--v2-navy);
+  --color-v2-charcoal: var(--v2-charcoal);
+  --color-v2-cream: var(--v2-cream);
+  --color-v2-white: var(--v2-white);
+  --animate-aurora: aurora 60s linear infinite;
 }
 
 :root {
@@ -125,28 +131,27 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-
-  @keyframes aurora {
-    from {
-      background-position: 50% 50%, 50% 50%;
-    }
-
-    to {
-      background-position: 350% 50%, 350% 50%;
-    }
-  }
 }
 
-@theme {
-  --animate-aurora: aurora 60s linear infinite;
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: color-mix(in srgb, var(--ring), transparent 50%);
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

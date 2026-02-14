@@ -8,6 +8,7 @@ import { ArrowRight, Shield, TrendingUp, Zap, Play, CheckCircle2 } from "lucide-
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState, Suspense } from "react";
+import { Logo } from "@/components/brand/logo";
 
 function SearchingSophieContent() {
     const searchParams = useSearchParams();
@@ -173,11 +174,11 @@ function SearchingSophieContent() {
                                 <button className={cn(
                                     "w-full mt-6 py-5 font-bold rounded-xl transition-all flex items-center justify-center gap-2 group relative overflow-hidden",
                                     version === "v2"
-                                        ? "bg-v2-turquoise text-white hover:shadow-[0_0_30px_rgba(64,224,208,0.3)]"
-                                        : "bg-primary text-black hover:shadow-[0_0_30px_rgba(243,229,202,0.3)]"
+                                        ? "bg-v2-turquoise text-white hover:shadow-[0_0_30px_rgba(64,224,208,0.3)] shadow-lg"
+                                        : "bg-primary text-black hover:shadow-[0_0_30px_rgba(243,229,202,0.3)] shadow-lg"
                                 )}>
-                                    <span className="relative z-10 flex items-center gap-2 uppercase tracking-widest text-xs">
-                                        {version === "v2" ? "Start Here" : "Unlock Architecture"}
+                                    <span className="relative z-10 flex items-center gap-2 uppercase tracking-tight text-xs font-bold leading-none">
+                                        {version === "v2" ? "Access the Blueprint" : "Unlock Architecture"}
                                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                     </span>
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
@@ -285,6 +286,7 @@ function SearchingSophieContent() {
                 version === "v2" ? "bg-white border-v2-navy/5" : "bg-black border-white/5"
             )}>
                 <div className="max-w-6xl mx-auto flex flex-col items-center">
+                    <Logo version={version === "v2" ? "v2" : "v1"} />
                     <div className={cn("font-serif text-2xl mb-8 tracking-tighter", version === "v2" ? "text-v2-navy" : "text-white")}>
                         Elysian<span className={cn("tracking-normal ml-0.5", version === "v2" ? "text-v2-turquoise" : "text-primary")}>Leaders</span>
                     </div>
