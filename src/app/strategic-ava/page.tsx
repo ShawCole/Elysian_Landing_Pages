@@ -197,7 +197,7 @@ function StrategicAvaContent() {
                                         : "bg-primary text-black hover:shadow-[0_0_30px_rgba(243,229,202,0.3)] shadow-lg"
                                 )}>
                                     <span className="relative z-10 flex items-center gap-2 uppercase tracking-tight text-xs font-bold leading-none">
-                                        {version === "v2" ? "Get Your Free Audit" : "ACCESS FREEDOM BLUEPRINT & MASTERCLASS"}
+                                        {version === "v2" ? "Start Your Journey" : "START YOUR JOURNEY"}
                                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                     </span>
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
