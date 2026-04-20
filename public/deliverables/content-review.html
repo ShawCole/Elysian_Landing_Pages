@@ -563,7 +563,7 @@
       <div class="stat-pill approved"><span class="dot"></span><span id="stat-approved">0</span> Approved</div>
       <div class="stat-pill denied"><span class="dot"></span><span id="stat-denied">0</span> Denied</div>
       <div class="stat-pill pending"><span class="dot"></span><span id="stat-pending">0</span> Pending</div>
-      <button class="export-btn" onclick="exportDecisions()">Export Decisions</button>
+      <button class="export-btn" onclick="saveDecisions()">Save</button>
     </div>
   </div>
 </header>
@@ -1113,39 +1113,16 @@ function loadState() {
   } catch(e) {}
 }
 
-function exportDecisions() {
-  var data = {
-    exported: new Date().toISOString(),
-    project: 'Elysian Leaders',
-    total: ASSETS.length,
-    summary: { approved: 0, denied: 0, pending: 0 },
-    decisions: []
-  };
-
-  ASSETS.forEach(function(a) {
-    var d = decisions[a.id] || 'pending';
-    if (d === 'approved') data.summary.approved++;
-    else if (d === 'denied') data.summary.denied++;
-    else data.summary.pending++;
-
-    data.decisions.push({
-      id: a.id,
-      section: a.section,
-      name: a.name,
-      type: a.type,
-      ext: a.ext,
-      status: d,
-      comment: comments[a.id] || ''
-    });
-  });
-
-  var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = 'elysian-content-review-' + new Date().toISOString().split('T')[0] + '.json';
-  a.click();
-  URL.revokeObjectURL(url);
+function saveDecisions() {
+  saveState();
+  var btn = document.querySelector('.export-btn');
+  var original = btn.textContent;
+  btn.textContent = 'Saved!';
+  btn.style.background = 'var(--approve)';
+  setTimeout(function() {
+    btn.textContent = original;
+    btn.style.background = '';
+  }, 2000);
 }
 
 loadState();
