@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elysian Leaders — Deliverables</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --navy-900: #070E1A;
+    --gold-600: #B8860B;
+    --gold-500: #D4A017;
+    --gold-400: #E8B84B;
+    --gold-300: #F0D078;
+    --teal-500: #14B8A6;
+    --teal-400: #2DD4BF;
+    --green-500: #48B21B;
+    --green-400: #5CC92F;
+    --amber-500: #F59E0B;
+    --blue-500: #3B82F6;
+    --purple-500: #8B5CF6;
+    --white: #FFFFFF;
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1E293B;
+    --gray-900: #0F172A;
+    --font-display: 'Outfit', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--gray-900);
+    color: var(--gray-300);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
+
+  .header {
+    padding: 2.5rem 0 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .header h1 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+
+  .header h1 span {
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    background: rgba(184,134,11,0.1);
+    border: 1px solid rgba(184,134,11,0.2);
+    border-radius: 100px;
+    color: var(--gold-400);
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+  }
+
+  .live-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold-400);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+  .header-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    font-family: var(--font-mono);
+    flex-wrap: wrap;
+  }
+
+  .header-meta span { display: flex; align-items: center; gap: 0.35rem; }
+
+  .stats-bar {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    margin: 1rem 0;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .stat__value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--white);
+  }
+
+  .stat__label {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .section-divider__label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .section-divider__line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .asset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .asset-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .asset-card:hover {
+    border-color: rgba(184,134,11,0.25);
+    background: rgba(255,255,255,0.05);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .asset-card__header {
+    padding: 1.25rem 1.25rem 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .asset-card__icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .asset-card__icon svg { width: 20px; height: 20px; color: white; }
+
+  .asset-card__icon.gold { background: linear-gradient(135deg, var(--gold-600), var(--gold-500)); }
+  .asset-card__icon.blue { background: linear-gradient(135deg, var(--blue-500), #2563EB); }
+  .asset-card__icon.purple { background: linear-gradient(135deg, var(--purple-500), #7C3AED); }
+  .asset-card__icon.green { background: linear-gradient(135deg, var(--green-500), #16A34A); }
+  .asset-card__icon.teal { background: linear-gradient(135deg, var(--teal-500), #0D9488); }
+
+  .asset-card__title-wrap { flex: 1; min-width: 0; }
+
+  .asset-card__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 0.15rem;
+  }
+
+  .asset-card__subtitle {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    font-family: var(--font-mono);
+  }
+
+  .asset-card__body {
+    padding: 0 1.25rem;
+    flex: 1;
+  }
+
+  .asset-card__desc {
+    font-size: 0.82rem;
+    color: var(--gray-400);
+    line-height: 1.55;
+  }
+
+  .asset-card__footer {
+    padding: 0.75rem 1.25rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .tag.done { background: rgba(72,178,27,0.15); color: var(--green-400); }
+  .tag.live { background: rgba(59,130,246,0.15); color: #60A5FA; }
+  .tag.review { background: rgba(184,134,11,0.15); color: var(--gold-400); }
+  .tag.data { background: rgba(184,134,11,0.15); color: var(--gold-400); }
+
+  .asset-card__link {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--gold-400);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .asset-card__link svg {
+    width: 12px; height: 12px;
+    transition: transform 0.2s;
+  }
+
+  .asset-card:hover .asset-card__link svg { transform: translateX(3px); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 3rem;
+    font-size: 0.75rem;
+    color: var(--gray-600);
+    font-family: var(--font-mono);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-row">
+        <h1>Elysian Leaders <span>Deliverables</span></h1>
+        <div class="live-badge"><div class="dot"></div> Active</div>
+      </div>
+      <div class="header-meta">
+        <span>Conscious Community</span>
+        <span>Tulum, MX</span>
+        <span>4 Avatars</span>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat__value">3</div>
+        <div class="stat__label">Deliverables</div>
+      </div>
+      <div class="stat">
+        <div class="stat__value">170</div>
+        <div class="stat__label">Assets</div>
+      </div>
+      <div class="stat">
+        <div class="stat__value">4</div>
+        <div class="stat__label">Landing Pages</div>
+      </div>
+    </div>
+
+    <!-- Content Audit -->
+    <div class="section-divider">
+      <span class="section-divider__label">Creative Assets</span>
+      <div class="section-divider__line"></div>
+    </div>
+
+    <div class="asset-grid">
+      <a href="content-review.html" class="asset-card">
+        <div class="asset-card__header">
+          <div class="asset-card__icon gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="asset-card__title-wrap">
+            <div class="asset-card__title">Content Audit</div>
+            <div class="asset-card__subtitle">DSP ads + brand assets</div>
+          </div>
+        </div>
+        <div class="asset-card__body">
+          <p class="asset-card__desc">170 creative assets across all 4 avatars, 4 IAB ad sizes, 2 copy versions, brand guide materials, and content library. Approve/deny each asset with comments.</p>
+        </div>
+        <div class="asset-card__footer">
+          <span class="tag review">Review</span>
+          <span class="tag data">170 assets</span>
+          <span class="asset-card__link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg></span>
+        </div>
+      </a>
+    </div>
+
+    <!-- VSL Builder -->
+    <div class="section-divider">
+      <span class="section-divider__label">Video Sales Letter</span>
+      <div class="section-divider__line"></div>
+    </div>
+
+    <div class="asset-grid">
+      <a href="https://elysian-vsl-builder.netlify.app" target="_blank" class="asset-card">
+        <div class="asset-card__header">
+          <div class="asset-card__icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="asset-card__title-wrap">
+            <div class="asset-card__title">VSL Builder</div>
+            <div class="asset-card__subtitle">3-segment webinar funnels</div>
+          </div>
+        </div>
+        <div class="asset-card__body">
+          <p class="asset-card__desc">Next.js video sales letter builder with Hook, Handshake Transition, and Evergreen Body segments. 4 avatar voices (Ava, Tristan, Aaron, Sophie) via ElevenLabs PVC.</p>
+        </div>
+        <div class="asset-card__footer">
+          <span class="tag done">Built</span>
+          <span class="asset-card__link">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg></span>
+        </div>
+      </a>
+
+      <a href="https://github.com/ShawCole/VSL_Builder" target="_blank" class="asset-card">
+        <div class="asset-card__header">
+          <div class="asset-card__icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </div>
+          <div class="asset-card__title-wrap">
+            <div class="asset-card__title">VSL Source Code</div>
+            <div class="asset-card__subtitle">GitHub repository</div>
+          </div>
+        </div>
+        <div class="asset-card__body">
+          <p class="asset-card__desc">Next.js 16, TypeScript, Tailwind v4, shadcn/ui, Web Audio API. Client-side audio stitching with placeholder sine-tone MP3s (pending real ElevenLabs assets).</p>
+        </div>
+        <div class="asset-card__footer">
+          <span class="tag live">GitHub</span>
+          <span class="asset-card__link">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg></span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Landing Pages -->
+    <div class="section-divider">
+      <span class="section-divider__label">Landing Pages</span>
+      <div class="section-divider__line"></div>
+    </div>
+
+    <div class="asset-grid">
+      <a href="https://elysian-landing-pages.netlify.app/searching-sophie" target="_blank" class="asset-card">
+        <div class="asset-card__header">
+          <div class="asset-card__icon teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+          </div>
+          <div class="asset-card__title-wrap">
+            <div class="asset-card__title">Searching Sophie</div>
+            <div class="asset-card__subtitle">Avatar 04 landing page</div>
+          </div>
+        </div>
+        <div class="asset-card__body">
+          <p class="asset-card__desc">Landing page for the Searching Sophie persona — women seeking purpose and connection through conscious community retreats.</p>
+        </div>
+        <div class="asset-card__footer">
+          <span class="tag done">Live</span>
+          <span class="asset-card__link">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg></span>
+        </div>
+      </a>
+
+      <a href="https://elysian-landing-pages.netlify.app/strategic-ava" target="_blank" class="asset-card">
+        <div class="asset-card__header">
+          <div class="asset-card__icon teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+          </div>
+          <div class="asset-card__title-wrap">
+            <div class="asset-card__title">Strategic Ava</div>
+            <div class="asset-card__subtitle">Avatar 01 landing page</div>
+          </div>
+        </div>
+        <div class="asset-card__body">
+          <p class="asset-card__desc">Landing page for the Side Hustle Aware Ava persona — ambitious women building purpose-driven businesses alongside community.</p>
+        </div>
+        <div class="asset-card__footer">
+          <span class="tag done">Live</span>
+          <span class="asset-card__link">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg></span>
+        </div>
+      </a>
+
+      <a href="https://elysian-landing-pages.netlify.app/roi-aaron" target="_blank" class="asset-card">
+        <div class="asset-card__header">
+          <div class="asset-card__icon teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+          </div>
+          <div class="asset-card__title-wrap">
+            <div class="asset-card__title">ROI Aaron</div>
+            <div class="asset-card__subtitle">Avatar 03 landing page</div>
+          </div>
+        </div>
+        <div class="asset-card__body">
+          <p class="asset-card__desc">Landing page for the Side Hustle Aware Aaron persona — men seeking growth, accountability, and entrepreneurial community.</p>
+        </div>
+        <div class="asset-card__footer">
+          <span class="tag done">Live</span>
+          <span class="asset-card__link">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg></span>
+        </div>
+      </a>
+
+      <a href="https://elysian-landing-pages.netlify.app/mobile-tristan" target="_blank" class="asset-card">
+        <div class="asset-card__header">
+          <div class="asset-card__icon teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+          </div>
+          <div class="asset-card__title-wrap">
+            <div class="asset-card__title">Mobile Tristan</div>
+            <div class="asset-card__subtitle">Avatar 02 landing page</div>
+          </div>
+        </div>
+        <div class="asset-card__body">
+          <p class="asset-card__desc">Landing page for the Travel Motivated Tristan persona — location-independent professionals seeking adventure and conscious living.</p>
+        </div>
+        <div class="asset-card__footer">
+          <span class="tag done">Live</span>
+          <span class="asset-card__link">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg></span>
+        </div>
+      </a>
+
+      <a href="https://github.com/ShawCole/Elysian_Landing_Pages" target="_blank" class="asset-card">
+        <div class="asset-card__header">
+          <div class="asset-card__icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </div>
+          <div class="asset-card__title-wrap">
+            <div class="asset-card__title">Landing Pages Source</div>
+            <div class="asset-card__subtitle">GitHub repository</div>
+          </div>
+        </div>
+        <div class="asset-card__body">
+          <p class="asset-card__desc">Next.js landing pages with aurora backgrounds, spotlight cards, and version switcher. 4 persona pages with V1/V2 design iterations.</p>
+        </div>
+        <div class="asset-card__footer">
+          <span class="tag live">GitHub</span>
+          <span class="asset-card__link">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg></span>
+        </div>
+      </a>
+    </div>
+
+    <div class="footer">
+      Elysian Leaders Deliverables &middot; Built by OrchestraOS
+    </div>
+  </div>
+</body>
+</html>
