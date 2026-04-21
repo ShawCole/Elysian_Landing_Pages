@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elysian Leaders — Comprehensive Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0c0b0e;
+    --bg-secondary: #111018;
+    --bg-card: #16141c;
+    --bg-card-hover: #1c1a24;
+    --navy-900: #0F172A;
+    --gold-600: #B8860B;
+    --gold-500: #D4A017;
+    --gold-400: #E8B84B;
+    --gold-300: #F0D078;
+    --teal-500: #40E0D0;
+    --teal-400: #5CE8DA;
+    --green-500: #48B21B;
+    --amber-500: #F59E0B;
+    --blue-500: #3B82F6;
+    --purple-500: #8B5CF6;
+    --rose-500: #F43F5E;
+    --white: #FFFFFF;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1E293B;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --sidebar-width: 260px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--gray-300);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Sticky Top Header ── */
+  .top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(12, 11, 14, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(212, 160, 23, 0.12);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .top-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .top-header h1 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+  .top-header h1 span {
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .top-header .subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .top-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .back-link {
+    font-size: 0.8rem;
+    color: var(--gold-500);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--gold-300); }
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: 1px solid rgba(212,160,23,0.3);
+    color: var(--gold-500);
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    background: rgba(12, 11, 14, 0.96);
+    border-right: 1px solid rgba(255,255,255,0.04);
+    padding: 1.5rem 0;
+    overflow-y: auto;
+    z-index: 900;
+    transition: transform 0.3s ease;
+  }
+  .sidebar-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gray-600);
+    padding: 0 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .toc-list {
+    list-style: none;
+  }
+  .toc-list li a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.82rem;
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+  }
+  .toc-list li a:hover {
+    color: var(--gray-200);
+    background: rgba(255,255,255,0.02);
+    border-left-color: rgba(212,160,23,0.3);
+  }
+  .toc-list li a.active {
+    color: var(--gold-400);
+    background: rgba(212,160,23,0.06);
+    border-left-color: var(--gold-500);
+  }
+  .toc-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gray-600);
+    min-width: 1.4rem;
+  }
+
+  /* ── Main Content ── */
+  .main {
+    margin-left: var(--sidebar-width);
+    padding: 64px 0 0 0;
+  }
+  .content {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 3rem clamp(1.5rem, 4vw, 3rem) 6rem;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 3rem 0 4rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    margin-bottom: 3rem;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold-500);
+    margin-bottom: 1rem;
+  }
+  .hero h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .hero h2 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 1rem;
+    color: var(--gray-400);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--bg-primary);
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .section-header h3 {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  /* ── Typography ── */
+  .content p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: var(--gray-300);
+  }
+  .content strong {
+    color: var(--gray-100);
+    font-weight: 600;
+  }
+  .content em { color: var(--gold-400); font-style: italic; }
+  h4 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--white);
+    margin: 2rem 0 0.75rem;
+  }
+  h5 {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gold-400);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  /* ── Info cards ── */
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .info-card.gold-accent {
+    border-left: 3px solid var(--gold-500);
+  }
+  .info-card.teal-accent {
+    border-left: 3px solid var(--teal-500);
+  }
+  .info-card h5 { margin-top: 0; }
+
+  /* ── Key-value pairs ── */
+  .kv {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0.5rem 1rem;
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+  }
+  .kv dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.15rem;
+  }
+  .kv dd { color: var(--gray-200); }
+
+  /* ── Data Tables ── */
+  .data-table-wrapper {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  table.data-table thead th {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold-500);
+    background: rgba(212, 160, 23, 0.06);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  table.data-table tbody td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--gray-300);
+    vertical-align: top;
+  }
+  table.data-table tbody tr:last-child td { border-bottom: none; }
+  table.data-table tbody tr:hover { background: rgba(255,255,255,0.015); }
+  .status-live {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+  }
+  .status-built {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber-500);
+    background: rgba(245, 158, 11, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+  }
+  .status-ready {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--blue-500);
+    background: rgba(59, 130, 246, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+  }
+  .status-active {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--teal-500);
+    background: rgba(64, 224, 208, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+  }
+
+  /* ── Avatar Cards ── */
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .avatar-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 14px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+  .avatar-card.ava::before { background: linear-gradient(90deg, var(--purple-500), #a78bfa); }
+  .avatar-card.tristan::before { background: linear-gradient(90deg, var(--teal-500), #5CE8DA); }
+  .avatar-card.aaron::before { background: linear-gradient(90deg, var(--amber-500), #fbbf24); }
+  .avatar-card.sophie::before { background: linear-gradient(90deg, var(--rose-500), #fb7185); }
+
+  .avatar-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.25rem;
+  }
+  .avatar-card.ava .avatar-label { color: var(--purple-500); }
+  .avatar-card.tristan .avatar-label { color: var(--teal-500); }
+  .avatar-card.aaron .avatar-label { color: var(--amber-500); }
+  .avatar-card.sophie .avatar-label { color: var(--rose-500); }
+
+  .avatar-card h5 {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--white);
+    margin: 0 0 1rem 0;
+  }
+  .avatar-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .avatar-meta-item label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-600);
+    margin-bottom: 0.2rem;
+  }
+  .avatar-meta-item span {
+    font-size: 0.85rem;
+    color: var(--gray-200);
+  }
+  .avatar-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .avatar-lists h6 {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 0.4rem;
+  }
+  .avatar-lists ul {
+    list-style: none;
+    font-size: 0.82rem;
+  }
+  .avatar-lists ul li {
+    padding: 0.2rem 0;
+    color: var(--gray-400);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .avatar-lists ul li::before {
+    content: '+';
+    color: #4ade80;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .avatar-lists .bounces ul li::before {
+    content: '\00d7';
+    color: var(--rose-500);
+  }
+
+  /* ── Compliance Tiers ── */
+  .tier-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 14px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  .tier-card .tier-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .tier-3 .tier-badge { background: rgba(244,63,94,0.12); color: var(--rose-500); }
+  .tier-2 .tier-badge { background: rgba(245,158,11,0.12); color: var(--amber-500); }
+  .tier-1 .tier-badge { background: rgba(74,222,128,0.12); color: #4ade80; }
+  .tier-card h5 {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--white);
+    margin: 0.25rem 0 0.75rem;
+  }
+  .can-cannot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+  }
+  .can-cannot h6 {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .can-cannot .can h6 { color: #4ade80; }
+  .can-cannot .cannot h6 { color: var(--rose-500); }
+  .can-cannot ul {
+    list-style: none;
+    font-size: 0.82rem;
+  }
+  .can-cannot ul li {
+    padding: 0.2rem 0;
+    color: var(--gray-400);
+  }
+
+  /* ── Funnel Flow Diagram ── */
+  .funnel-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 2rem 0;
+  }
+  .funnel-step {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    position: relative;
+  }
+  .funnel-step .step-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--gray-600);
+    margin-bottom: 0.15rem;
+  }
+  .funnel-step .step-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .funnel-step .step-desc {
+    font-size: 0.78rem;
+    color: var(--gray-500);
+    margin-top: 0.2rem;
+  }
+  .funnel-arrow {
+    width: 2px;
+    height: 32px;
+    background: linear-gradient(180deg, var(--gold-500), rgba(212,160,23,0.2));
+    position: relative;
+  }
+  .funnel-arrow::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--gold-500);
+    opacity: 0.5;
+  }
+  .funnel-step.highlight {
+    border-color: rgba(212,160,23,0.2);
+    background: rgba(212,160,23,0.04);
+  }
+
+  /* ── VSL Architecture ── */
+  .vsl-phases {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .vsl-phase {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .phase-letter {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    padding-top: 0.15rem;
+  }
+  .vsl-phase h5 {
+    margin: 0 0 0.3rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .vsl-phase p {
+    font-size: 0.85rem;
+    margin: 0;
+    color: var(--gray-400);
+  }
+
+  /* ── Signal Framework ── */
+  .signal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .signal-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+  }
+  .signal-letter {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold-500);
+    flex-shrink: 0;
+    width: 1.2rem;
+  }
+  .signal-item span { color: var(--gray-300); }
+
+  /* ── Principle Cards ── */
+  .principle {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .principle h5 {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--gold-400);
+    margin: 0 0 0.5rem;
+  }
+  .principle p {
+    font-size: 0.88rem;
+    color: var(--gray-400);
+    margin: 0;
+  }
+
+  /* ── Brand Colors ── */
+  .color-swatches {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    flex: 1;
+    min-width: 180px;
+  }
+  .swatch-color {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .swatch-label {
+    font-size: 0.82rem;
+    color: var(--gray-200);
+    font-weight: 500;
+  }
+  .swatch-hex {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--gray-500);
+  }
+
+  /* ── Vocab tags ── */
+  .tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid rgba(212,160,23,0.2);
+    color: var(--gold-400);
+    background: rgba(212,160,23,0.05);
+  }
+  .tag.avoid {
+    border-color: rgba(244,63,94,0.2);
+    color: var(--rose-500);
+    background: rgba(244,63,94,0.05);
+    text-decoration: line-through;
+  }
+
+  /* ── Person Card ── */
+  .person-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 14px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .person-card h5 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--white);
+    margin: 0 0 0.75rem;
+  }
+  .person-card p {
+    font-size: 0.88rem;
+    color: var(--gray-400);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Timeline ── */
+  .timeline {
+    border-left: 2px solid rgba(212,160,23,0.2);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.75rem;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold-500);
+    border: 2px solid var(--bg-primary);
+  }
+  .timeline-item h5 {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--gold-400);
+    font-weight: 600;
+    margin: 0 0 0.3rem;
+  }
+  .timeline-item p {
+    font-size: 0.85rem;
+    color: var(--gray-400);
+    margin: 0;
+  }
+
+  /* ── Divider ── */
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,160,23,0.3), transparent);
+    margin: 3rem 0;
+  }
+
+  /* ── Footer ── */
+  .report-footer {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .report-footer p {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gray-600);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,0.5); }
+    .main { margin-left: 0; }
+    .menu-toggle { display: block; }
+    .can-cannot { grid-template-columns: 1fr; }
+    .avatar-meta { grid-template-columns: 1fr; }
+    .avatar-lists { grid-template-columns: 1fr; }
+    .signal-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Top Header ── -->
+<header class="top-header">
+  <div class="top-header-left">
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">&#9776;</button>
+    <div>
+      <h1>Elysian <span>Leaders</span></h1>
+      <div class="subtitle">Comprehensive Report</div>
+    </div>
+  </div>
+  <div class="top-header-right">
+    <a href="index.html" class="back-link">&larr; Back to Deliverables</a>
+  </div>
+</header>
+
+<!-- ── Sidebar / TOC ── -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-label">Table of Contents</div>
+  <ul class="toc-list">
+    <li><a href="#the-business"><span class="toc-num">01</span> The Business</a></li>
+    <li><a href="#key-people"><span class="toc-num">02</span> Key People</a></li>
+    <li><a href="#compliance"><span class="toc-num">03</span> Compliance Architecture</a></li>
+    <li><a href="#avatars"><span class="toc-num">04</span> The 4 Avatars</a></li>
+    <li><a href="#vsl"><span class="toc-num">05</span> Modular VSL Architecture</a></li>
+    <li><a href="#funnel"><span class="toc-num">06</span> The Funnel Flow</a></li>
+    <li><a href="#brand"><span class="toc-num">07</span> Brand Identity</a></li>
+    <li><a href="#tech"><span class="toc-num">08</span> Technical Stack</a></li>
+    <li><a href="#principles"><span class="toc-num">09</span> Key Strategic Principles</a></li>
+    <li><a href="#evolved"><span class="toc-num">10</span> What Evolved</a></li>
+  </ul>
+</nav>
+
+<!-- ── Main Content ── -->
+<main class="main">
+<div class="content">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Client Intelligence Document</div>
+    <h2>Elysian Leaders<br><em>Comprehensive Report</em></h2>
+    <p>Complete strategic overview covering business model, compliance architecture, avatar profiles, funnel design, brand identity, and technical infrastructure.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 1. THE BUSINESS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="the-business">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h3>The Business</h3>
+    </div>
+
+    <p>Elysian Leaders is Shane &amp; Vanessa Carling's team within <strong>Enagic</strong>, a 50-year-old Japanese water ionizer company. The core physical product is the <strong>Kangen Water K8 machine</strong> (medical-grade water ionizer, 5 pH levels), the <strong>Anespa</strong> shower attachment, and <strong>Ukon</strong> turmeric supplements. Machines retail at <strong>$4,000&ndash;$6,000</strong>.</p>
+
+    <div class="info-card gold-accent">
+      <h5>How the Money Works</h5>
+      <p>Enagic pays <strong>54% of every product sale</strong> in direct commissions, divided across 8 "points" (~$350 each). Starting with the "Trifecta" package earns 2 points per sale ($1,320). The "Quad" earns 3 points ($2,565+). The comp plan pays <strong>8 levels deep</strong> with permanent ranks &mdash; no deranking, no monthly quotas.</p>
+    </div>
+
+    <div class="info-card teal-accent">
+      <h5>The Residual Income Tier</h5>
+      <p>At rank <strong>6A2-3 and above</strong>, distributors unlock <strong>$5,000&ndash;$80,000/month</strong> in passive residual income, plus milestone bonuses from $3,000 to $50,000.</p>
+    </div>
+
+    <div class="info-card gold-accent">
+      <h5>External Positioning</h5>
+      <p>The marketing <strong>NEVER</strong> mentions "Enagic," "Kangen," or "water ionizer" until the private masterclass. Externally, it is positioned as a <em>"high-ticket distribution engine,"</em> a <em>"Freedom Blueprint,"</em> and a <em>"Professional Pivot."</em> The product identity is deliberately obscured until after qualification.</p>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 2. KEY PEOPLE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="key-people">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h3>Key People</h3>
+    </div>
+
+    <div class="person-card">
+      <h5>Shane Carling</h5>
+      <p><strong>Primary male presenter.</strong> 15 years entrepreneurial, 12+ years with Enagic. Started "with $5 and a backpack." Former personal trainer. Discovered the water as a health solution, then realized the business model could fund permanent travel. Currently at the highest ranks (6A2-4). Leads the business logic and comp plan presentations.</p>
+      <p><strong>Tone:</strong> Confident, fast-paced, numbers-heavy.</p>
+    </div>
+
+    <div class="person-card">
+      <h5>Vanessa (Soon Carling)</h5>
+      <p><strong>Shane's fianc&eacute;e.</strong> Former solopreneur (subconscious programmer/coach). Was location-free but trading time for money, met Shane, investigated the business independently, was "all in" once she saw the comp plan. More emotionally driven &mdash; language centers on alignment, nervous system regulation, service without burnout.</p>
+      <p><strong>Recommended to lead:</strong> Campaigns targeting professional mothers (Sophie/Ava).</p>
+    </div>
+
+    <div class="person-card">
+      <h5>Adriana</h5>
+      <p><strong>Team member based in Poland.</strong> Former yoga teacher, mother. Presents the health/water science portion. Provides "new member" social proof &mdash; represents the prospect's journey.</p>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 3. COMPLIANCE ARCHITECTURE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="compliance">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h3>The Compliance Architecture</h3>
+    </div>
+
+    <p>This is the <strong>most strategically important aspect</strong> of the entire project. Three distinct compliance zones, each with different rules. Restrictiveness decreases as prospect commitment increases &mdash; <em>the funnel IS the compliance architecture.</em></p>
+
+    <div class="tier-card tier-3">
+      <span class="tier-badge">Tier 3 &mdash; Most Restricted</span>
+      <h5>Meta Ads (Facebook / Instagram)</h5>
+      <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:0.75rem;">Public ads on Facebook/Instagram. Meta's AI classifiers detect and suppress income opportunity ads.</p>
+      <div class="can-cannot">
+        <div class="can">
+          <h6>Can Say</h6>
+          <ul>
+            <li>Lifestyle aspiration</li>
+            <li>Curiosity hooks</li>
+            <li>Identity challenges</li>
+            <li>Value-based content leading to conversation</li>
+          </ul>
+        </div>
+        <div class="cannot">
+          <h6>Cannot Say</h6>
+          <ul>
+            <li>Income claims</li>
+            <li>Health claims</li>
+            <li>Biz-op language</li>
+            <li>Dollar amounts</li>
+            <li>"Passive income"</li>
+            <li>MLM signals, before/after framing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-card tier-2">
+      <span class="tier-badge">Tier 2 &mdash; Moderate ("Andromeda-Unbound")</span>
+      <h5>VSL / Landing Pages</h5>
+      <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:0.75rem;">Reached via DSP ads or Meta Click-to-DM (not direct Meta link clicks). Meta cannot see or penalize content reached through chat conversations or DSP channels.</p>
+      <div class="can-cannot">
+        <div class="can">
+          <h6>Can Say</h6>
+          <ul>
+            <li>Direct "you" address</li>
+            <li>Emotional agitation</li>
+            <li>Visceral pain language</li>
+            <li>Named frameworks ("The 100K Roadmap," "The Freedom Blueprint")</li>
+            <li>High-ticket language without specific amounts</li>
+          </ul>
+        </div>
+        <div class="cannot">
+          <h6>Cannot Say</h6>
+          <ul>
+            <li>Specific income numbers</li>
+            <li>Enagic/Kangen by name</li>
+            <li>Health claims</li>
+            <li>"Passive income" (use "residual" or "leveraged")</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-card tier-1">
+      <span class="tier-badge">Tier 1 &mdash; Most Permissive</span>
+      <h5>The Masterclass (Private, Invite-Only)</h5>
+      <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:0.75rem;">Private, invite-only, shared after qualification conversation. No advertising platform governs this content; audience is pre-qualified.</p>
+      <div class="can-cannot">
+        <div class="can">
+          <h6>Can Say</h6>
+          <ul>
+            <li>Everything &mdash; specific dollars</li>
+            <li>Enagic by name</li>
+            <li>Comp plan details</li>
+            <li>Health claims</li>
+            <li>Income testimonials with numbers</li>
+          </ul>
+        </div>
+        <div class="cannot">
+          <h6>No Restrictions</h6>
+          <ul>
+            <li style="color:var(--gray-600);">No platform governance at this tier</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 4. THE 4 AVATARS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="avatars">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h3>The 4 Avatars</h3>
+    </div>
+
+    <div class="avatar-grid">
+
+      <!-- Ava -->
+      <div class="avatar-card ava">
+        <div class="avatar-label">Avatar 01</div>
+        <h5>Strategic Ava</h5>
+        <div class="avatar-meta">
+          <div class="avatar-meta-item">
+            <label>Profile</label>
+            <span>Professional woman, 32&ndash;42, earning $75K&ndash;$120K. Strategic, efficient, analytical.</span>
+          </div>
+          <div class="avatar-meta-item">
+            <label>Core Pain</label>
+            <span><strong>"Model Fatigue"</strong> &mdash; she IS the bottleneck. When she stops, everything stops.</span>
+          </div>
+          <div class="avatar-meta-item">
+            <label>Hook Angle</label>
+            <span>Efficiency and system architecture. Frameworks, logic, "distribution" language.</span>
+          </div>
+        </div>
+        <div class="avatar-lists">
+          <div>
+            <h6>What Works</h6>
+            <ul>
+              <li>Data-backed claims</li>
+              <li>Professional language</li>
+              <li>Named frameworks</li>
+            </ul>
+          </div>
+          <div class="bounces">
+            <h6>What Bounces</h6>
+            <ul>
+              <li>Hype, emojis</li>
+              <li>"Join our tribe" energy</li>
+              <li>MLM vibes, guru positioning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tristan -->
+      <div class="avatar-card tristan">
+        <div class="avatar-label">Avatar 02</div>
+        <h5>Mobile Tristan</h5>
+        <div class="avatar-meta">
+          <div class="avatar-meta-item">
+            <label>Profile</label>
+            <span>28&ndash;38, male or couple. Remote worker or aspiring digital nomad.</span>
+          </div>
+          <div class="avatar-meta-item">
+            <label>Core Pain</label>
+            <span><strong>"The Golden Leash"</strong> &mdash; has location flexibility but not true freedom. Income requires specific hours.</span>
+          </div>
+          <div class="avatar-meta-item">
+            <label>Hook Angle</label>
+            <span>Mobility, global revenue, income not tied to a clock.</span>
+          </div>
+        </div>
+        <div class="avatar-lists">
+          <div>
+            <h6>What Works</h6>
+            <ul>
+              <li>Travel imagery, passport stamps</li>
+              <li>"Business that fits in your pocket"</li>
+            </ul>
+          </div>
+          <div class="bounces">
+            <h6>What Bounces</h6>
+            <ul>
+              <li>Anything resembling a 9-to-5 repackaged</li>
+              <li>"Family values" messaging</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aaron -->
+      <div class="avatar-card aaron">
+        <div class="avatar-label">Avatar 03</div>
+        <h5>ROI Aaron</h5>
+        <div class="avatar-meta">
+          <div class="avatar-meta-item">
+            <label>Profile</label>
+            <span>30&ndash;45, male, already entrepreneurial. E-commerce, dropshipping, or service business owner.</span>
+          </div>
+          <div class="avatar-meta-item">
+            <label>Core Pain</label>
+            <span><strong>"Technician vs. Architect"</strong> &mdash; stuck in operational logistics, thin margins, works IN the business.</span>
+          </div>
+          <div class="avatar-meta-item">
+            <label>Hook Angle</label>
+            <span>Pure ROI math. "One sale equals what 1,000 small sales earn." Margin comparison.</span>
+          </div>
+        </div>
+        <div class="avatar-lists">
+          <div>
+            <h6>What Works</h6>
+            <ul>
+              <li>Numbers, comparison tables</li>
+              <li>"Yield" language</li>
+              <li>Technician-to-Architect frame</li>
+            </ul>
+          </div>
+          <div class="bounces">
+            <h6>What Bounces</h6>
+            <ul>
+              <li>Emotional language</li>
+              <li>Community/family talk</li>
+              <li>Anything "woo-woo," vague promises</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sophie -->
+      <div class="avatar-card sophie">
+        <div class="avatar-label">Avatar 04</div>
+        <h5>Searching Sophie</h5>
+        <div class="avatar-meta">
+          <div class="avatar-meta-item">
+            <label>Profile</label>
+            <span>30&ndash;42, female, professional. Career pays decently but owns all her time.</span>
+          </div>
+          <div class="avatar-meta-item">
+            <label>Core Pain</label>
+            <span><strong>"Professional Stagnation"</strong> &mdash; excellent at her job but trajectory is capped. Deeply skeptical.</span>
+          </div>
+          <div class="avatar-meta-item">
+            <label>Hook Angle</label>
+            <span>Sovereign professional pivot. Credibility, privacy, not becoming an influencer.</span>
+          </div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--rose-500);margin:0.75rem 0 0;font-weight:600;">CRITICAL: Strictly NO "Mom" language. Sophie is defined by profession, not motherhood.</p>
+        <div class="avatar-lists">
+          <div>
+            <h6>What Works</h6>
+            <ul>
+              <li>Privacy, selectivity</li>
+              <li>Professional credibility</li>
+            </ul>
+          </div>
+          <div class="bounces">
+            <h6>What Bounces</h6>
+            <ul>
+              <li>MLM vibes, "join my team" energy</li>
+              <li>Income screenshots</li>
+              <li>Recruitment feel</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 5. MODULAR VSL ARCHITECTURE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="vsl">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h3>The Modular VSL Architecture</h3>
+    </div>
+
+    <p>The VSL is a <strong>5-minute video</strong> with a modular "splice" architecture. Production efficiency: <strong>4 hooks + 4 handshakes + 1 body = 9 clips</strong> serving 4 complete VSLs. Hooks can be swapped and tested without re-filming.</p>
+
+    <div class="vsl-phases">
+      <div class="vsl-phase">
+        <div class="phase-letter">A</div>
+        <div>
+          <h5>The Hook (0:00&ndash;1:15) &mdash; 4 Versions</h5>
+          <p>Each avatar gets its own hook using the <strong>"Mirror Technique"</strong> &mdash; reflecting the avatar's exact internal monologue in the first 10 seconds. 6&ndash;7 versions were tested per avatar before narrowing to 2.</p>
+        </div>
+      </div>
+      <div class="vsl-phase">
+        <div class="phase-letter">B</div>
+        <div>
+          <h5>The Handshake Transition (~10 seconds)</h5>
+          <p>Buffer clip where the solo presenter introduces their partner to create a "United Front." Smooths the transition from single-speaker emotional hook to dual-presenter logical body.</p>
+        </div>
+      </div>
+      <div class="vsl-phase">
+        <div class="phase-letter">C</div>
+        <div>
+          <h5>The Evergreen Master Body (1:15&ndash;5:00) &mdash; 1 Version</h5>
+          <p>Single standardized section all avatar paths share. Follows the <strong>S.I.G.N.A.L. Framework:</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <h4>The S.I.G.N.A.L. Framework</h4>
+    <div class="signal-grid">
+      <div class="signal-item"><span class="signal-letter">S</span><span><strong>Story</strong> &mdash; The Logic Gap / Time-for-Money Trap</span></div>
+      <div class="signal-item"><span class="signal-letter">I</span><span><strong>Infrastructure</strong> &mdash; 4 Pillars: High-Yield Assets, Global Help, Inbound Flow, System Growth</span></div>
+      <div class="signal-item"><span class="signal-letter">G</span><span><strong>Growth</strong> &mdash; Shane + Vanessa's personal story</span></div>
+      <div class="signal-item"><span class="signal-letter">N</span><span><strong>Narrowing</strong> &mdash; Selective Audit / Qualification / Takeaway</span></div>
+      <div class="signal-item"><span class="signal-letter">A</span><span><strong>Action</strong> &mdash; CTA to GHL Alignment Audit</span></div>
+      <div class="signal-item"><span class="signal-letter">L</span><span><strong>Legacy</strong> &mdash; "The next year of your life depends on the choice you make today"</span></div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 6. THE FUNNEL FLOW -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="funnel">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h3>The Funnel Flow</h3>
+    </div>
+
+    <div class="funnel-flow">
+      <div class="funnel-step">
+        <div class="step-label">Entry Point</div>
+        <div class="step-title">DSP Ad / Meta Click-to-DM</div>
+        <div class="step-desc">Tier 3 compliant creative</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="step-label">Qualification</div>
+        <div class="step-title">Conversation (WhatsApp / Messenger)</div>
+        <div class="step-desc">Human or automated pre-qualification</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="step-label">Presentation</div>
+        <div class="step-title">Landing Page (Avatar-Specific)</div>
+        <div class="step-desc">Tier 2 "Andromeda-Unbound" content</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step highlight">
+        <div class="step-label">Friction Gate</div>
+        <div class="step-title">Commitment Modal &mdash; "Yes, I Commit"</div>
+        <div class="step-desc">Deliberate friction / consistency bias</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="step-label">Content</div>
+        <div class="step-title">VSL Plays (Hook &rarr; Handshake &rarr; Body)</div>
+        <div class="step-desc">Modular splice architecture</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="step-label">Capture</div>
+        <div class="step-title">GHL Alignment Audit (Survey)</div>
+        <div class="step-desc">GoHighLevel CRM survey</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="step-label">Delivery</div>
+        <div class="step-title">Roadmap / Blueprint Delivered</div>
+        <div class="step-desc">Avatar-matched strategic document</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="step-label">Deep Sell</div>
+        <div class="step-title">45-min Masterclass Unlocked</div>
+        <div class="step-desc">Tier 1 &mdash; full disclosure, all claims permitted</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="step-label">Close</div>
+        <div class="step-title">Follow-up Call &rarr; Close / Onboarding</div>
+        <div class="step-desc">6+ filters passed before human contact</div>
+      </div>
+    </div>
+
+    <h4>Key Mechanisms</h4>
+    <div class="info-card gold-accent">
+      <h5>Commitment Modal</h5>
+      <p>The "Yes, I Commit" click before VSL playback is deliberate friction. Fewer viewers, but psychologically committed ones who convert at much higher rates (consistency bias).</p>
+    </div>
+    <div class="info-card teal-accent">
+      <h5>Path A vs. Path B</h5>
+      <p><strong>Path A</strong> (direct ad &rarr; page) vs. <strong>Path B</strong> (chat &rarr; link). Path B wins for skeptical avatars (Sophie, Aaron).</p>
+    </div>
+    <div class="info-card gold-accent">
+      <h5>GHL = GoHighLevel</h5>
+      <p>CRM/automation platform housing the Alignment Audit survey. Handles lead capture, nurture sequences, and pipeline management.</p>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 7. BRAND IDENTITY -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="brand">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h3>Brand Identity</h3>
+    </div>
+
+    <p><strong>Direction:</strong> <em>"The Freedom Architect"</em> &mdash; engineering a life-first business through high-ticket leverage.</p>
+
+    <h4>Brand Colors</h4>
+    <div class="color-swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#40E0D0;"></div>
+        <div><div class="swatch-label">Elysian Turquoise</div><div class="swatch-hex">#40E0D0</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#D4AF37;"></div>
+        <div><div class="swatch-label">Legacy Gold</div><div class="swatch-hex">#D4AF37</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FFFFFF; border:1px solid rgba(255,255,255,0.1);"></div>
+        <div><div class="swatch-label">Clean White</div><div class="swatch-hex">#FFFFFF</div></div>
+      </div>
+    </div>
+
+    <h4>Typography</h4>
+    <dl class="kv">
+      <dt>Headlines</dt><dd>Montserrat Bold</dd>
+      <dt>Body</dt><dd>Inter / Open Sans</dd>
+    </dl>
+
+    <h4>Tone</h4>
+    <p>Peer-to-peer, never guru-to-student. Casual but not sloppy. <em>"Native Professionalism"</em> &mdash; looks like a high-end friend shot it, not a marketing agency.</p>
+
+    <h4>Signature Vocabulary</h4>
+    <div class="tag-grid">
+      <span class="tag">Leverage</span>
+      <span class="tag">High-ticket</span>
+      <span class="tag">Residual</span>
+      <span class="tag">Intent-driven</span>
+      <span class="tag">Life-first</span>
+      <span class="tag">Distribution</span>
+      <span class="tag">Engine</span>
+      <span class="tag">Framework</span>
+      <span class="tag">Sovereign</span>
+      <span class="tag">Pivot</span>
+    </div>
+
+    <h4>Words to AVOID</h4>
+    <div class="tag-grid">
+      <span class="tag avoid">MLM</span>
+      <span class="tag avoid">Network marketing</span>
+      <span class="tag avoid">Downline</span>
+      <span class="tag avoid">Salary</span>
+      <span class="tag avoid">Earnings</span>
+      <span class="tag avoid">Guaranteed</span>
+      <span class="tag avoid">Quick cash</span>
+      <span class="tag avoid">Health claims</span>
+    </div>
+    <p style="font-size:0.85rem;color:var(--gray-500);margin-top:0.5rem;">No emojis in ad copy. No guru positioning.</p>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 8. TECHNICAL STACK -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="tech">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h3>Technical Stack</h3>
+    </div>
+
+    <div class="data-table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th>Stack</th>
+            <th>Status</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Landing Pages</strong></td>
+            <td>Next.js, Tailwind, Framer Motion</td>
+            <td><span class="status-live">Live</span></td>
+            <td><a href="https://elysianleaders.netlify.app" style="color:var(--teal-500);text-decoration:none;font-size:0.82rem;">elysianleaders.netlify.app</a></td>
+          </tr>
+          <tr>
+            <td><strong>VSL Builder</strong></td>
+            <td>Next.js, Web Audio API, shadcn/ui</td>
+            <td><span class="status-built">Built (pending audio)</span></td>
+            <td style="color:var(--gray-600);">&mdash;</td>
+          </tr>
+          <tr>
+            <td><strong>Content Audit</strong></td>
+            <td>Static HTML, Drive CDN</td>
+            <td><span class="status-live">Live</span></td>
+            <td><a href="https://elysian-deliverables-543.netlify.app/content-review.html" style="color:var(--teal-500);text-decoration:none;font-size:0.82rem;">elysian-deliverables-543.netlify.app</a></td>
+          </tr>
+          <tr>
+            <td><strong>ElevenLabs PVC</strong></td>
+            <td>Python pipeline, pyannote 3.1</td>
+            <td><span class="status-ready">4 speakers ready</span></td>
+            <td style="color:var(--gray-600);">&mdash;</td>
+          </tr>
+          <tr>
+            <td><strong>CRM / Automation</strong></td>
+            <td>GoHighLevel</td>
+            <td><span class="status-active">Active</span></td>
+            <td style="color:var(--gray-600);">&mdash;</td>
+          </tr>
+          <tr>
+            <td><strong>Voice Datasets</strong></td>
+            <td style="font-family:var(--font-mono);font-size:0.78rem;">DUSTY (44:05) &middot; JEN (57:22) &middot; SHANE (53:05) &middot; VANESSA (45:06)</td>
+            <td><span class="status-ready">Ready for upload</span></td>
+            <td style="color:var(--gray-600);">&mdash;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 9. KEY STRATEGIC PRINCIPLES -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="principles">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h3>Key Strategic Principles</h3>
+    </div>
+
+    <div class="principle">
+      <h5>"Smart Peer" Tone</h5>
+      <p>Shane and Vanessa must sound like equals who found a better vehicle &mdash; never gurus, never coaches, never recruiters. The target audience ($75K+ professionals) instantly rejects anyone positioning above them.</p>
+    </div>
+
+    <div class="principle">
+      <h5>4-Syllable Word Limit</h5>
+      <p>No word in any VSL script exceeds 4 syllables. Prevents scripts from sounding "written." Forces natural conversational language.</p>
+    </div>
+
+    <div class="principle">
+      <h5>The "Mirror Technique"</h5>
+      <p>First 10 seconds must reflect the avatar's EXACT internal monologue. <em>"You've built something that works... but you ARE the business"</em> is a mirror. <em>"Are you tired of working hard?"</em> is NOT.</p>
+    </div>
+
+    <div class="principle">
+      <h5>Commitment Modal Theory</h5>
+      <p>The "Yes, I Commit" click before VSL playback is deliberate friction. Fewer viewers, but psychologically committed ones who convert at much higher rates.</p>
+    </div>
+
+    <div class="principle">
+      <h5>Friction Filters Quality</h5>
+      <p>The entire funnel uses escalating commitment gates. By the time someone reaches a call, they have passed 6+ filters. The funnel does most of the selling before a human speaks.</p>
+    </div>
+
+    <div class="principle">
+      <h5>"Andromeda-Unbound" Loophole</h5>
+      <p>The foundational architectural decision. Meta's algorithm crushes direct biz-op ads. By routing through conversations or DSP channels, landing pages exist where Meta cannot see or penalize. Without this, all external copy would need to be as neutered as the ads.</p>
+    </div>
+
+    <div class="principle">
+      <h5>"Not Broke But Broke"</h5>
+      <p>Target is NOT financially desperate people. It is professionals earning $75K&ndash;$120K who feel professionally capped. They have money but no time. Ideal prospects have 650+ credit scores and disposable attention.</p>
+    </div>
+
+    <div class="principle">
+      <h5>Narrative Transportation</h5>
+      <p>The VSL does not try to "convince." It transports the viewer into a story where the conclusion feels self-discovered. The Logic Gap section creates an "aha moment" that feels organic, not sold.</p>
+    </div>
+
+    <div class="principle">
+      <h5>The Takeaway / Selective Audit</h5>
+      <p>The VSL deliberately tells viewers "this isn't for you if..." &mdash; reversing the power dynamic. Instead of the viewer being skeptical, the offer screens the viewer. Triggers desire through scarcity and status.</p>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 10. WHAT EVOLVED -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section" id="evolved">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h3>What Evolved</h3>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h5>Early Stage (Feb 2026)</h5>
+        <p>9 avatar segments narrowed to 4 based on primary friction, not demographics. Early hooks were "Clinical/Safe" &mdash; loosened once the Andromeda-Unbound insight clicked. Three brand directions proposed, settled on "Freedom Architect."</p>
+      </div>
+      <div class="timeline-item">
+        <h5>Key Shifts</h5>
+        <p>Commission numbers in external docs ($350&ndash;$1,400) are deliberately conservative vs. masterclass reality ($1,320&ndash;$8,000+). The 4-syllable limit and "Smart Peer" tone were codified as hard constraints after early testing. The <strong>Synthetic Jury</strong> methodology was developed for stress-testing hooks via LLM personas before production spend.</p>
+      </div>
+      <div class="timeline-item">
+        <h5>Landing Page Iterations</h5>
+        <p><strong>V1</strong> (dark/edgy/"Andromeda Protocol" aesthetic) vs. <strong>V2</strong> (clean white/"Elysian" branded) to test conversion per avatar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <div class="report-footer">
+    <p>Generated April 21, 2026 &nbsp;&middot;&nbsp; OrchestraOS</p>
+    <p style="margin-top:0.5rem;color:var(--gray-700);">Elysian Leaders &mdash; Confidential</p>
+  </div>
+
+</div>
+</main>
+
+<script>
+  // Sidebar toggle (mobile)
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  // Close sidebar on link click (mobile)
+  document.querySelectorAll('.toc-list a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+    });
+  });
+
+  // Active section tracking
+  const sections = document.querySelectorAll('.section');
+  const tocLinks = document.querySelectorAll('.toc-list a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        tocLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
