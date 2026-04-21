@@ -19,7 +19,7 @@
     --text-muted: #5c5a64;
     --accent: #B8860B;
     --accent-dim: #9a7209;
-    --accent-light: #d4a017;
+    --accent-light: #D4A017;
     --approve: #4dcf8b;
     --approve-bg: rgba(77,207,139,0.08);
     --approve-border: rgba(77,207,139,0.25);
@@ -85,6 +85,7 @@
   .logo {
     font-family: 'Playfair Display', serif;
     font-size: 22px;
+    font-style: italic;
     font-weight: 600;
     color: var(--accent);
     letter-spacing: -0.02em;
@@ -132,7 +133,7 @@
   .stat-pill.denied .dot { background: var(--deny); box-shadow: 0 0 8px rgba(240,108,93,0.4); }
   .stat-pill.pending .dot { background: var(--accent); box-shadow: 0 0 8px rgba(184,134,11,0.3); }
 
-  .export-btn {
+  .save-btn {
     padding: 8px 20px;
     border-radius: 100px;
     border: none;
@@ -146,7 +147,7 @@
     letter-spacing: 0.01em;
   }
 
-  .export-btn:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(184,134,11,0.25); }
+  .save-btn:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(184,134,11,0.25); }
 
   .filter-bar {
     max-width: 1440px;
@@ -235,6 +236,8 @@
   .card.approved { border-color: var(--approve-border); background: var(--approve-bg); }
   .card.denied { border-color: var(--deny-border); background: var(--deny-bg); opacity: 0.6; }
   .card.denied:hover { opacity: 1; }
+  .card.almost { border-color: #e8c840; box-shadow: 0 0 0 1px #e8c840, 0 0 16px rgba(232,200,64,0.15); }
+  .card.almost .card-status.almost-badge { background: rgba(232,200,64,0.15); color: #e8c840; border: 1px solid rgba(232,200,64,0.35); }
 
   .card-status {
     position: absolute;
@@ -273,6 +276,15 @@
   }
 
   .card:hover .card-preview img { transform: scale(1.04); }
+
+  .card-preview iframe {
+    width: 200%;
+    height: 200%;
+    border: none;
+    transform: scale(0.5);
+    transform-origin: top left;
+    pointer-events: none;
+  }
 
   .card-preview .play-icon {
     position: absolute;
@@ -563,7 +575,7 @@
       <div class="stat-pill approved"><span class="dot"></span><span id="stat-approved">0</span> Approved</div>
       <div class="stat-pill denied"><span class="dot"></span><span id="stat-denied">0</span> Denied</div>
       <div class="stat-pill pending"><span class="dot"></span><span id="stat-pending">0</span> Pending</div>
-      <button class="export-btn" onclick="saveDecisions()">Save</button>
+      <button class="save-btn" onclick="saveDecisions()">Save</button>
     </div>
   </div>
 </header>
@@ -573,10 +585,12 @@
   <button class="filter-btn" data-filter="image">Images</button>
   <button class="filter-btn" data-filter="video">Videos</button>
   <button class="filter-btn" data-filter="document">Documents</button>
+  <button class="filter-btn" data-filter="page">Pages</button>
   <div class="filter-separator"></div>
   <button class="filter-btn" data-filter="pending">Pending</button>
   <button class="filter-btn" data-filter="approved">Approved</button>
   <button class="filter-btn" data-filter="denied">Denied</button>
+  <button class="filter-btn" data-filter="almost" style="border-color:rgba(232,200,64,0.35);color:#e8c840">Almost</button>
 </div>
 
 <main class="main" id="main"></main>
@@ -601,164 +615,185 @@
 </div>
 
 <script>
-const ASSETS = [
-  {section:"160x600_Copy V01",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1PDYVo1BUb66i5Q2eAxhOrNT5giMWRPNh"},
-  {section:"160x600_Copy V01",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1EUTNfpDvlAG9obCzDlUk6Z66lSwodnQy"},
-  {section:"160x600_Copy V01",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1jbSxS20CwdSqAdjNfwnOi6sJytUMfTV7"},
-  {section:"160x600_Copy V01",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1NMvWomHI7mgG8N8ZhSnPSCsDRqKdD2gu"},
-  {section:"160x600_Copy V01",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1u8VFCa5JbyB_dTKL_fL-EZuMFIrmM8hA"},
-  {section:"160x600_Copy V01",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"130Dve0gLIQydlYGEfwITugf3ZV5hTmv0"},
-  {section:"160x600_Copy V01",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1NMvkdxtfclC67mJyFZqPg8TrjfF4fr83"},
-  {section:"160x600_Copy V01",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"13zeIolRufLE2LjUQ53LVeK7YGdD-LT36"},
-  {section:"160x600_Copy V01",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"15tzOkoyas5YT14akaNzSJG95XZ0PthjJ"},
-  {section:"160x600_Copy V01",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1DcxhErTyexrOimihSuJWkf31VDrs4bEj"},
-  {section:"160x600_Copy V01",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1x8WVK2LMxG9RigGTAIwNDX01iZLRB26S"},
-  {section:"160x600_Copy V01",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1le-eYcHvpaBcMchzc21Vny0S96b0KB13"},
-  {section:"160x600_Copy V01",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1uy59ELUIOSa7nWbgk-Qec_9UmcBYmr1v"},
-  {section:"160x600_Copy V01",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1huISpqT87Csxf-4bDKWKU0-dUsIHbeHi"},
-  {section:"160x600_Copy V01",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1CvtTnQH6oE0OdFhpGlc8vJZ6k6sCWWKx"},
-  {section:"160x600_Copy V01",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"185oECNItyVLp9p8N-qHhKrQ1ufA_7rWQ"},
-  {section:"160x600_Copy V01",name:"Full Assets_Sizes 160x600.pdf",type:"document",ext:"pdf",id:"1luTjUP0rbIvjV6vajlWiSJB1YCumgU29"},
-  {section:"300x250_Copy V01",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"145mpo6HFeIY9z8QHGVONuKKACy2HV8Oa"},
-  {section:"300x250_Copy V01",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1YN1zbFlATT5YbjannDLoq8qVXvqgFtCQ"},
-  {section:"300x250_Copy V01",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1y0W3X5SV5cVy0l_7_QR9so9EokLzSZoc"},
-  {section:"300x250_Copy V01",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1bHARb63v2P8GiHdp7bz6XT36I1v6aUA9"},
-  {section:"300x250_Copy V01",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1kxfppFyY-PK6L6CRLN3a02-NyMJIfDjs"},
-  {section:"300x250_Copy V01",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250 v1.png",type:"image",ext:"png",id:"1BNpyr3ZXsHABzNjxn6J_mggki0cAUyBI"},
-  {section:"300x250_Copy V01",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250 v2.png",type:"image",ext:"png",id:"1T2O_kO2VrIABpQ8YpRLe5FGUoy4c-Upo"},
-  {section:"300x250_Copy V01",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1b_J_fTtPzL64JiNnKGmE-kK4oshixBIe"},
-  {section:"300x250_Copy V01",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250 v1.png",type:"image",ext:"png",id:"1tertBmgZ_NAmeAbpESvRRRv6Epd4kBMk"},
-  {section:"300x250_Copy V01",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250 v2.png",type:"image",ext:"png",id:"1h18Pb9Xz3nXQSsTufV-8CIvHAVSsyumd"},
-  {section:"300x250_Copy V01",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1bti3DKSFItKVFsIaW4OURhDUKpmr_SVO"},
-  {section:"300x250_Copy V01",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1KBqZgw6UiMDFl3NzMgufkgG5nKI81LtL"},
-  {section:"300x250_Copy V01",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1LfjdCoP0PdHwyd4NkVwCUbMuVODmIndC"},
-  {section:"300x250_Copy V01",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1xCIdzbmWrtnDIjSOr_UOmrshTZkzzZBd"},
-  {section:"300x250_Copy V01",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1NBARDKqLv4aJICWHsvQPQRioFc2Ss2H_"},
-  {section:"300x250_Copy V01",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1b35DT_Jc0f993e3ppuXHimvzlouCeItI"},
-  {section:"300x250_Copy V01",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1k6F_pCv-HF6NF9nAIE89PNN7foS7nQnW"},
-  {section:"300x250_Copy V01",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1rzRWmbSZEQJT_NUivwDfE0DVF7Np9eNI"},
-  {section:"300x250_Copy V01",name:"Full Assets_Sizes 300x250.pdf",type:"document",ext:"pdf",id:"1cs2fkjTi2TFE3jQQzym8YwcKbtyOeUAv"},
-  {section:"320x50_Copy V01",name:"0001_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"14ccgQ8VaUdThEN1hHjXzCYgNPDa_Vyzy"},
-  {section:"320x50_Copy V01",name:"0002_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"11oH7FAkVU3Qdm31A3StsfgHprMmNvzCm"},
-  {section:"320x50_Copy V01",name:"0003_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1DQ48N7MYbErqEO23xX30Hikz7clOMHrS"},
-  {section:"320x50_Copy V01",name:"0004_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1rRqhUsmbUet0MqJwwnEDJgD20LKm9oHy"},
-  {section:"320x50_Copy V01",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"17Wdm3T5Td-5NvGgkICLjbK5_H2J_f1TA"},
-  {section:"320x50_Copy V01",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1X9vhHrmZNBHXB_BSwJcnnLhUbhKhizJK"},
-  {section:"320x50_Copy V01",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1H4xeulfhPBuPqdjsQ1T8RZQRKC55CE53"},
-  {section:"320x50_Copy V01",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1XPrBC6stBgCDTOX-AWaNRmQy5Jvu_HO9"},
-  {section:"320x50_Copy V01",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1INOUvr503OH59-M6VlGUzTKuw-XLDf6c"},
-  {section:"320x50_Copy V01",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"15p7un9lHlQxWb2iy4G81fe5GlBdrODTr"},
-  {section:"320x50_Copy V01",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1S5Q205pfm8bLSZHkfXYxP9GOHDl7siJO"},
-  {section:"320x50_Copy V01",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1ZvCINzi1b8Nm-4d2tIFGDVipRe8aWHri"},
-  {section:"320x50_Copy V01",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1_fXOY08BzWXJvMkAWJI0LE-Kppsj2yFa"},
-  {section:"320x50_Copy V01",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1a1MFGaAvRpNr1pNV5I7FVh7Ehm3_YGxW"},
-  {section:"320x50_Copy V01",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"17S6_7jO_vB-2G9NI40nkfgNd4FkyztWs"},
-  {section:"320x50_Copy V01",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1uYbujN5eSR6f69UaB18F25My3j0GMyUp"},
-  {section:"320x50_Copy V01",name:"320x50_Elysian Leaders Ad creatives.pdf",type:"document",ext:"pdf",id:"1MGoOhft-5v700PiG-tlz-qNQXxenyNL9"},
-  {section:"728x90_Copy V01",name:"0001_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1oYpMGxRGd-7LPHplmbFGx3QC4EwdnCrF"},
-  {section:"728x90_Copy V01",name:"0002_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1Q1CHC7G-UBaq2Ea9hem9V2AJcYn3DcYy"},
-  {section:"728x90_Copy V01",name:"0003_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1is6UgsqxfLwQkGyWFzqe5w9Cs6a7RZfi"},
-  {section:"728x90_Copy V01",name:"0004_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1KUjXTtURFiM47S5JJ3GnzYjSR32_2UTi"},
-  {section:"728x90_Copy V01",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1LEJEHwcgO0ajCo_lnJ7nsds9EixnUH8H"},
-  {section:"728x90_Copy V01",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1wicZZN8Y7DEn4prjgGWaOR6uCpLo5xIS"},
-  {section:"728x90_Copy V01",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1HeOHeQboUZr5dyDWv91aLwYfiwL56_1z"},
-  {section:"728x90_Copy V01",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1niWC7QrZ0E4GKQeEa02PIah_7pbIjnm4"},
-  {section:"728x90_Copy V01",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1iQl0uE7VmrxtsUxpLC-Xmk3MtIXS9MB5"},
-  {section:"728x90_Copy V01",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1SNSnM_lLeQrTwFYOCC-apiJ68G5QVA8T"},
-  {section:"728x90_Copy V01",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1QcFcrT0BSMTfx3f7npk2V1RWrKDD6lf0"},
-  {section:"728x90_Copy V01",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1sbQnohzj50MJE4HxCBqZTYT_feN_TGf9"},
-  {section:"728x90_Copy V01",name:"728x90_Elysian Leaders Ad creatives.pdf",type:"document",ext:"pdf",id:"1XJkMb9Xooz_ZXs6Uhu63j0B4UculvA2z"},
-  {section:"160x600_Copy V02",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1ANBCacg9ktYF41VnJCSNQVTLZ1LdzBzw"},
-  {section:"160x600_Copy V02",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1IzuWU-o9kz6BDz9L0zv2sabB5LCRN8AS"},
-  {section:"160x600_Copy V02",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1c4zv0rVE6rarL_PNVtMH2jisiJkfyem6"},
-  {section:"160x600_Copy V02",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1ntscG0iSTgr0EYY2kvKpWVKtSBO1eDUJ"},
-  {section:"160x600_Copy V02",name:"0005.png",type:"image",ext:"png",id:"1u5-Q3TZ7pJjZhHiNU7LU1dtyhkAZdpGg"},
-  {section:"160x600_Copy V02",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"18J1F7Lf8mS47xJS3bs6XohYdu4_aXJ2T"},
-  {section:"160x600_Copy V02",name:"0006.png",type:"image",ext:"png",id:"12Ozdk_YdAc6as_yGm9ANKECwDSKgSEGd"},
-  {section:"160x600_Copy V02",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1dmtNCIdlgM-olOtb8MUBDNbDm_ecoTVM"},
-  {section:"160x600_Copy V02",name:"0007.png",type:"image",ext:"png",id:"1OI4DtTAaTVFIjZXPYceSyxBnzsda0z1b"},
-  {section:"160x600_Copy V02",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1yFq89F643KEjXvD5wr9E3xD1uheW2Q0v"},
-  {section:"160x600_Copy V02",name:"0008.png",type:"image",ext:"png",id:"1O8DNxw9OMr7MxLl8MbeMfo7puxVD2LBK"},
-  {section:"160x600_Copy V02",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1YZFFt-XMOv6uKnnft3frZIgoBFxNutsj"},
-  {section:"160x600_Copy V02",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1dZFdeMbfwdT2Xb4SJikiYQIz8JwP7D11"},
-  {section:"160x600_Copy V02",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1sIZV0KbL8EtEZ5sEHlQaW_DSVjnTIxd7"},
-  {section:"160x600_Copy V02",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1LDbJUN5YW7yDkXH52bKBtZI63_VhWxSC"},
-  {section:"160x600_Copy V02",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1aWOhwlgLF5_2i6NbqMQRXyiqJoiQLRy1"},
-  {section:"160x600_Copy V02",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1SSxNIIumEBJtQwZ3xr57zn2JR0W3Oi66"},
-  {section:"160x600_Copy V02",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"19L_ANdIVPpKxY--mUE5dWVRAxXI-HoL5"},
-  {section:"160x600_Copy V02",name:"0015.png_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1BpniC-vyj4_UH1NLebstADlogvEjPkYq"},
-  {section:"160x600_Copy V02",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 160x600.png",type:"image",ext:"png",id:"1xETl-bI3SvnTyYKgl7C7GFObmJbr0Xsx"},
-  {section:"160x600_Copy V02",name:"Full Assets_Sizes 160x600.pdf",type:"document",ext:"pdf",id:"1hULAARqGsNSNl2h1lFa7cWljsgrjaI22"},
-  {section:"300x250_Copy V02",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1MSEDnKtyM_xywaCtiRdjFH_zOctoEYRy"},
-  {section:"300x250_Copy V02",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1tN3--592BHg9LsTtBsfuf-wJtE9fgLtz"},
-  {section:"300x250_Copy V02",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1v-6wou1KdOCDzw40dHjvYPoxB5Cu00-l"},
-  {section:"300x250_Copy V02",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1ZsNhZb2dsyol_ybbDIJg5qFsdez0xO56"},
-  {section:"300x250_Copy V02",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1LL8Rdfxk8gqEFUSW50wDTlH2JdUyNb9r"},
-  {section:"300x250_Copy V02",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1Z2q7MDzCWD92kDNoor29clduqzFayjTc"},
-  {section:"300x250_Copy V02",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1vJZ20zF9ivXzNJfygCuVnBnRi3Pmsl2x"},
-  {section:"300x250_Copy V02",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1Gp4RAC0nD1L5sPUetLWoSu8PcM5MXqWY"},
-  {section:"300x250_Copy V02",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1j6qosUmzFU0-UY9wL4P9Bqcji2uhYHL6"},
-  {section:"300x250_Copy V02",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"19h8eKzX7XPkyUWXVcYnj5N1C9GngKN8R"},
-  {section:"300x250_Copy V02",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1dOam9PRUgSg6Y753Cllh5aZWn7ThZEFX"},
-  {section:"300x250_Copy V02",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"11hATH-Y8bwCQ5GmvcZp1qbBDiw0NceH6"},
-  {section:"300x250_Copy V02",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1z0LiGsUvUYnV4kS7J0pHDKUtXHJc21gP"},
-  {section:"300x250_Copy V02",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1kfvHlD2-pSNhuVwD7wdjl37X4JEMPvm5"},
-  {section:"300x250_Copy V02",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1_M85_j9mHrYjfbnNlZk-cCdTbg-eMobY"},
-  {section:"300x250_Copy V02",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1Ly4tCr0NVdnkxltI7LR9X-vpyk34V3aS"},
-  {section:"300x250_Copy V02",name:"300x250_Elysian Leaders Ad creatives.pdf",type:"document",ext:"pdf",id:"1AbYL575cb5DJdP0SHTEyHV28bKZgl7RM"},
-  {section:"320x50_Copy V02",name:"0001_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1FGJqTHsTNvPf6OmobLLXiw_72V8_V8_I"},
-  {section:"320x50_Copy V02",name:"0002_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1-CzCEn6ZlH-fvFXc-QUS4IIyKM1vfZNR"},
-  {section:"320x50_Copy V02",name:"0003_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1xKmhas5fClAVL20JWq5uYSIoMNmZNt4t"},
-  {section:"320x50_Copy V02",name:"0004_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1vjCByBsZBICCHOaYXgsHy1gN677VF91n"},
-  {section:"320x50_Copy V02",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1ZRKtMdBOxbsFuHgnmzIHlI4NBzWV0FN6"},
-  {section:"320x50_Copy V02",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1zyeUirBU4jBwyRsFF4STi5n2niG_Emla"},
-  {section:"320x50_Copy V02",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"13gqI98gn1VoUToYxXN-Q0SYWTWPenF_g"},
-  {section:"320x50_Copy V02",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1JSscnWPK5mzbOjFMgiJhd2LoGZvcthzG"},
-  {section:"320x50_Copy V02",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1x7ypMTIZeJWF18h18ORz7RNApFthCt9f"},
-  {section:"320x50_Copy V02",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1X0Yery_jrlAPwDN1KGsM0r0vqIc7R0DX"},
-  {section:"320x50_Copy V02",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1JNBcoq3dc3AsE84RIvi_D1VQO889Zd08"},
-  {section:"320x50_Copy V02",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1oB4DV4wbzOZF47oYaetPQg_rrRwQ4Nah"},
-  {section:"320x50_Copy V02",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1fW1ocAYA2d5LHEQ-BMUKqpvmXLQqM4-q"},
-  {section:"320x50_Copy V02",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"14g3kaz7L-wVVC1gpEPfs8b40wxknhDgo"},
-  {section:"320x50_Copy V02",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1yUTLCOeV4bu3HwBqEFfGiCzqVF-WHtel"},
-  {section:"320x50_Copy V02",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 320x50.png",type:"image",ext:"png",id:"1-CV7UbKWJxRT04r2YtfUHSkLPw_nGjA5"},
-  {section:"320x50_Copy V02",name:"320x50_Elysian Leaders Ad creatives.pdf",type:"document",ext:"pdf",id:"1_k0GHizbeoaJoMUOAEbfJNgRqNM6P1Xu"},
-  {section:"728x90_Copy V02",name:"0001_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"10YBupGb2zCASaP84UEvoo7BoseeBRHc0"},
-  {section:"728x90_Copy V02",name:"0002_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1IzJ-slqHDxeQxR7k27CNaBwTs2CkgSSM"},
-  {section:"728x90_Copy V02",name:"0003_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"167f1SfWz-BrSjEvSInKIsZmW7akn5xRM"},
-  {section:"728x90_Copy V02",name:"0004_Avatar 01 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1lxcMEdlmvEBrzbaxuci1571IEfK1ir7V"},
-  {section:"728x90_Copy V02",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1wstDKBXsOjUvmJlBrWjHAdAODOqfnMkM"},
-  {section:"728x90_Copy V02",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1mRKoEm_7Gsq1mTdT_JWVEzWpxjYekE0R"},
-  {section:"728x90_Copy V02",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"15m0cncUnElx3C4_ajeN7cXGnXP5TJnz2"},
-  {section:"728x90_Copy V02",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1o_X2Kv_018lh9RgRHFR0mDe6HlDcI9Mv"},
-  {section:"728x90_Copy V02",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1HPG2qdEkn0TwqAtW4E9gZ8H68ZRtGmIN"},
-  {section:"728x90_Copy V02",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1f7t09oGVlthj5eqblFf97lQM4w5hgzhb"},
-  {section:"728x90_Copy V02",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1DvBpyvK5TYn91WS2WHQLG1700csvjsXC"},
-  {section:"728x90_Copy V02",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"16EiaNUM_3vKwG8FAQiwwrRcwL5PE1mT7"},
-  {section:"728x90_Copy V02",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1byTWqnWtjVJdb9bv1Fa3aQRPVvplpz0i"},
-  {section:"728x90_Copy V02",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"19qME_IQYFjem23XwWY5aRp2-rgolvly9"},
-  {section:"728x90_Copy V02",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"1TE2ASTPIo2Ep3hTtjE8q77ZDNW4u7-84"},
-  {section:"728x90_Copy V02",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 728x90.png",type:"image",ext:"png",id:"18-r89ldpqNiph32UDp2cwvS4rIgUe7Yd"},
-  {section:"728x90_Copy V02",name:"728x90_Elysian Leaders Ad creatives.pdf",type:"document",ext:"pdf",id:"1woJj-8oQVwinXDxW2BNpd9Zvbq5IdM7g"},
-  {section:"Content Library",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1XL9lyUXzbjlfNvVFZGjjIJoTRWUsVLBW"},
-  {section:"Content Library",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250 (2).png",type:"image",ext:"png",id:"1FR-tqhKH_y-LgN_rnX8o9-PYt6_uOorY"},
-  {section:"Content Library",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1Ta0euY4VbR5G3YaXarhh5kVdgOwBOP2T"},
-  {section:"Content Library",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1_sqY-Nb645ODwiESjEBt9JiD8DQn9p_T"},
-  {section:"Content Library",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250 v1.png",type:"image",ext:"png",id:"1yVwutG-hkW6QXrX_TzyCI2dA7l-cp3aK"},
-  {section:"Content Library",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250 v2.png",type:"image",ext:"png",id:"1i73q0SOqZ8334yW9yPhpg6dV567hV-LS"},
-  {section:"Content Library",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1C3seIXEgOx5LiHhHn4Wur0L0-afTEAP7"},
-  {section:"Content Library",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1ccWc_WbWCmZ7FvWSf796UD5WB4SnfpNg"},
-  {section:"Content Library",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1x8jj_7RIvHFHxGE439PYuf8VTv2Co4MN"},
-  {section:"Content Library",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"13BGAmiV8mRMOd6nPBZ7S_vycTIZkkhlJ"},
-  {section:"Content Library",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"19IEsICq386SXtkdZmkFDEL30RcXJGV77"},
-  {section:"Content Library",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1WnMq2vCTfr-V3UQAgidfwzov8pqXvY6F"},
-  {section:"Content Library",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 Sizes 300x250.png",type:"image",ext:"png",id:"1Pk3ZfPJEZtemj-XHd6ASTsfdiwacAsFQ"},
-  {section:"Brand Guide",name:"Elysian Leaders Brand Guide Development.ai",type:"document",ext:"ai",id:"1BIkSQJBqOXmiwNAX_WLrzCzwyWs4eLhx"},
-  {section:"Brand Guide / Feedback Videos",name:"WhatsApp Video 2026-01-05 at 20.20.56.mp4",type:"video",ext:"mp4",id:"14YMUXamrsTIiCaVBddV0TehK7kRuBBNO"},
-  {section:"Brand Guide / Feedback Videos",name:"WhatsApp Video 2026-01-05 at 20.22.28.mp4",type:"video",ext:"mp4",id:"1_XhrDo9FcfVj8Rc8PRvN4cP-5hRg1cqc"},
-  {section:"Brand Guide / Feedback Videos",name:"WhatsApp Video 2026-01-05 at 20.24.38.mp4",type:"video",ext:"mp4",id:"1Qx4p_T8mOYxhhJwC4u4a4Kidde7gX0wm"},
-  {section:"Brand Guide / Preview Design",name:"Captura de pantalla 2026-01-06.png",type:"image",ext:"png",id:"1P_i4dATxaq2Tud_D2S0ZmXrwuYaJWlk5"},
-  {section:"Brand Guide / Preview Design",name:"Elysian Leaders Brand Guide Development.pdf",type:"document",ext:"pdf",id:"1Jsh_dnyaU43SiPLhEbiE7YaD7Cxx_5AG"},
+var ASSETS = [
+  // --- Ava - 160x600 (V01 + V02) ---
+  {section:"\u2014 Ava \u2014 160x600",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 160x600 (V01)",type:"image",ext:"png",id:"1PDYVo1BUb66i5Q2eAxhOrNT5giMWRPNh"},
+  {section:"\u2014 Ava \u2014 160x600",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 160x600 (V01)",type:"image",ext:"png",id:"1EUTNfpDvlAG9obCzDlUk6Z66lSwodnQy"},
+  {section:"\u2014 Ava \u2014 160x600",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 160x600 (V01)",type:"image",ext:"png",id:"1jbSxS20CwdSqAdjNfwnOi6sJytUMfTV7"},
+  {section:"\u2014 Ava \u2014 160x600",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 160x600 (V01)",type:"image",ext:"png",id:"1NMvWomHI7mgG8N8ZhSnPSCsDRqKdD2gu"},
+  {section:"\u2014 Ava \u2014 160x600",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 160x600 (V02)",type:"image",ext:"png",id:"1ANBCacg9ktYF41VnJCSNQVTLZ1LdzBzw"},
+  {section:"\u2014 Ava \u2014 160x600",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 160x600 (V02)",type:"image",ext:"png",id:"1IzuWU-o9kz6BDz9L0zv2sabB5LCRN8AS"},
+  {section:"\u2014 Ava \u2014 160x600",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 160x600 (V02)",type:"image",ext:"png",id:"1c4zv0rVE6rarL_PNVtMH2jisiJkfyem6"},
+  {section:"\u2014 Ava \u2014 160x600",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 160x600 (V02)",type:"image",ext:"png",id:"1ntscG0iSTgr0EYY2kvKpWVKtSBO1eDUJ"},
+
+  // --- Ava - 300x250 (V01 + V02) ---
+  {section:"\u2014 Ava \u2014 300x250",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 300x250 (V01)",type:"image",ext:"png",id:"145mpo6HFeIY9z8QHGVONuKKACy2HV8Oa"},
+  {section:"\u2014 Ava \u2014 300x250",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 300x250 (V01)",type:"image",ext:"png",id:"1YN1zbFlATT5YbjannDLoq8qVXvqgFtCQ"},
+  {section:"\u2014 Ava \u2014 300x250",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 300x250 (V01)",type:"image",ext:"png",id:"1y0W3X5SV5cVy0l_7_QR9so9EokLzSZoc"},
+  {section:"\u2014 Ava \u2014 300x250",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 300x250 (V01)",type:"image",ext:"png",id:"1bHARb63v2P8GiHdp7bz6XT36I1v6aUA9"},
+  {section:"\u2014 Ava \u2014 300x250",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 300x250 (V02)",type:"image",ext:"png",id:"1MSEDnKtyM_xywaCtiRdjFH_zOctoEYRy"},
+  {section:"\u2014 Ava \u2014 300x250",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 300x250 (V02)",type:"image",ext:"png",id:"1tN3--592BHg9LsTtBsfuf-wJtE9fgLtz"},
+  {section:"\u2014 Ava \u2014 300x250",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 300x250 (V02)",type:"image",ext:"png",id:"1v-6wou1KdOCDzw40dHjvYPoxB5Cu00-l"},
+  {section:"\u2014 Ava \u2014 300x250",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 300x250 (V02)",type:"image",ext:"png",id:"1ZsNhZb2dsyol_ybbDIJg5qFsdez0xO56"},
+
+  // --- Ava - 320x50 (V01 + V02) ---
+  {section:"\u2014 Ava \u2014 320x50",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 320x50 (V01)",type:"image",ext:"png",id:"14ccgQ8VaUdThEN1hHjXzCYgNPDa_Vyzy"},
+  {section:"\u2014 Ava \u2014 320x50",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 320x50 (V01)",type:"image",ext:"png",id:"11oH7FAkVU3Qdm31A3StsfgHprMmNvzCm"},
+  {section:"\u2014 Ava \u2014 320x50",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 320x50 (V01)",type:"image",ext:"png",id:"1DQ48N7MYbErqEO23xX30Hikz7clOMHrS"},
+  {section:"\u2014 Ava \u2014 320x50",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 320x50 (V01)",type:"image",ext:"png",id:"1rRqhUsmbUet0MqJwwnEDJgD20LKm9oHy"},
+  {section:"\u2014 Ava \u2014 320x50",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 320x50 (V02)",type:"image",ext:"png",id:"1FGJqTHsTNvPf6OmobLLXiw_72V8_V8_I"},
+  {section:"\u2014 Ava \u2014 320x50",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 320x50 (V02)",type:"image",ext:"png",id:"1-CzCEn6ZlH-fvFXc-QUS4IIyKM1vfZNR"},
+  {section:"\u2014 Ava \u2014 320x50",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 320x50 (V02)",type:"image",ext:"png",id:"1xKmhas5fClAVL20JWq5uYSIoMNmZNt4t"},
+  {section:"\u2014 Ava \u2014 320x50",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 320x50 (V02)",type:"image",ext:"png",id:"1vjCByBsZBICCHOaYXgsHy1gN677VF91n"},
+
+  // --- Ava - 728x90 (V01 + V02) ---
+  {section:"\u2014 Ava \u2014 728x90",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 728x90 (V01)",type:"image",ext:"png",id:"1oYpMGxRGd-7LPHplmbFGx3QC4EwdnCrF"},
+  {section:"\u2014 Ava \u2014 728x90",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 728x90 (V01)",type:"image",ext:"png",id:"1Q1CHC7G-UBaq2Ea9hem9V2AJcYn3DcYy"},
+  {section:"\u2014 Ava \u2014 728x90",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 728x90 (V01)",type:"image",ext:"png",id:"1is6UgsqxfLwQkGyWFzqe5w9Cs6a7RZfi"},
+  {section:"\u2014 Ava \u2014 728x90",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 728x90 (V01)",type:"image",ext:"png",id:"1KUjXTtURFiM47S5JJ3GnzYjSR32_2UTi"},
+  {section:"\u2014 Ava \u2014 728x90",name:"0001_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 728x90 (V02)",type:"image",ext:"png",id:"10YBupGb2zCASaP84UEvoo7BoseeBRHc0"},
+  {section:"\u2014 Ava \u2014 728x90",name:"0002_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 728x90 (V02)",type:"image",ext:"png",id:"1IzJ-slqHDxeQxR7k27CNaBwTs2CkgSSM"},
+  {section:"\u2014 Ava \u2014 728x90",name:"0003_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 728x90 (V02)",type:"image",ext:"png",id:"167f1SfWz-BrSjEvSInKIsZmW7akn5xRM"},
+  {section:"\u2014 Ava \u2014 728x90",name:"0004_Avatar 01 \u2014 Side Hustle Aware Ava \u2014 728x90 (V02)",type:"image",ext:"png",id:"1lxcMEdlmvEBrzbaxuci1571IEfK1ir7V"},
+
+  // --- Tristan - 160x600 (V01 + V02) ---
+  {section:"\u2014 Tristan \u2014 160x600",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 160x600 (V01)",type:"image",ext:"png",id:"1u8VFCa5JbyB_dTKL_fL-EZuMFIrmM8hA"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 160x600 (V01)",type:"image",ext:"png",id:"130Dve0gLIQydlYGEfwITugf3ZV5hTmv0"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 160x600 (V01)",type:"image",ext:"png",id:"1NMvkdxtfclC67mJyFZqPg8TrjfF4fr83"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 160x600 (V01)",type:"image",ext:"png",id:"13zeIolRufLE2LjUQ53LVeK7YGdD-LT36"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 160x600 (V02)",type:"image",ext:"png",id:"18J1F7Lf8mS47xJS3bs6XohYdu4_aXJ2T"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0005 (V02 alt)",type:"image",ext:"png",id:"1u5-Q3TZ7pJjZhHiNU7LU1dtyhkAZdpGg"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 160x600 (V02)",type:"image",ext:"png",id:"1dmtNCIdlgM-olOtb8MUBDNbDm_ecoTVM"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0006 (V02 alt)",type:"image",ext:"png",id:"12Ozdk_YdAc6as_yGm9ANKECwDSKgSEGd"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 160x600 (V02)",type:"image",ext:"png",id:"1yFq89F643KEjXvD5wr9E3xD1uheW2Q0v"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0007 (V02 alt)",type:"image",ext:"png",id:"1OI4DtTAaTVFIjZXPYceSyxBnzsda0z1b"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 160x600 (V02)",type:"image",ext:"png",id:"1YZFFt-XMOv6uKnnft3frZIgoBFxNutsj"},
+  {section:"\u2014 Tristan \u2014 160x600",name:"0008 (V02 alt)",type:"image",ext:"png",id:"1O8DNxw9OMr7MxLl8MbeMfo7puxVD2LBK"},
+
+  // --- Tristan - 300x250 (V01 + V02) ---
+  {section:"\u2014 Tristan \u2014 300x250",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 (V01)",type:"image",ext:"png",id:"1kxfppFyY-PK6L6CRLN3a02-NyMJIfDjs"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 v1 (V01)",type:"image",ext:"png",id:"1BNpyr3ZXsHABzNjxn6J_mggki0cAUyBI"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 v2 (V01)",type:"image",ext:"png",id:"1T2O_kO2VrIABpQ8YpRLe5FGUoy4c-Upo"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 (V01)",type:"image",ext:"png",id:"1b_J_fTtPzL64JiNnKGmE-kK4oshixBIe"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 v1 (V01)",type:"image",ext:"png",id:"1tertBmgZ_NAmeAbpESvRRRv6Epd4kBMk"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 v2 (V01)",type:"image",ext:"png",id:"1h18Pb9Xz3nXQSsTufV-8CIvHAVSsyumd"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 (V02)",type:"image",ext:"png",id:"1LL8Rdfxk8gqEFUSW50wDTlH2JdUyNb9r"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 (V02)",type:"image",ext:"png",id:"1Z2q7MDzCWD92kDNoor29clduqzFayjTc"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 (V02)",type:"image",ext:"png",id:"1vJZ20zF9ivXzNJfygCuVnBnRi3Pmsl2x"},
+  {section:"\u2014 Tristan \u2014 300x250",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 300x250 (V02)",type:"image",ext:"png",id:"1Gp4RAC0nD1L5sPUetLWoSu8PcM5MXqWY"},
+
+  // --- Tristan - 320x50 (V01 + V02) ---
+  {section:"\u2014 Tristan \u2014 320x50",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 320x50 (V01)",type:"image",ext:"png",id:"17Wdm3T5Td-5NvGgkICLjbK5_H2J_f1TA"},
+  {section:"\u2014 Tristan \u2014 320x50",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 320x50 (V01)",type:"image",ext:"png",id:"1X9vhHrmZNBHXB_BSwJcnnLhUbhKhizJK"},
+  {section:"\u2014 Tristan \u2014 320x50",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 320x50 (V01)",type:"image",ext:"png",id:"1H4xeulfhPBuPqdjsQ1T8RZQRKC55CE53"},
+  {section:"\u2014 Tristan \u2014 320x50",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 320x50 (V01)",type:"image",ext:"png",id:"1XPrBC6stBgCDTOX-AWaNRmQy5Jvu_HO9"},
+  {section:"\u2014 Tristan \u2014 320x50",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 320x50 (V02)",type:"image",ext:"png",id:"1ZRKtMdBOxbsFuHgnmzIHlI4NBzWV0FN6"},
+  {section:"\u2014 Tristan \u2014 320x50",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 320x50 (V02)",type:"image",ext:"png",id:"1zyeUirBU4jBwyRsFF4STi5n2niG_Emla"},
+  {section:"\u2014 Tristan \u2014 320x50",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 320x50 (V02)",type:"image",ext:"png",id:"13gqI98gn1VoUToYxXN-Q0SYWTWPenF_g"},
+  {section:"\u2014 Tristan \u2014 320x50",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 320x50 (V02)",type:"image",ext:"png",id:"1JSscnWPK5mzbOjFMgiJhd2LoGZvcthzG"},
+
+  // --- Tristan - 728x90 (V01 + V02) ---
+  {section:"\u2014 Tristan \u2014 728x90",name:"0005_Avatar 02 \u2014 Travel Motivated Tristan \u2014 728x90 (V02)",type:"image",ext:"png",id:"1wstDKBXsOjUvmJlBrWjHAdAODOqfnMkM"},
+  {section:"\u2014 Tristan \u2014 728x90",name:"0006_Avatar 02 \u2014 Travel Motivated Tristan \u2014 728x90 (V02)",type:"image",ext:"png",id:"1mRKoEm_7Gsq1mTdT_JWVEzWpxjYekE0R"},
+  {section:"\u2014 Tristan \u2014 728x90",name:"0007_Avatar 02 \u2014 Travel Motivated Tristan \u2014 728x90 (V02)",type:"image",ext:"png",id:"15m0cncUnElx3C4_ajeN7cXGnXP5TJnz2"},
+  {section:"\u2014 Tristan \u2014 728x90",name:"0008_Avatar 02 \u2014 Travel Motivated Tristan \u2014 728x90 (V02)",type:"image",ext:"png",id:"1o_X2Kv_018lh9RgRHFR0mDe6HlDcI9Mv"},
+
+  // --- Aaron - 160x600 (V01 + V02) ---
+  {section:"\u2014 Aaron \u2014 160x600",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 160x600 (V01)",type:"image",ext:"png",id:"15tzOkoyas5YT14akaNzSJG95XZ0PthjJ"},
+  {section:"\u2014 Aaron \u2014 160x600",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 160x600 (V01)",type:"image",ext:"png",id:"1DcxhErTyexrOimihSuJWkf31VDrs4bEj"},
+  {section:"\u2014 Aaron \u2014 160x600",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 160x600 (V01)",type:"image",ext:"png",id:"1x8WVK2LMxG9RigGTAIwNDX01iZLRB26S"},
+  {section:"\u2014 Aaron \u2014 160x600",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 160x600 (V01)",type:"image",ext:"png",id:"1le-eYcHvpaBcMchzc21Vny0S96b0KB13"},
+  {section:"\u2014 Aaron \u2014 160x600",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 160x600 (V02)",type:"image",ext:"png",id:"1dZFdeMbfwdT2Xb4SJikiYQIz8JwP7D11"},
+  {section:"\u2014 Aaron \u2014 160x600",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 160x600 (V02)",type:"image",ext:"png",id:"1sIZV0KbL8EtEZ5sEHlQaW_DSVjnTIxd7"},
+  {section:"\u2014 Aaron \u2014 160x600",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 160x600 (V02)",type:"image",ext:"png",id:"1LDbJUN5YW7yDkXH52bKBtZI63_VhWxSC"},
+  {section:"\u2014 Aaron \u2014 160x600",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 160x600 (V02)",type:"image",ext:"png",id:"1aWOhwlgLF5_2i6NbqMQRXyiqJoiQLRy1"},
+
+  // --- Aaron - 300x250 (V01 + V02) ---
+  {section:"\u2014 Aaron \u2014 300x250",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 300x250 (V01)",type:"image",ext:"png",id:"1bti3DKSFItKVFsIaW4OURhDUKpmr_SVO"},
+  {section:"\u2014 Aaron \u2014 300x250",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 300x250 (V01)",type:"image",ext:"png",id:"1KBqZgw6UiMDFl3NzMgufkgG5nKI81LtL"},
+  {section:"\u2014 Aaron \u2014 300x250",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 300x250 (V01)",type:"image",ext:"png",id:"1LfjdCoP0PdHwyd4NkVwCUbMuVODmIndC"},
+  {section:"\u2014 Aaron \u2014 300x250",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 300x250 (V01)",type:"image",ext:"png",id:"1xCIdzbmWrtnDIjSOr_UOmrshTZkzzZBd"},
+  {section:"\u2014 Aaron \u2014 300x250",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 300x250 (V02)",type:"image",ext:"png",id:"1j6qosUmzFU0-UY9wL4P9Bqcji2uhYHL6"},
+  {section:"\u2014 Aaron \u2014 300x250",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 300x250 (V02)",type:"image",ext:"png",id:"19h8eKzX7XPkyUWXVcYnj5N1C9GngKN8R"},
+  {section:"\u2014 Aaron \u2014 300x250",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 300x250 (V02)",type:"image",ext:"png",id:"1dOam9PRUgSg6Y753Cllh5aZWn7ThZEFX"},
+  {section:"\u2014 Aaron \u2014 300x250",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 300x250 (V02)",type:"image",ext:"png",id:"11hATH-Y8bwCQ5GmvcZp1qbBDiw0NceH6"},
+
+  // --- Aaron - 320x50 (V01 + V02) ---
+  {section:"\u2014 Aaron \u2014 320x50",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 320x50 (V01)",type:"image",ext:"png",id:"1INOUvr503OH59-M6VlGUzTKuw-XLDf6c"},
+  {section:"\u2014 Aaron \u2014 320x50",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 320x50 (V01)",type:"image",ext:"png",id:"15p7un9lHlQxWb2iy4G81fe5GlBdrODTr"},
+  {section:"\u2014 Aaron \u2014 320x50",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 320x50 (V01)",type:"image",ext:"png",id:"1S5Q205pfm8bLSZHkfXYxP9GOHDl7siJO"},
+  {section:"\u2014 Aaron \u2014 320x50",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 320x50 (V01)",type:"image",ext:"png",id:"1ZvCINzi1b8Nm-4d2tIFGDVipRe8aWHri"},
+  {section:"\u2014 Aaron \u2014 320x50",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 320x50 (V02)",type:"image",ext:"png",id:"1x7ypMTIZeJWF18h18ORz7RNApFthCt9f"},
+  {section:"\u2014 Aaron \u2014 320x50",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 320x50 (V02)",type:"image",ext:"png",id:"1X0Yery_jrlAPwDN1KGsM0r0vqIc7R0DX"},
+  {section:"\u2014 Aaron \u2014 320x50",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 320x50 (V02)",type:"image",ext:"png",id:"1JNBcoq3dc3AsE84RIvi_D1VQO889Zd08"},
+  {section:"\u2014 Aaron \u2014 320x50",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 320x50 (V02)",type:"image",ext:"png",id:"1oB4DV4wbzOZF47oYaetPQg_rrRwQ4Nah"},
+
+  // --- Aaron - 728x90 (V01 + V02) ---
+  {section:"\u2014 Aaron \u2014 728x90",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 728x90 (V01)",type:"image",ext:"png",id:"1LEJEHwcgO0ajCo_lnJ7nsds9EixnUH8H"},
+  {section:"\u2014 Aaron \u2014 728x90",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 728x90 (V01)",type:"image",ext:"png",id:"1wicZZN8Y7DEn4prjgGWaOR6uCpLo5xIS"},
+  {section:"\u2014 Aaron \u2014 728x90",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 728x90 (V01)",type:"image",ext:"png",id:"1HeOHeQboUZr5dyDWv91aLwYfiwL56_1z"},
+  {section:"\u2014 Aaron \u2014 728x90",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 728x90 (V01)",type:"image",ext:"png",id:"1niWC7QrZ0E4GKQeEa02PIah_7pbIjnm4"},
+  {section:"\u2014 Aaron \u2014 728x90",name:"0009_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 728x90 (V02)",type:"image",ext:"png",id:"1HPG2qdEkn0TwqAtW4E9gZ8H68ZRtGmIN"},
+  {section:"\u2014 Aaron \u2014 728x90",name:"0010_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 728x90 (V02)",type:"image",ext:"png",id:"1f7t09oGVlthj5eqblFf97lQM4w5hgzhb"},
+  {section:"\u2014 Aaron \u2014 728x90",name:"0011_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 728x90 (V02)",type:"image",ext:"png",id:"1DvBpyvK5TYn91WS2WHQLG1700csvjsXC"},
+  {section:"\u2014 Aaron \u2014 728x90",name:"0012_Avatar 03 \u2014 Side Hustle Aware Aaron \u2014 728x90 (V02)",type:"image",ext:"png",id:"16EiaNUM_3vKwG8FAQiwwrRcwL5PE1mT7"},
+
+  // --- Sophie - 160x600 (V01 + V02) ---
+  {section:"\u2014 Sophie \u2014 160x600",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 160x600 (V01)",type:"image",ext:"png",id:"1uy59ELUIOSa7nWbgk-Qec_9UmcBYmr1v"},
+  {section:"\u2014 Sophie \u2014 160x600",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 160x600 (V01)",type:"image",ext:"png",id:"1huISpqT87Csxf-4bDKWKU0-dUsIHbeHi"},
+  {section:"\u2014 Sophie \u2014 160x600",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 160x600 (V01)",type:"image",ext:"png",id:"1CvtTnQH6oE0OdFhpGlc8vJZ6k6sCWWKx"},
+  {section:"\u2014 Sophie \u2014 160x600",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 160x600 (V01)",type:"image",ext:"png",id:"185oECNItyVLp9p8N-qHhKrQ1ufA_7rWQ"},
+  {section:"\u2014 Sophie \u2014 160x600",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 160x600 (V02)",type:"image",ext:"png",id:"1SSxNIIumEBJtQwZ3xr57zn2JR0W3Oi66"},
+  {section:"\u2014 Sophie \u2014 160x600",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 160x600 (V02)",type:"image",ext:"png",id:"19L_ANdIVPpKxY--mUE5dWVRAxXI-HoL5"},
+  {section:"\u2014 Sophie \u2014 160x600",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 160x600 (V02)",type:"image",ext:"png",id:"1BpniC-vyj4_UH1NLebstADlogvEjPkYq"},
+  {section:"\u2014 Sophie \u2014 160x600",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 160x600 (V02)",type:"image",ext:"png",id:"1xETl-bI3SvnTyYKgl7C7GFObmJbr0Xsx"},
+
+  // --- Sophie - 300x250 (V01 + V02) ---
+  {section:"\u2014 Sophie \u2014 300x250",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 300x250 (V01)",type:"image",ext:"png",id:"1NBARDKqLv4aJICWHsvQPQRioFc2Ss2H_"},
+  {section:"\u2014 Sophie \u2014 300x250",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 300x250 (V01)",type:"image",ext:"png",id:"1b35DT_Jc0f993e3ppuXHimvzlouCeItI"},
+  {section:"\u2014 Sophie \u2014 300x250",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 300x250 (V01)",type:"image",ext:"png",id:"1k6F_pCv-HF6NF9nAIE89PNN7foS7nQnW"},
+  {section:"\u2014 Sophie \u2014 300x250",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 300x250 (V01)",type:"image",ext:"png",id:"1rzRWmbSZEQJT_NUivwDfE0DVF7Np9eNI"},
+  {section:"\u2014 Sophie \u2014 300x250",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 300x250 (V02)",type:"image",ext:"png",id:"1z0LiGsUvUYnV4kS7J0pHDKUtXHJc21gP"},
+  {section:"\u2014 Sophie \u2014 300x250",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 300x250 (V02)",type:"image",ext:"png",id:"1kfvHlD2-pSNhuVwD7wdjl37X4JEMPvm5"},
+  {section:"\u2014 Sophie \u2014 300x250",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 300x250 (V02)",type:"image",ext:"png",id:"1_M85_j9mHrYjfbnNlZk-cCdTbg-eMobY"},
+  {section:"\u2014 Sophie \u2014 300x250",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 300x250 (V02)",type:"image",ext:"png",id:"1Ly4tCr0NVdnkxltI7LR9X-vpyk34V3aS"},
+
+  // --- Sophie - 320x50 (V01 + V02) ---
+  {section:"\u2014 Sophie \u2014 320x50",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 320x50 (V01)",type:"image",ext:"png",id:"1_fXOY08BzWXJvMkAWJI0LE-Kppsj2yFa"},
+  {section:"\u2014 Sophie \u2014 320x50",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 320x50 (V01)",type:"image",ext:"png",id:"1a1MFGaAvRpNr1pNV5I7FVh7Ehm3_YGxW"},
+  {section:"\u2014 Sophie \u2014 320x50",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 320x50 (V01)",type:"image",ext:"png",id:"17S6_7jO_vB-2G9NI40nkfgNd4FkyztWs"},
+  {section:"\u2014 Sophie \u2014 320x50",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 320x50 (V01)",type:"image",ext:"png",id:"1uYbujN5eSR6f69UaB18F25My3j0GMyUp"},
+  {section:"\u2014 Sophie \u2014 320x50",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 320x50 (V02)",type:"image",ext:"png",id:"1fW1ocAYA2d5LHEQ-BMUKqpvmXLQqM4-q"},
+  {section:"\u2014 Sophie \u2014 320x50",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 320x50 (V02)",type:"image",ext:"png",id:"14g3kaz7L-wVVC1gpEPfs8b40wxknhDgo"},
+  {section:"\u2014 Sophie \u2014 320x50",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 320x50 (V02)",type:"image",ext:"png",id:"1yUTLCOeV4bu3HwBqEFfGiCzqVF-WHtel"},
+  {section:"\u2014 Sophie \u2014 320x50",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 320x50 (V02)",type:"image",ext:"png",id:"1-CV7UbKWJxRT04r2YtfUHSkLPw_nGjA5"},
+
+  // --- Sophie - 728x90 (V01 + V02) ---
+  {section:"\u2014 Sophie \u2014 728x90",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 728x90 (V01)",type:"image",ext:"png",id:"1iQl0uE7VmrxtsUxpLC-Xmk3MtIXS9MB5"},
+  {section:"\u2014 Sophie \u2014 728x90",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 728x90 (V01)",type:"image",ext:"png",id:"1SNSnM_lLeQrTwFYOCC-apiJ68G5QVA8T"},
+  {section:"\u2014 Sophie \u2014 728x90",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 728x90 (V01)",type:"image",ext:"png",id:"1QcFcrT0BSMTfx3f7npk2V1RWrKDD6lf0"},
+  {section:"\u2014 Sophie \u2014 728x90",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 728x90 (V01)",type:"image",ext:"png",id:"1sbQnohzj50MJE4HxCBqZTYT_feN_TGf9"},
+  {section:"\u2014 Sophie \u2014 728x90",name:"0013_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 728x90 (V02)",type:"image",ext:"png",id:"1byTWqnWtjVJdb9bv1Fa3aQRPVvplpz0i"},
+  {section:"\u2014 Sophie \u2014 728x90",name:"0014_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 728x90 (V02)",type:"image",ext:"png",id:"19qME_IQYFjem23XwWY5aRp2-rgolvly9"},
+  {section:"\u2014 Sophie \u2014 728x90",name:"0015_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 728x90 (V02)",type:"image",ext:"png",id:"1TE2ASTPIo2Ep3hTtjE8q77ZDNW4u7-84"},
+  {section:"\u2014 Sophie \u2014 728x90",name:"0016_Avatar 04 \u2014 Side Hustle Searching Sophie \u2014 728x90 (V02)",type:"image",ext:"png",id:"18-r89ldpqNiph32UDp2cwvS4rIgUe7Yd"},
+
+  // --- Content Library ---
+  {section:"Content Library",name:"0003_Ava \u2014 300x250",type:"image",ext:"png",id:"1XL9lyUXzbjlfNvVFZGjjIJoTRWUsVLBW"},
+  {section:"Content Library",name:"0004_Ava \u2014 300x250 (2)",type:"image",ext:"png",id:"1FR-tqhKH_y-LgN_rnX8o9-PYt6_uOorY"},
+  {section:"Content Library",name:"0004_Ava \u2014 300x250",type:"image",ext:"png",id:"1Ta0euY4VbR5G3YaXarhh5kVdgOwBOP2T"},
+  {section:"Content Library",name:"0006_Tristan \u2014 300x250",type:"image",ext:"png",id:"1_sqY-Nb645ODwiESjEBt9JiD8DQn9p_T"},
+  {section:"Content Library",name:"0006_Tristan \u2014 300x250 v1",type:"image",ext:"png",id:"1yVwutG-hkW6QXrX_TzyCI2dA7l-cp3aK"},
+  {section:"Content Library",name:"0006_Tristan \u2014 300x250 v2",type:"image",ext:"png",id:"1i73q0SOqZ8334yW9yPhpg6dV567hV-LS"},
+  {section:"Content Library",name:"0007_Tristan \u2014 300x250",type:"image",ext:"png",id:"1C3seIXEgOx5LiHhHn4Wur0L0-afTEAP7"},
+  {section:"Content Library",name:"0010_Aaron \u2014 300x250",type:"image",ext:"png",id:"1ccWc_WbWCmZ7FvWSf796UD5WB4SnfpNg"},
+  {section:"Content Library",name:"0011_Aaron \u2014 300x250",type:"image",ext:"png",id:"1x8jj_7RIvHFHxGE439PYuf8VTv2Co4MN"},
+  {section:"Content Library",name:"0013_Sophie \u2014 300x250",type:"image",ext:"png",id:"13BGAmiV8mRMOd6nPBZ7S_vycTIZkkhlJ"},
+  {section:"Content Library",name:"0014_Sophie \u2014 300x250",type:"image",ext:"png",id:"19IEsICq386SXtkdZmkFDEL30RcXJGV77"},
+  {section:"Content Library",name:"0015_Sophie \u2014 300x250",type:"image",ext:"png",id:"1WnMq2vCTfr-V3UQAgidfwzov8pqXvY6F"},
+  {section:"Content Library",name:"0016_Sophie \u2014 300x250",type:"image",ext:"png",id:"1Pk3ZfPJEZtemj-XHd6ASTsfdiwacAsFQ"},
+
+  // --- Brand Guide / Image Links ---
   {section:"Brand Guide / Image Links",name:"0_0 (1).jpeg",type:"image",ext:"jpeg",id:"1trLrl5uDL2x80V6am6PEm8mNfIoOBJcv"},
   {section:"Brand Guide / Image Links",name:"0_0 (2).jpeg",type:"image",ext:"jpeg",id:"1bIGaKo3QDVv1nECX9jxLNZ67Q0I5Zq9Q"},
   {section:"Brand Guide / Image Links",name:"0_0.jpeg",type:"image",ext:"jpeg",id:"1cWkwVhRqnQ69t2vQiyKhJdiSkNuow_jO"},
@@ -770,13 +805,39 @@ const ASSETS = [
   {section:"Brand Guide / Image Links",name:"image 102.png",type:"image",ext:"png",id:"1PZ4E2_NPjeOCHp8x2npHJM6NRtP9afIO"},
   {section:"Brand Guide / Image Links",name:"image 103.png",type:"image",ext:"png",id:"1UVWRPT_IuDbRfOeoCRUVnsbXs6VsW3RB"},
   {section:"Brand Guide / Image Links",name:"TLG34M.png",type:"image",ext:"png",id:"1eHBgchuMofZ4w2YLDWDZLbxGTJWS5y5m"},
-  {section:"Brand Guide / Preview",name:"Elysian Leaders Brand Guide Development.pdf",type:"document",ext:"pdf",id:"1gyWjAZMtEg_ITFbqYJokUL1byZ_DYrvP"}
+
+  // --- Brand Guide / Preview Design ---
+  {section:"Brand Guide / Preview Design",name:"Captura de pantalla 2026-01-06.png",type:"image",ext:"png",id:"1P_i4dATxaq2Tud_D2S0ZmXrwuYaJWlk5"},
+  {section:"Brand Guide / Preview Design",name:"Elysian Leaders Brand Guide Development.pdf",type:"document",ext:"pdf",id:"1Jsh_dnyaU43SiPLhEbiE7YaD7Cxx_5AG"},
+
+  // --- Brand Guide / Feedback Videos ---
+  {section:"Brand Guide / Feedback Videos",name:"WhatsApp Video 2026-01-05 at 20.20.56.mp4",type:"video",ext:"mp4",id:"14YMUXamrsTIiCaVBddV0TehK7kRuBBNO"},
+  {section:"Brand Guide / Feedback Videos",name:"WhatsApp Video 2026-01-05 at 20.22.28.mp4",type:"video",ext:"mp4",id:"1_XhrDo9FcfVj8Rc8PRvN4cP-5hRg1cqc"},
+  {section:"Brand Guide / Feedback Videos",name:"WhatsApp Video 2026-01-05 at 20.24.38.mp4",type:"video",ext:"mp4",id:"1Qx4p_T8mOYxhhJwC4u4a4Kidde7gX0wm"},
+
+  // --- Full Asset PDFs ---
+  {section:"Full Asset PDFs",name:"Full Assets_Sizes 160x600 (V01).pdf",type:"document",ext:"pdf",id:"1luTjUP0rbIvjV6vajlWiSJB1YCumgU29"},
+  {section:"Full Asset PDFs",name:"Full Assets_Sizes 300x250 (V01).pdf",type:"document",ext:"pdf",id:"1cs2fkjTi2TFE3jQQzym8YwcKbtyOeUAv"},
+  {section:"Full Asset PDFs",name:"320x50_Elysian Leaders Ad creatives (V01).pdf",type:"document",ext:"pdf",id:"1MGoOhft-5v700PiG-tlz-qNQXxenyNL9"},
+  {section:"Full Asset PDFs",name:"728x90_Elysian Leaders Ad creatives (V01).pdf",type:"document",ext:"pdf",id:"1XJkMb9Xooz_ZXs6Uhu63j0B4UculvA2z"},
+  {section:"Full Asset PDFs",name:"Full Assets_Sizes 160x600 (V02).pdf",type:"document",ext:"pdf",id:"1hULAARqGsNSNl2h1lFa7cWljsgrjaI22"},
+  {section:"Full Asset PDFs",name:"300x250_Elysian Leaders Ad creatives (V02).pdf",type:"document",ext:"pdf",id:"1AbYL575cb5DJdP0SHTEyHV28bKZgl7RM"},
+  {section:"Full Asset PDFs",name:"320x50_Elysian Leaders Ad creatives (V02).pdf",type:"document",ext:"pdf",id:"1_k0GHizbeoaJoMUOAEbfJNgRqNM6P1Xu"},
+  {section:"Full Asset PDFs",name:"728x90_Elysian Leaders Ad creatives (V02).pdf",type:"document",ext:"pdf",id:"1woJj-8oQVwinXDxW2BNpd9Zvbq5IdM7g"},
+  {section:"Full Asset PDFs",name:"Elysian Leaders Brand Guide Development.ai",type:"document",ext:"ai",id:"1BIkSQJBqOXmiwNAX_WLrzCzwyWs4eLhx"},
+  {section:"Full Asset PDFs",name:"Elysian Leaders Brand Guide Development.pdf",type:"document",ext:"pdf",id:"1gyWjAZMtEg_ITFbqYJokUL1byZ_DYrvP"},
+
+  // --- Landing Pages ---
+  {section:"Landing Pages",name:"Strategic Ava",type:"page",ext:"html",url:"https://elysianleaders.netlify.app/strategic-ava"},
+  {section:"Landing Pages",name:"Mobile Tristan",type:"page",ext:"html",url:"https://elysianleaders.netlify.app/mobile-tristan"},
+  {section:"Landing Pages",name:"ROI Aaron",type:"page",ext:"html",url:"https://elysianleaders.netlify.app/roi-aaron"},
+  {section:"Landing Pages",name:"Searching Sophie",type:"page",ext:"html",url:"https://elysianleaders.netlify.app/searching-sophie"}
 ];
 
-const decisions = {};
-const comments = {};
-let currentFilter = 'all';
-let lightboxAssetId = null;
+var decisions = {};
+var comments = {};
+var currentFilter = 'all';
+var lightboxAssetId = null;
 var commentTimers = {};
 
 function thumbUrl(id) {
@@ -791,6 +852,10 @@ function openUrl(id) {
   return 'https://drive.google.com/file/d/' + id + '/view';
 }
 
+function assetKey(a) {
+  return a.id || a.url;
+}
+
 function getSections() {
   var order = [];
   var map = {};
@@ -801,10 +866,18 @@ function getSections() {
   return order.map(function(s) { return { title: s, assets: map[s] }; });
 }
 
+function isAlmost(key) {
+  if (!comments[key]) return false;
+  var lower = comments[key].toLowerCase();
+  return lower.indexOf('almost') !== -1 || lower.indexOf('maybe') !== -1;
+}
+
 function matchFilter(asset) {
+  var key = assetKey(asset);
   if (currentFilter === 'all') return true;
-  if (currentFilter === 'image' || currentFilter === 'video' || currentFilter === 'document') return asset.type === currentFilter;
-  var d = decisions[asset.id];
+  if (currentFilter === 'image' || currentFilter === 'video' || currentFilter === 'document' || currentFilter === 'page') return asset.type === currentFilter;
+  if (currentFilter === 'almost') return isAlmost(key);
+  var d = decisions[key];
   if (currentFilter === 'pending') return !d;
   return d === currentFilter;
 }
@@ -841,13 +914,20 @@ function render() {
     gridEl.className = 'grid';
 
     visible.forEach(function(a, i) {
-      var status = decisions[a.id] || '';
+      var key = assetKey(a);
+      var status = decisions[key] || '';
+      var almostFlag = isAlmost(key);
       var card = document.createElement('div');
-      card.className = 'card' + (status ? ' ' + status : '');
+      card.className = 'card' + (status ? ' ' + status : '') + (almostFlag ? ' almost' : '');
       card.style.setProperty('--i', i);
-      card.setAttribute('data-id', a.id);
+      card.setAttribute('data-id', key);
 
-      if (status) {
+      if (almostFlag) {
+        var almostBadge = document.createElement('div');
+        almostBadge.className = 'card-status almost-badge';
+        almostBadge.textContent = 'Almost';
+        card.appendChild(almostBadge);
+      } else if (status) {
         var statusBadge = document.createElement('div');
         statusBadge.className = 'card-status';
         statusBadge.textContent = status === 'approved' ? 'Approved' : 'Denied';
@@ -856,11 +936,18 @@ function render() {
 
       var preview = document.createElement('div');
       preview.className = 'card-preview';
-      preview.addEventListener('click', (function(assetId) {
-        return function() { openLightbox(assetId); };
-      })(a.id));
+      preview.addEventListener('click', (function(asset) {
+        return function() { openLightbox(asset); };
+      })(a));
 
-      if (a.type === 'image') {
+      if (a.type === 'page') {
+        // Iframe preview for landing pages
+        var pageFrame = document.createElement('iframe');
+        pageFrame.src = a.url;
+        pageFrame.loading = 'lazy';
+        pageFrame.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+        preview.appendChild(pageFrame);
+      } else if (a.type === 'image') {
         var img = document.createElement('img');
         img.src = thumbUrl(a.id);
         img.alt = a.name;
@@ -885,6 +972,7 @@ function render() {
         playDiv.appendChild(playSvg);
         preview.appendChild(playDiv);
       } else {
+        // Document type
         var docIcon = document.createElement('div');
         docIcon.className = 'doc-icon';
         var docSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -918,17 +1006,27 @@ function render() {
       var meta = document.createElement('div');
       meta.className = 'card-meta';
       var typeSpan = document.createElement('span');
-      typeSpan.textContent = a.type.charAt(0).toUpperCase() + a.type.slice(1);
+      typeSpan.textContent = a.type === 'page' ? 'Landing Page' : a.type.charAt(0).toUpperCase() + a.type.slice(1);
       meta.appendChild(typeSpan);
       var dotSpan = document.createElement('span');
       dotSpan.textContent = '\u00B7';
       meta.appendChild(dotSpan);
-      var link = document.createElement('a');
-      link.href = openUrl(a.id);
-      link.target = '_blank';
-      link.style.cssText = 'color:var(--accent);text-decoration:none;font-size:12px';
-      link.textContent = 'Open in Drive';
-      meta.appendChild(link);
+
+      if (a.type === 'page') {
+        var link = document.createElement('a');
+        link.href = a.url;
+        link.target = '_blank';
+        link.style.cssText = 'color:var(--accent);text-decoration:none;font-size:12px';
+        link.textContent = 'Open Page';
+        meta.appendChild(link);
+      } else {
+        var link = document.createElement('a');
+        link.href = openUrl(a.id);
+        link.target = '_blank';
+        link.style.cssText = 'color:var(--accent);text-decoration:none;font-size:12px';
+        link.textContent = 'Open in Drive';
+        meta.appendChild(link);
+      }
       body.appendChild(meta);
 
       var actions = document.createElement('div');
@@ -937,17 +1035,17 @@ function render() {
       var approveBtn = document.createElement('button');
       approveBtn.className = 'btn-approve';
       approveBtn.textContent = 'Approve';
-      approveBtn.addEventListener('click', (function(assetId) {
-        return function() { setDecision(assetId, 'approved'); };
-      })(a.id));
+      approveBtn.addEventListener('click', (function(k) {
+        return function() { setDecision(k, 'approved'); };
+      })(key));
       actions.appendChild(approveBtn);
 
       var denyBtn = document.createElement('button');
       denyBtn.className = 'btn-deny';
       denyBtn.textContent = 'Deny';
-      denyBtn.addEventListener('click', (function(assetId) {
-        return function() { setDecision(assetId, 'denied'); };
-      })(a.id));
+      denyBtn.addEventListener('click', (function(k) {
+        return function() { setDecision(k, 'denied'); };
+      })(key));
       actions.appendChild(denyBtn);
 
       body.appendChild(actions);
@@ -957,13 +1055,13 @@ function render() {
 
       var textarea = document.createElement('textarea');
       textarea.placeholder = 'Add a note\u2026';
-      textarea.value = comments[a.id] || '';
+      textarea.value = comments[key] || '';
       textarea.rows = 1;
-      textarea.addEventListener('input', (function(assetId, wrap) {
+      textarea.addEventListener('input', (function(k, wrap) {
         return function(e) {
-          comments[assetId] = e.target.value;
-          clearTimeout(commentTimers[assetId]);
-          commentTimers[assetId] = setTimeout(function() {
+          comments[k] = e.target.value;
+          clearTimeout(commentTimers[k]);
+          commentTimers[k] = setTimeout(function() {
             saveState();
             var savedEl = wrap.querySelector('.comment-saved');
             if (savedEl) {
@@ -972,7 +1070,7 @@ function render() {
             }
           }, 500);
         };
-      })(a.id, commentWrap));
+      })(key, commentWrap));
       textarea.addEventListener('blur', function() { saveState(); });
       commentWrap.appendChild(textarea);
 
@@ -994,11 +1092,11 @@ function render() {
   updateStats();
 }
 
-function setDecision(id, status) {
-  if (decisions[id] === status) {
-    delete decisions[id];
+function setDecision(key, status) {
+  if (decisions[key] === status) {
+    delete decisions[key];
   } else {
-    decisions[id] = status;
+    decisions[key] = status;
   }
   saveState();
   render();
@@ -1007,8 +1105,9 @@ function setDecision(id, status) {
 function updateStats() {
   var approved = 0, denied = 0, pending = 0;
   ASSETS.forEach(function(a) {
-    if (decisions[a.id] === 'approved') approved++;
-    else if (decisions[a.id] === 'denied') denied++;
+    var key = assetKey(a);
+    if (decisions[key] === 'approved') approved++;
+    else if (decisions[key] === 'denied') denied++;
     else pending++;
   });
   document.getElementById('stat-approved').textContent = approved;
@@ -1019,17 +1118,17 @@ function updateStats() {
 function bulkAction(status) {
   var visibleCards = document.querySelectorAll('.card[data-id]');
   visibleCards.forEach(function(c) {
-    var id = c.getAttribute('data-id');
-    if (status === null) delete decisions[id];
-    else decisions[id] = status;
+    var key = c.getAttribute('data-id');
+    if (status === null) delete decisions[key];
+    else decisions[key] = status;
   });
   saveState();
   render();
 }
 
-function openLightbox(id) {
-  lightboxAssetId = id;
-  var asset = ASSETS.find(function(a) { return a.id === id; });
+function openLightbox(asset) {
+  var key = assetKey(asset);
+  lightboxAssetId = key;
   var lb = document.getElementById('lightbox');
   var content = document.getElementById('lightbox-content');
   var nameEl = document.getElementById('lightbox-name');
@@ -1038,9 +1137,17 @@ function openLightbox(id) {
 
   while (content.firstChild) content.removeChild(content.firstChild);
 
-  if (asset.type === 'video' || asset.type === 'document') {
+  if (asset.type === 'page') {
     var iframe = document.createElement('iframe');
-    iframe.src = previewUrl(id);
+    iframe.src = asset.url;
+    iframe.width = '1200';
+    iframe.height = '700';
+    iframe.style.cssText = 'border:none;border-radius:12px;max-width:90vw;max-height:80vh;width:90vw;height:80vh';
+    iframe.allowFullscreen = true;
+    content.appendChild(iframe);
+  } else if (asset.type === 'video' || asset.type === 'document') {
+    var iframe = document.createElement('iframe');
+    iframe.src = previewUrl(asset.id);
     iframe.width = '854';
     iframe.height = '480';
     iframe.style.cssText = 'border:none;border-radius:12px;max-width:90vw;max-height:80vh';
@@ -1049,7 +1156,7 @@ function openLightbox(id) {
     content.appendChild(iframe);
   } else {
     var img = document.createElement('img');
-    img.src = thumbUrl(id);
+    img.src = thumbUrl(asset.id);
     img.alt = asset.name;
     img.style.borderRadius = '12px';
     content.appendChild(img);
@@ -1115,7 +1222,7 @@ function loadState() {
 
 function saveDecisions() {
   saveState();
-  var btn = document.querySelector('.export-btn');
+  var btn = document.querySelector('.save-btn');
   var original = btn.textContent;
   btn.textContent = 'Saved!';
   btn.style.background = 'var(--approve)';
