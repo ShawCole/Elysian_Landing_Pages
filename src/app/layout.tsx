@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { DevSwitcher } from "@/components/dev/dev-switcher";
+import { PersonaSwitcher } from "@/components/funnel/persona-switcher";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const openSans = Open_Sans({
@@ -18,11 +18,13 @@ const openSans = Open_Sans({
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "Elysian Leaders | High-Ticket Distribution Systems",
-  description: "Architecting financial sovereignty through scalable distribution frameworks.",
+  title: "Elysian Leaders — High-ticket business, real-world results",
+  description:
+    "A high-ticket distribution business for professionals who want a real vehicle, not a side hustle.",
 };
 
 export default function RootLayout({
@@ -31,12 +33,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={`${montserrat.variable} ${openSans.variable} ${playfair.variable} antialiased`}
       >
         {children}
-        <DevSwitcher />
+        <PersonaSwitcher />
       </body>
     </html>
   );

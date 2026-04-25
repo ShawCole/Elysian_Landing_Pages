@@ -1,85 +1,103 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Lock, ShieldCheck } from "lucide-react";
+import { ShieldCheck, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import type { Persona } from "@/lib/personas";
 
 interface CommitmentModalProps {
-    onCommit: () => void;
-    isOpen: boolean;
+  isOpen: boolean;
+  persona: Persona;
+  onCommit: () => void;
+  onCancel: () => void;
 }
 
-export const CommitmentModal = ({ onCommit, isOpen }: CommitmentModalProps) => {
-    const [hasMounted, setHasMounted] = useState(false);
+export const CommitmentModal = ({ isOpen, persona, onCommit, onCancel }: CommitmentModalProps) => {
+  const [hasMounted, setHasMounted] = useState(false);
 
-    useEffect(() => {
-        setHasMounted(true);
-        if (isOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "unset";
-        }
-        return () => {
-            document.body.style.overflow = "unset";
-        };
-    }, [isOpen]);
+  useEffect(() => {
+    setHasMounted(true);
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
-    if (!hasMounted || !isOpen) return null;
+  if (!hasMounted) return null;
 
-    return (
-        <AnimatePresence>
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+        >
+          <motion.div
+            className="absolute inset-0 bg-[color:var(--color-elysian-navy)]/40 backdrop-blur-md"
+            onClick={onCancel}
+          />
+
+          <motion.div
+            initial={{ scale: 0.96, opacity: 0, y: 16 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.96, opacity: 0, y: 16 }}
+            transition={{ type: "spring", damping: 28, stiffness: 320 }}
+            className="relative w-full max-w-md bg-[color:var(--color-elysian-cream)] rounded-2xl p-8 md:p-10 shadow-[0_30px_80px_-20px_rgb(27_43_58/0.4)] ring-1 ring-[color:var(--color-rule-strong)]"
+          >
+            <button
+              onClick={onCancel}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-[color:var(--color-text-soft)] hover:text-[color:var(--color-text)] hover:bg-[color:var(--color-rule)] transition-colors"
+              aria-label="Close"
             >
-                {/* Backdrop with extreme blur */}
-                <motion.div
-                    className="absolute inset-0 bg-zinc-950/60 backdrop-blur-2xl"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                />
+              <X className="w-4 h-4" />
+            </button>
 
-                {/* Modal Card */}
-                <motion.div
-                    initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                    className="relative w-full max-w-lg bg-zinc-900 border border-zinc-800 rounded-2xl p-8 md:p-12 shadow-2xl overflow-hidden"
+            <div className="flex flex-col items-start">
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center mb-5"
+                style={{ background: "var(--color-persona-soft)", color: "var(--color-persona)" }}
+              >
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+
+              <div className="text-[10px] uppercase tracking-widest text-[color:var(--color-text-soft)] mb-2">
+                Before you watch
+              </div>
+
+              <h2 className="font-display text-2xl md:text-[28px] leading-tight text-[color:var(--color-text)] mb-3">
+                This is a 5-minute walkthrough, not a sales pitch.
+              </h2>
+
+              <p className="text-[15px] leading-relaxed text-[color:var(--color-text-soft)] mb-6">
+                {persona.presenter.firstName} will show you the actual mechanism behind the
+                {" "}{persona.hero.leadMagnet}. If by the end you want to talk further, you take the
+                Alignment Audit. If not, no follow-up. Sound fair?
+              </p>
+
+              <div className="w-full flex flex-col gap-2.5">
+                <button
+                  onClick={onCommit}
+                  className="w-full py-3.5 bg-[color:var(--color-elysian-navy)] text-[color:var(--color-elysian-cream)] font-medium text-sm tracking-tight rounded-full hover:bg-[color:var(--color-elysian-navy-soft)] transition-colors flex items-center justify-center gap-2"
                 >
-                    {/* subtle aurora effect inside modal */}
-                    <div className="absolute -top-24 -left-24 w-48 h-48 bg-blue-500/10 blur-[80px] rounded-full" />
-                    <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-indigo-500/10 blur-[80px] rounded-full" />
-
-                    <div className="relative flex flex-col items-center text-center">
-                        <div className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6">
-                            <Lock className="w-8 h-8 text-blue-400" />
-                        </div>
-
-                        <h2 className="text-3xl font-serif text-white mb-4">
-                            Access Restricted to Committed Professionals.
-                        </h2>
-
-                        <p className="text-zinc-400 font-sans text-lg mb-8 leading-relaxed">
-                            The proprietary distribution logic revealed in this masterclass is for high-authority individuals ready to transition into architectural ownership.
-                        </p>
-
-                        <div className="w-full space-y-4">
-                            <button
-                                onClick={onCommit}
-                                className="w-full py-4 bg-zinc-100 text-zinc-950 font-bold rounded-xl hover:bg-white transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                            >
-                                <ShieldCheck className="w-5 h-5" />
-                                YES, I COMMIT
-                            </button>
-                            <p className="text-zinc-600 text-xs font-sans">
-                                By clicking, you agree to treat the following data with executive confidentiality.
-                            </p>
-                        </div>
-                    </div>
-                </motion.div>
-            </motion.div>
-        </AnimatePresence>
-    );
+                  Yes — start the walkthrough
+                </button>
+                <button
+                  onClick={onCancel}
+                  className="w-full py-3 text-[color:var(--color-text-soft)] text-sm hover:text-[color:var(--color-text)] transition-colors"
+                >
+                  Not right now
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 };
