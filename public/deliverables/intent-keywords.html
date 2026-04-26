@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Elysian Leaders — Intent Keyword Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #1B2B3A;
+    --navy-soft: #2C3F52;
+    --turquoise: #40E0D0;
+    --turquoise-deep: #2DB3A6;
+    --gold: #D4A017;
+    --gold-soft: #E8B84B;
+    --cream: #F8F6F0;
+    --cream-deep: #EFEBE0;
+    --paper: #FAFAF7;
+    --charcoal: #4A4A4A;
+    --white: #FFFFFF;
+    --rule: rgba(27, 43, 58, 0.10);
+    --rule-strong: rgba(27, 43, 58, 0.18);
+    --serif: 'Playfair Display', Georgia, serif;
+    --display: 'Outfit', system-ui, sans-serif;
+    --body: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --signal-green: #2D7A12;
+    --signal-green-bg: rgba(72, 178, 27, 0.12);
+    --signal-red: #B53030;
+    --signal-red-bg: rgba(217, 50, 50, 0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--paper);
+    color: var(--navy);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 1180px; margin: 0 auto; padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem); }
+
+  .header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule);
+    margin-bottom: 2.5rem; flex-wrap: wrap;
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--charcoal); opacity: 0.7;
+  }
+  .eyebrow .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--turquoise-deep); margin-right: 0.5rem; vertical-align: middle;
+  }
+  .header h1 {
+    font-family: var(--serif); font-size: clamp(2rem, 4.2vw, 3rem);
+    font-weight: 700; line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--navy); max-width: 800px; margin-top: 0.4rem;
+  }
+  .header h1 em { font-style: italic; color: var(--turquoise-deep); }
+  .header-aside {
+    text-align: right; font-family: var(--mono); font-size: 11px;
+    color: var(--charcoal); line-height: 1.7; flex-shrink: 0;
+  }
+  .header-aside strong { display: block; color: var(--navy); font-weight: 600; }
+  .brand-stamp { font-family: var(--display); font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+  .brand-stamp span { color: var(--turquoise-deep); }
+
+  .intro {
+    background: var(--cream);
+    padding: 1.75rem 2rem; border-radius: 14px;
+    border-left: 4px solid var(--turquoise-deep);
+    margin-bottom: 3rem;
+    font-size: 14px; line-height: 1.7;
+    color: var(--charcoal);
+  }
+  .intro strong { color: var(--navy); font-weight: 600; }
+  .intro code {
+    font-family: var(--mono); font-size: 12px;
+    background: rgba(27, 43, 58, 0.06);
+    padding: 0.1rem 0.4rem; border-radius: 4px;
+    color: var(--navy);
+  }
+
+  .avatar-block {
+    margin-bottom: 3rem;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .avatar-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .avatar-num {
+    font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--turquoise-deep); font-weight: 500;
+  }
+  .avatar-name {
+    font-family: var(--serif); font-size: 1.55rem; font-weight: 700;
+    color: var(--navy); letter-spacing: -0.01em; margin-top: 0.25rem;
+  }
+  .avatar-name em { font-style: italic; color: var(--turquoise-deep); }
+  .avatar-meta {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--charcoal); opacity: 0.75;
+    text-align: right;
+  }
+
+  .avatar-body {
+    padding: 1.5rem 2rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .kw-section {
+    border-top: 1px dashed var(--rule);
+    padding-top: 1.25rem;
+  }
+  .kw-section:first-child { border-top: 0; padding-top: 0; }
+
+  .kw-label {
+    display: flex; align-items: baseline; gap: 0.6rem;
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--charcoal); margin-bottom: 0.85rem;
+  }
+  .kw-tag {
+    display: inline-block;
+    padding: 0.2rem 0.55rem; border-radius: 100px;
+    font-family: var(--mono); font-size: 9.5px;
+    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .kw-tag.green { background: var(--signal-green-bg); color: var(--signal-green); }
+  .kw-tag.red { background: var(--signal-red-bg); color: var(--signal-red); }
+  .kw-tag.gold { background: rgba(212, 160, 23, 0.14); color: #8A6A0E; }
+
+  .kw-section-title {
+    font-family: var(--display); font-weight: 700; font-size: 0.95rem;
+    color: var(--navy); letter-spacing: -0.005em;
+  }
+
+  .kw-section-help {
+    font-size: 12.5px; color: var(--charcoal); line-height: 1.55;
+    margin-bottom: 0.9rem; opacity: 0.85;
+  }
+
+  .chip-grid {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .chip {
+    display: inline-flex; align-items: center;
+    padding: 0.35rem 0.75rem;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--navy); line-height: 1;
+  }
+  .chip.native {
+    background: rgba(212, 160, 23, 0.08);
+    border-color: rgba(212, 160, 23, 0.25);
+    font-family: var(--body); font-style: italic;
+    font-size: 13px; color: var(--navy);
+  }
+  .chip.recoil {
+    background: var(--signal-red-bg);
+    border-color: rgba(217, 50, 50, 0.24);
+    color: var(--signal-red); text-decoration: line-through;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(181, 48, 48, 0.5);
+  }
+
+  .deploy-card {
+    background: var(--navy); color: var(--cream);
+    border-radius: 14px; padding: 1.75rem 2rem;
+    margin-bottom: 3rem;
+  }
+  .deploy-card h3 {
+    font-family: var(--display); font-weight: 700;
+    font-size: 1.05rem; color: var(--cream);
+    margin-bottom: 0.85rem;
+  }
+  .deploy-card p {
+    font-size: 13.5px; line-height: 1.65;
+    color: rgba(248, 246, 240, 0.78);
+    margin-bottom: 0.75rem;
+  }
+  .deploy-card p:last-child { margin-bottom: 0; }
+  .deploy-card strong { color: var(--cream); font-weight: 600; }
+
+  .footer {
+    margin-top: 3rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; flex-wrap: wrap;
+    gap: 1rem; font-family: var(--mono); font-size: 10.5px;
+    color: var(--charcoal); opacity: 0.75;
+    text-transform: uppercase; letter-spacing: 0.12em;
+  }
+
+  @media (max-width: 700px) {
+    .avatar-body { padding: 1.25rem 1.25rem 1.5rem; }
+    .avatar-header { padding: 1.25rem 1.25rem; }
+    .header-aside { text-align: left; }
+  }
+
+  @media print {
+    body { background: var(--white); }
+    .page { padding: 0.5in; }
+    .avatar-block { break-inside: avoid; page-break-inside: avoid; }
+    .deploy-card { break-inside: avoid; }
+    @page { size: 8.5in 11in portrait; margin: 0.5in; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>Deployment-Ready · Per-Avatar Targeting</div>
+      <h1>Intent Keywords. <em>Source-of-truth for StackAdapt.</em></h1>
+    </div>
+    <div class="header-aside">
+      <div class="brand-stamp">Elysian<span>Leaders</span></div>
+      <div style="margin-top: 0.5rem;">Source material extracted from</div>
+      <strong>sophie_profile · ava_profile · avatar dossier</strong>
+      <div style="margin-top: 0.4rem;">v1.0 · April 2026</div>
+    </div>
+  </header>
+
+  <div class="intro">
+    Each avatar's keyword set is built directly from the existing Psychographics docs (<code>sophie_profile.md</code>, <code>ava_profile.md</code>) and the avatar dossier (<code>aistudio context</code>) — not from speculation. Three categories per avatar: <strong>native phrases</strong> (verbatim language they use, for ad copy), <strong>intent keywords</strong> (search terms / content topics for DSP audience targeting), and <strong>recoil keywords</strong> (negative-keyword exclusions to prevent serving to people who hate this category). Paste each list directly into the StackAdapt segment builder.
+  </div>
+
+  <!-- =================== SOPHIE =================== -->
+  <section class="avatar-block">
+    <div class="avatar-header">
+      <div>
+        <div class="avatar-num">Avatar 04 · Vanessa-fronted</div>
+        <div class="avatar-name">Searching <em>Sophie</em></div>
+      </div>
+      <div class="avatar-meta">
+        Theme: Professional Sovereignty &amp; The Pivot<br />
+        Lead magnet: Freedom Blueprint
+      </div>
+    </div>
+    <div class="avatar-body">
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag gold">Native phrases</span>
+          <span class="kw-section-title">For ad copy &amp; LP hero language</span>
+        </div>
+        <div class="kw-section-help">Verbatim lines from Sophie's internal monologue. These are the exact phrases that make her stop and feel "they're reading my diary." Use them in headlines, hero copy, and DM bot first messages.</div>
+        <div class="chip-grid">
+          <span class="chip native">drowning in a gilded cage</span>
+          <span class="chip native">tether with a better view</span>
+          <span class="chip native">treading water</span>
+          <span class="chip native">20-year treadmill</span>
+          <span class="chip native">professional erasure</span>
+          <span class="chip native">high-paid technician's role</span>
+          <span class="chip native">asking permission to be a human</span>
+          <span class="chip native">replaced in 48 hours after 20 years of loyalty</span>
+          <span class="chip native">never owned a single day of my life</span>
+          <span class="chip native">if I stop, the money stops</span>
+        </div>
+      </div>
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag green">Intent keywords</span>
+          <span class="kw-section-title">For StackAdapt audience-segment targeting</span>
+        </div>
+        <div class="kw-section-help">Search behavior + content topics that signal active in-market for what Sophie wants. Target audience size after deploy: 5,000+ users.</div>
+        <div class="chip-grid">
+          <span class="chip">leaving corporate job</span>
+          <span class="chip">professional pivot mid-career</span>
+          <span class="chip">90k salary not enough</span>
+          <span class="chip">alternatives to corporate ladder</span>
+          <span class="chip">side income for corporate professionals</span>
+          <span class="chip">second career path</span>
+          <span class="chip">corporate burnout exit</span>
+          <span class="chip">willable sellable asset</span>
+          <span class="chip">build my own equity</span>
+          <span class="chip">income beyond salary</span>
+          <span class="chip">sovereignty financial freedom</span>
+          <span class="chip">director level career exit</span>
+          <span class="chip">remote job feels like cage</span>
+          <span class="chip">professional second income</span>
+          <span class="chip">corporate woman entrepreneur pivot</span>
+        </div>
+      </div>
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag red">Recoil keywords</span>
+          <span class="kw-section-title">Negative / exclusion list</span>
+        </div>
+        <div class="kw-section-help">Topics and phrases that trigger Sophie's BS-meter. Add to StackAdapt's brand-safety / negative-targeting layer to prevent serving to audiences who hate this category. The profile explicitly forbids motherhood and "saving" framing.</div>
+        <div class="chip-grid">
+          <span class="chip recoil">mom</span>
+          <span class="chip recoil">stay-at-home</span>
+          <span class="chip recoil">motherhood</span>
+          <span class="chip recoil">hand-holding</span>
+          <span class="chip recoil">saving</span>
+          <span class="chip recoil">Etsy</span>
+          <span class="chip recoil">craft business</span>
+          <span class="chip recoil">low-ticket</span>
+          <span class="chip recoil">easy money</span>
+          <span class="chip recoil">hustle</span>
+          <span class="chip recoil">grind</span>
+          <span class="chip recoil">side hustle queen</span>
+          <span class="chip recoil">girl boss</span>
+          <span class="chip recoil">manifest</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================== AVA =================== -->
+  <section class="avatar-block">
+    <div class="avatar-header">
+      <div>
+        <div class="avatar-num">Avatar 01 · Vanessa-fronted</div>
+        <div class="avatar-name">Strategic <em>Ava</em></div>
+      </div>
+      <div class="avatar-meta">
+        Theme: Efficiency, Supported Logic, System-Match<br />
+        Lead magnet: Freedom Blueprint
+      </div>
+    </div>
+    <div class="avatar-body">
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag gold">Native phrases</span>
+          <span class="kw-section-title">For ad copy &amp; LP hero language</span>
+        </div>
+        <div class="kw-section-help">Direct from Ava's "smart-person skepticism" — the voice of someone who's done the research and rejected most of what she found.</div>
+        <div class="chip-grid">
+          <span class="chip native">business that sounds as smart as my resume</span>
+          <span class="chip native">tech wall</span>
+          <span class="chip native">hobby trap</span>
+          <span class="chip native">high volume, low pay</span>
+          <span class="chip native">model fatigue</span>
+          <span class="chip native">moving high-value assets</span>
+          <span class="chip native">link in bio embarrassment</span>
+          <span class="chip native">analysis paralysis</span>
+          <span class="chip native">selling $50 items will never replace a $100k salary</span>
+          <span class="chip native">trying to build alone and failing</span>
+        </div>
+      </div>
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag green">Intent keywords</span>
+          <span class="kw-section-title">For StackAdapt audience-segment targeting</span>
+        </div>
+        <div class="kw-section-help">Ava is solution-aware — she's actively comparison-shopping. Target keywords that signal she's already past awareness and into evaluation.</div>
+        <div class="chip-grid">
+          <span class="chip">Amazon FBA worth it 2026</span>
+          <span class="chip">alternatives to FBA</span>
+          <span class="chip">high-ticket affiliate marketing</span>
+          <span class="chip">supported business model</span>
+          <span class="chip">done-for-you online business</span>
+          <span class="chip">affiliate marketing scam check</span>
+          <span class="chip">FBA vs dropshipping</span>
+          <span class="chip">FBA vs affiliate marketing</span>
+          <span class="chip">structured side business framework</span>
+          <span class="chip">high-ticket model professionals</span>
+          <span class="chip">supported distribution business</span>
+          <span class="chip">community-based business model</span>
+          <span class="chip">unit economics online business</span>
+          <span class="chip">one sale per month replace salary</span>
+          <span class="chip">low-margin e-commerce alternatives</span>
+        </div>
+      </div>
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag red">Recoil keywords</span>
+          <span class="kw-section-title">Negative / exclusion list</span>
+        </div>
+        <div class="kw-section-help">Ava can smell "guru" energy from the first scroll. Exclusion list keeps the campaign out of audiences saturated with these signals.</div>
+        <div class="chip-grid">
+          <span class="chip recoil">hustle bro</span>
+          <span class="chip recoil">lone wolf</span>
+          <span class="chip recoil">$97 course</span>
+          <span class="chip recoil">secret formula</span>
+          <span class="chip recoil">easy passive income</span>
+          <span class="chip recoil">get rich quick</span>
+          <span class="chip recoil">guru</span>
+          <span class="chip recoil">crypto millionaire</span>
+          <span class="chip recoil">drop shipping master</span>
+          <span class="chip recoil">3-step formula</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================== TRISTAN =================== -->
+  <section class="avatar-block">
+    <div class="avatar-header">
+      <div>
+        <div class="avatar-num">Avatar 02 · Shane-fronted</div>
+        <div class="avatar-name">Mobile <em>Tristan</em></div>
+      </div>
+      <div class="avatar-meta">
+        Theme: Mobility, Mechanism, Time Sovereignty<br />
+        Lead magnet: 100K Roadmap
+      </div>
+    </div>
+    <div class="avatar-body">
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag gold">Native phrases</span>
+          <span class="kw-section-title">For ad copy &amp; LP hero language</span>
+        </div>
+        <div class="kw-section-help">Tristan's vocabulary rejects the "digital nomad" cliché and speaks to high-end mobility.</div>
+        <div class="chip-grid">
+          <span class="chip native">golden leash</span>
+          <span class="chip native">longer leash</span>
+          <span class="chip native">remote job is still a job</span>
+          <span class="chip native">asking permission to book a flight</span>
+          <span class="chip native">digital cubicle</span>
+          <span class="chip native">income that fits in a suitcase</span>
+          <span class="chip native">global revenue engine</span>
+          <span class="chip native">invisible revenue</span>
+          <span class="chip native">no fantasies, just cold math</span>
+          <span class="chip native">principal status</span>
+        </div>
+      </div>
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag green">Intent keywords</span>
+          <span class="kw-section-title">For StackAdapt audience-segment targeting</span>
+        </div>
+        <div class="kw-section-help">Tristan is high-earning ($100k+) but tethered. Target signals that say "wants to leave the remote job for a real business that travels."</div>
+        <div class="chip-grid">
+          <span class="chip">location independent business</span>
+          <span class="chip">real digital nomad income</span>
+          <span class="chip">leave my remote job</span>
+          <span class="chip">passport income business</span>
+          <span class="chip">high-earning travel business</span>
+          <span class="chip">global business while traveling</span>
+          <span class="chip">time zone freedom business</span>
+          <span class="chip">premium nomad lifestyle</span>
+          <span class="chip">six-figure remote business</span>
+          <span class="chip">quit corporate travel world</span>
+          <span class="chip">decouple income from location</span>
+          <span class="chip">global distribution business</span>
+          <span class="chip">infrastructure-based online business</span>
+          <span class="chip">100k roadmap</span>
+        </div>
+      </div>
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag red">Recoil keywords</span>
+          <span class="kw-section-title">Negative / exclusion list</span>
+        </div>
+        <div class="kw-section-help">Tristan has a near-allergic reaction to nomad clichés and "make money online" guru content.</div>
+        <div class="chip-grid">
+          <span class="chip recoil">laptop on a beach</span>
+          <span class="chip recoil">hostel</span>
+          <span class="chip recoil">backpacker</span>
+          <span class="chip recoil">$1k/month nomad</span>
+          <span class="chip recoil">budget travel</span>
+          <span class="chip recoil">cheap living abroad</span>
+          <span class="chip recoil">work from anywhere job</span>
+          <span class="chip recoil">remote job board</span>
+          <span class="chip recoil">guru</span>
+          <span class="chip recoil">secret formula</span>
+          <span class="chip recoil">this one trick</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================== AARON =================== -->
+  <section class="avatar-block">
+    <div class="avatar-header">
+      <div>
+        <div class="avatar-num">Avatar 03 · Shane-fronted</div>
+        <div class="avatar-name">ROI <em>Aaron</em></div>
+      </div>
+      <div class="avatar-meta">
+        Theme: Logic, Unit Economics, Architect's Role<br />
+        Lead magnet: 100K Roadmap
+      </div>
+    </div>
+    <div class="avatar-body">
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag gold">Native phrases</span>
+          <span class="kw-section-title">For ad copy &amp; LP hero language</span>
+        </div>
+        <div class="kw-section-help">Aaron's vocabulary is mathematical. He wants to be persuaded by spreadsheets, not stories.</div>
+        <div class="chip-grid">
+          <span class="chip native">10% margin</span>
+          <span class="chip native">60 hours a week</span>
+          <span class="chip native">technician trap</span>
+          <span class="chip native">garage full of inventory</span>
+          <span class="chip native">platform dependency</span>
+          <span class="chip native">Architect's seat</span>
+          <span class="chip native">capital velocity</span>
+          <span class="chip native">one sale covers the mortgage</span>
+          <span class="chip native">institutional asset class</span>
+          <span class="chip native">borrowed land</span>
+        </div>
+      </div>
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag green">Intent keywords</span>
+          <span class="kw-section-title">For StackAdapt audience-segment targeting</span>
+        </div>
+        <div class="kw-section-help">Aaron's already running comparison spreadsheets. Target keywords that show he's actively comparing biz models on unit economics.</div>
+        <div class="chip-grid">
+          <span class="chip">Amazon FBA ROI 2026</span>
+          <span class="chip">FBA inventory risk</span>
+          <span class="chip">dropshipping margin reality</span>
+          <span class="chip">high-margin online business</span>
+          <span class="chip">best ROI side business</span>
+          <span class="chip">low-margin e-commerce alternatives</span>
+          <span class="chip">FBA vs dropshipping vs affiliate</span>
+          <span class="chip">capital velocity online business</span>
+          <span class="chip">high-ticket distribution model</span>
+          <span class="chip">unit economics side business</span>
+          <span class="chip">passive income real numbers</span>
+          <span class="chip">one sale per month business</span>
+          <span class="chip">amazon fba alternative 2026</span>
+          <span class="chip">side business 5k investment</span>
+        </div>
+      </div>
+
+      <div class="kw-section">
+        <div class="kw-label">
+          <span class="kw-tag red">Recoil keywords</span>
+          <span class="kw-section-title">Negative / exclusion list</span>
+        </div>
+        <div class="kw-section-help">Aaron's "smart-person" filter is the strongest of the four. He'll bounce on flattery, vagueness, or "mindset" content.</div>
+        <div class="chip-grid">
+          <span class="chip recoil">smart guy</span>
+          <span class="chip recoil">uncapped income</span>
+          <span class="chip recoil">rigged game</span>
+          <span class="chip recoil">make money online</span>
+          <span class="chip recoil">pyramid</span>
+          <span class="chip recoil">mindset</span>
+          <span class="chip recoil">manifest</span>
+          <span class="chip recoil">top 1%</span>
+          <span class="chip recoil">millionaire mindset</span>
+          <span class="chip recoil">unlimited earning potential</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================== DEPLOY GUIDANCE =================== -->
+  <div class="deploy-card">
+    <h3>How this gets deployed</h3>
+    <p>In <strong>StackAdapt</strong>, build four distinct audience segments — one per avatar. Paste each avatar's intent keywords into the keyword-targeting layer of the segment, and the recoil keywords into the brand-safety / negative-targeting layer. The native phrases are <em>not</em> for targeting — they're for ad copy and the LP hero, where they earn the click after the targeting puts the ad in front of the right person.</p>
+    <p><strong>Audience-size health check:</strong> 5,000+ qualified intent-positive users per avatar = green. Below 2,000 = too narrow (broaden the keyword set). Above 50,000 = too broad (the targeting won't pull weight against efficient cohorts). StackAdapt reports estimated reach during segment build — adjust until each avatar lands in the green band before activating.</p>
+    <p><strong>Optimization loop:</strong> Weekly review of CTR per avatar. If an avatar's CTR drops below 0.5%, iterate the keyword set first (likely too broad or off-axis), iterate creative second. If recoil-list audiences are accidentally getting served, add the offending phrases to brand-safety.</p>
+  </div>
+
+  <div class="footer">
+    <div>Elysian Leaders · Intent Keyword Research · v1.0 · April 2026</div>
+    <div>Source: sophie_profile · ava_profile · avatar dossier · 5-version script library</div>
+  </div>
+
+</div>
+
+</body>
+</html>
