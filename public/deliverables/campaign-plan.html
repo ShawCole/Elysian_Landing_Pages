@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Elysian Leaders — 90-Day Campaign Rollout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #1B2B3A;
+    --navy-soft: #2C3F52;
+    --navy-deep: #0F1923;
+    --turquoise: #40E0D0;
+    --turquoise-deep: #2DB3A6;
+    --gold: #D4A017;
+    --gold-soft: #E8B84B;
+    --gold-pale: #F0D078;
+    --cream: #F8F6F0;
+    --cream-deep: #EFEBE0;
+    --paper: #FAFAF7;
+    --charcoal: #4A4A4A;
+    --white: #FFFFFF;
+    --rule: rgba(27, 43, 58, 0.10);
+    --rule-strong: rgba(27, 43, 58, 0.18);
+    --serif: 'Playfair Display', Georgia, serif;
+    --display: 'Outfit', system-ui, sans-serif;
+    --body: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--paper);
+    color: var(--navy);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ===== LAYOUT ===== */
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem);
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--charcoal);
+    opacity: 0.7;
+  }
+  .eyebrow .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--turquoise-deep);
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  .header h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    max-width: 720px;
+  }
+  .header h1 em {
+    font-style: italic;
+    color: var(--turquoise-deep);
+  }
+  .header-aside {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--charcoal);
+    line-height: 1.7;
+    flex-shrink: 0;
+  }
+  .header-aside strong {
+    display: block;
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .brand-stamp {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+  }
+  .brand-stamp span { color: var(--turquoise-deep); }
+
+  /* ===== EXEC SUMMARY ===== */
+  .summary {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+  .summary-cell {
+    padding: 0 1.5rem;
+    border-right: 1px solid var(--rule-strong);
+  }
+  .summary-cell:last-child { border-right: 0; }
+  .summary-cell:first-child { padding-left: 0; }
+  .summary-cell:last-child { padding-right: 0; }
+  .summary-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--charcoal);
+    opacity: 0.7;
+    margin-bottom: 0.6rem;
+  }
+  .summary-value {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+  }
+  .summary-value .accent { color: var(--turquoise-deep); }
+  .summary-detail {
+    font-size: 13px;
+    color: var(--charcoal);
+    line-height: 1.45;
+  }
+
+  /* ===== SECTION ===== */
+  .section {
+    margin-bottom: 3.5rem;
+  }
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--turquoise-deep);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+  .section-heading h2 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .section-heading .meta {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--charcoal);
+    opacity: 0.6;
+  }
+
+  /* ===== JOURNEY FLOW (SVG-backed) ===== */
+  .journey-wrap {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 2rem 1.5rem 1.5rem;
+    overflow-x: auto;
+  }
+  .journey-svg {
+    width: 100%;
+    height: auto;
+    min-width: 880px;
+    display: block;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .phase {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.25rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .phase::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--turquoise);
+  }
+  .phase[data-phase="0"]::before { background: var(--gold-soft); }
+  .phase[data-phase="1"]::before { background: var(--gold); }
+  .phase[data-phase="2"]::before { background: var(--turquoise); }
+  .phase[data-phase="3"]::before { background: var(--turquoise-deep); }
+  .phase[data-phase="4"]::before { background: var(--navy); }
+
+  .phase-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--charcoal);
+  }
+  .phase-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--navy);
+    line-height: 1.15;
+  }
+  .phase-week {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--charcoal);
+    opacity: 0.75;
+  }
+  .phase-deliverables {
+    margin-top: 0.6rem;
+    font-size: 12px;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+  .phase-deliverables li {
+    list-style: none;
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 0.25rem;
+  }
+  .phase-deliverables li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--turquoise-deep);
+    font-weight: 700;
+  }
+  .phase-budget {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--rule);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .phase-budget .lbl { color: var(--charcoal); opacity: 0.7; margin-right: 0.4em; }
+
+  /* ===== MATH BLOCK ===== */
+  .math-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .math-card {
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 14px;
+    padding: 1.5rem 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .math-card.accent {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+  }
+  .math-card.accent::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--turquoise-deep) 0%, transparent 70%);
+    opacity: 0.45;
+  }
+  .math-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    opacity: 0.65;
+    margin-bottom: 0.6rem;
+    position: relative;
+    z-index: 1;
+  }
+  .math-value {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.85rem;
+    line-height: 1;
+    color: var(--cream);
+    position: relative;
+    z-index: 1;
+  }
+  .math-value .small { font-size: 1rem; opacity: 0.7; }
+  .math-value .accent { color: var(--turquoise); }
+  .math-detail {
+    margin-top: 0.5rem;
+    font-size: 12px;
+    opacity: 0.7;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== TWO-COL ===== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .panel {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem 1.25rem;
+  }
+  .panel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    background: var(--cream);
+    color: var(--turquoise-deep);
+  }
+  .panel-icon.gold {
+    background: rgba(212, 160, 23, 0.10);
+    color: var(--gold);
+  }
+  .panel-icon svg { width: 18px; height: 18px; }
+  .panel h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--navy);
+    margin-bottom: 0.85rem;
+    line-height: 1.2;
+  }
+  .panel ul {
+    list-style: none;
+  }
+  .panel ul li {
+    font-size: 13.5px;
+    color: var(--charcoal);
+    line-height: 1.55;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 0.55rem;
+  }
+  .panel ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.55em;
+    width: 8px; height: 1.5px;
+    background: var(--turquoise-deep);
+  }
+  .panel.gold ul li::before { background: var(--gold); }
+  .panel ul li strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* ===== COMPLIANCE STRIP ===== */
+  .compliance {
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .compliance-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: rgba(212, 160, 23, 0.18);
+    color: var(--gold-pale);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .compliance-icon svg { width: 22px; height: 22px; }
+  .compliance h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .compliance p {
+    font-size: 13.5px;
+    color: rgba(248, 246, 240, 0.78);
+    line-height: 1.55;
+    margin-bottom: 0.85rem;
+  }
+  .compliance-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .compliance-tag {
+    background: rgba(248, 246, 240, 0.08);
+    border: 1px solid rgba(248, 246, 240, 0.12);
+    color: rgba(248, 246, 240, 0.85);
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.35rem 0.7rem;
+    border-radius: 100px;
+  }
+
+  /* ===== NEXT 7 ===== */
+  .next-7 {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-deep) 100%);
+    border-radius: 18px;
+    padding: 2rem;
+    border: 1px solid var(--rule);
+  }
+  .next-7-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .day-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 0.85rem 0.75rem;
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .day-card .day-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--turquoise-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+  .day-card .day-task {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 12.5px;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  .day-card .day-owner {
+    margin-top: 0.4rem;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--charcoal);
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--charcoal);
+    opacity: 0.75;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .footer .right { font-style: normal; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .summary { grid-template-columns: 1fr; gap: 1rem; }
+    .summary-cell { padding: 0; border-right: 0; border-bottom: 1px solid var(--rule); padding-bottom: 1rem; }
+    .summary-cell:last-child { border-bottom: 0; padding-bottom: 0; }
+    .timeline { grid-template-columns: 1fr 1fr; }
+    .math-grid { grid-template-columns: 1fr 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .next-7-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: var(--white); }
+    .page { padding: 0.5in; max-width: none; }
+    .timeline, .math-grid, .two-col { gap: 0.5rem; }
+    .section { margin-bottom: 1.5rem; page-break-inside: avoid; }
+    .panel, .phase, .math-card, .compliance, .next-7 { break-inside: avoid; }
+    @page { size: 11in 17in; margin: 0.5in; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- =================== HEADER =================== -->
+  <header class="header">
+    <div class="header-meta">
+      <div class="eyebrow"><span class="dot"></span>Strategic Brief — Internal</div>
+      <h1>The 90-Day Rollout. <em>Validating the engine.</em></h1>
+    </div>
+    <div class="header-aside">
+      <div class="brand-stamp">Elysian<span>Leaders</span></div>
+      <div style="margin-top: 0.5rem;">Prepared for</div>
+      <strong>Shane &amp; Vanessa Carling</strong>
+      <div style="margin-top: 0.4rem;">April 2026 · Bali</div>
+    </div>
+  </header>
+
+  <!-- =================== EXECUTIVE SUMMARY =================== -->
+  <div class="summary">
+    <div class="summary-cell">
+      <div class="summary-label">The Window</div>
+      <div class="summary-value"><span class="accent">90</span> days</div>
+      <div class="summary-detail">From the Bali shoot to the first reliable, repeatable month of closes.</div>
+    </div>
+    <div class="summary-cell">
+      <div class="summary-label">Total Validation Spend</div>
+      <div class="summary-value">$27<span class="small">k</span> – $36<span class="small">k</span></div>
+      <div class="summary-detail">Phased — $1.5k pixel seed now, scaling only after the funnel earns it.</div>
+    </div>
+    <div class="summary-cell">
+      <div class="summary-label">Plan Target Outcome</div>
+      <div class="summary-value">8 – 15 <span class="small" style="font-weight: 400; opacity: 0.7;">closes</span></div>
+      <div class="summary-detail">$40k–$75k in commissions over the window. Steady-state target: 6–10 closes/month.</div>
+    </div>
+  </div>
+
+  <!-- =================== JOURNEY FLOW =================== -->
+  <section class="section">
+    <div class="section-heading">
+      <span class="section-num">01</span>
+      <h2>The Client Journey</h2>
+      <span class="meta">From cold to enrolled, end-to-end</span>
+    </div>
+
+    <div class="journey-wrap">
+      <svg class="journey-svg" viewBox="0 0 1100 720" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Arrow markers -->
+          <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L12,6 L0,12 z" fill="#1B2B3A" opacity="0.45" />
+          </marker>
+          <marker id="arrow-gold" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L12,6 L0,12 z" fill="#D4A017" opacity="0.65" />
+          </marker>
+          <marker id="arrow-teal" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L12,6 L0,12 z" fill="#2DB3A6" opacity="0.7" />
+          </marker>
+
+          <!-- Node fills -->
+          <linearGradient id="navyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2C3F52" />
+            <stop offset="100%" stop-color="#1B2B3A" />
+          </linearGradient>
+          <linearGradient id="creamGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFFFFF" />
+            <stop offset="100%" stop-color="#F8F6F0" />
+          </linearGradient>
+          <linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#40E0D0" />
+            <stop offset="100%" stop-color="#2DB3A6" />
+          </linearGradient>
+          <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E8B84B" />
+            <stop offset="100%" stop-color="#D4A017" />
+          </linearGradient>
+
+          <!-- Subtle node shadow -->
+          <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1B2B3A" flood-opacity="0.10"/>
+          </filter>
+        </defs>
+
+        <!-- ====== ROW 1: AWARENESS SOURCES ====== -->
+        <text x="550" y="28" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" fill="#4A4A4A" text-transform="uppercase">AWARENESS · COLD AUDIENCE</text>
+
+        <!-- Organic -->
+        <g filter="url(#cardShadow)">
+          <rect x="60" y="55" width="240" height="78" rx="12" fill="url(#creamGrad)" stroke="rgba(27,43,58,0.12)" />
+          <rect x="60" y="55" width="4" height="78" rx="2" fill="#2DB3A6" />
+          <text x="80" y="82" font-family="Outfit, sans-serif" font-weight="700" font-size="14" fill="#1B2B3A">Organic Content</text>
+          <text x="80" y="102" font-family="DM Sans, sans-serif" font-size="11" fill="#4A4A4A">IG Reels · TikTok · LinkedIn</text>
+          <text x="80" y="118" font-family="JetBrains Mono, monospace" font-size="9" fill="#2DB3A6" letter-spacing="0.5">KEYWORD-COMMENT TRIGGER</text>
+        </g>
+
+        <!-- DSP -->
+        <g filter="url(#cardShadow)">
+          <rect x="430" y="55" width="240" height="78" rx="12" fill="url(#creamGrad)" stroke="rgba(27,43,58,0.12)" />
+          <rect x="430" y="55" width="4" height="78" rx="2" fill="#D4A017" />
+          <text x="450" y="82" font-family="Outfit, sans-serif" font-weight="700" font-size="14" fill="#1B2B3A">DSP Display Ads</text>
+          <text x="450" y="102" font-family="DM Sans, sans-serif" font-size="11" fill="#4A4A4A">StackAdapt · YouTube · CTV</text>
+          <text x="450" y="118" font-family="JetBrains Mono, monospace" font-size="9" fill="#D4A017" letter-spacing="0.5">DIRECT CLICK TO LP</text>
+        </g>
+
+        <!-- Meta DM -->
+        <g filter="url(#cardShadow)">
+          <rect x="800" y="55" width="240" height="78" rx="12" fill="url(#creamGrad)" stroke="rgba(27,43,58,0.12)" />
+          <rect x="800" y="55" width="4" height="78" rx="2" fill="#2DB3A6" />
+          <text x="820" y="82" font-family="Outfit, sans-serif" font-weight="700" font-size="14" fill="#1B2B3A">Meta Click-to-DM</text>
+          <text x="820" y="102" font-family="DM Sans, sans-serif" font-size="11" fill="#4A4A4A">Messenger · WhatsApp</text>
+          <text x="820" y="118" font-family="JetBrains Mono, monospace" font-size="9" fill="#2DB3A6" letter-spacing="0.5">STRAIGHT INTO BOT THREAD</text>
+        </g>
+
+        <!-- Connectors row 1 → row 2 -->
+        <path d="M 180 135 Q 180 175 180 195" stroke="#1B2B3A" stroke-width="1.5" fill="none" opacity="0.35" marker-end="url(#arrow)" />
+        <path d="M 550 135 Q 550 175 550 195" stroke="#D4A017" stroke-width="1.5" fill="none" opacity="0.55" marker-end="url(#arrow-gold)" />
+        <path d="M 920 135 Q 920 220 850 250" stroke="#2DB3A6" stroke-width="1.5" fill="none" opacity="0.6" marker-end="url(#arrow-teal)" />
+
+        <!-- ====== ROW 2: ENTRY POINTS ====== -->
+
+        <!-- Manychat (right side) -->
+        <g filter="url(#cardShadow)">
+          <rect x="800" y="250" width="240" height="86" rx="12" fill="url(#tealGrad)" />
+          <text x="820" y="278" font-family="Outfit, sans-serif" font-weight="700" font-size="14" fill="#0F1923">Manychat AI Bot</text>
+          <text x="820" y="298" font-family="DM Sans, sans-serif" font-size="11" fill="rgba(15,25,35,0.78)">Trained on Shane &amp; Vanessa's voice.</text>
+          <text x="820" y="313" font-family="DM Sans, sans-serif" font-size="11" fill="rgba(15,25,35,0.78)">Qualifies, sends masterclass link.</text>
+          <text x="820" y="328" font-family="JetBrains Mono, monospace" font-size="9" fill="#0F1923" letter-spacing="0.5" font-weight="500">~95% AUTOMATED · SHANE/V REVIEWS DAILY</text>
+        </g>
+
+        <!-- Avatar Landing Page (center, with VSL) -->
+        <g filter="url(#cardShadow)">
+          <rect x="60" y="195" width="610" height="125" rx="14" fill="url(#creamGrad)" stroke="rgba(27,43,58,0.16)" />
+          <rect x="60" y="195" width="610" height="32" rx="14" fill="#1B2B3A" />
+          <rect x="60" y="217" width="610" height="10" fill="#1B2B3A" />
+          <text x="80" y="216" font-family="JetBrains Mono, monospace" font-size="10" fill="#F8F6F0" letter-spacing="1.5">AVATAR LANDING PAGE · 4 VARIANTS</text>
+          <circle cx="650" cy="211" r="3" fill="#40E0D0" />
+
+          <!-- VSL block -->
+          <rect x="80" y="245" width="200" height="55" rx="8" fill="#1B2B3A" />
+          <circle cx="180" cy="272" r="14" fill="#F8F6F0" />
+          <path d="M 175 265 L 175 280 L 188 272 z" fill="#1B2B3A" />
+          <text x="180" y="295" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#F8F6F0">5-MIN VSL</text>
+
+          <!-- Persona pills -->
+          <g transform="translate(300, 248)">
+            <rect x="0" y="0" width="76" height="22" rx="11" fill="rgba(64,224,208,0.14)" stroke="rgba(45,179,166,0.4)" />
+            <circle cx="10" cy="11" r="3" fill="#2DB3A6" />
+            <text x="18" y="15" font-family="DM Sans, sans-serif" font-size="11" fill="#1B2B3A">Sophie</text>
+            <rect x="86" y="0" width="62" height="22" rx="11" fill="rgba(64,224,208,0.14)" stroke="rgba(45,179,166,0.4)" />
+            <circle cx="96" cy="11" r="3" fill="#2DB3A6" />
+            <text x="104" y="15" font-family="DM Sans, sans-serif" font-size="11" fill="#1B2B3A">Ava</text>
+            <rect x="158" y="0" width="78" height="22" rx="11" fill="rgba(212,160,23,0.14)" stroke="rgba(212,160,23,0.4)" />
+            <circle cx="168" cy="11" r="3" fill="#D4A017" />
+            <text x="176" y="15" font-family="DM Sans, sans-serif" font-size="11" fill="#1B2B3A">Tristan</text>
+            <rect x="246" y="0" width="68" height="22" rx="11" fill="rgba(212,160,23,0.14)" stroke="rgba(212,160,23,0.4)" />
+            <circle cx="256" cy="11" r="3" fill="#D4A017" />
+            <text x="264" y="15" font-family="DM Sans, sans-serif" font-size="11" fill="#1B2B3A">Aaron</text>
+          </g>
+
+          <text x="300" y="285" font-family="DM Sans, sans-serif" font-size="11.5" fill="#4A4A4A">Visceral hero copy + persona-tuned headline.</text>
+          <text x="300" y="299" font-family="DM Sans, sans-serif" font-size="11.5" fill="#4A4A4A">CTA: <tspan font-weight="600" fill="#1B2B3A">Start the Alignment Audit</tspan></text>
+        </g>
+
+        <!-- Bot back to LP (cross-flow) -->
+        <path d="M 800 290 Q 720 290 670 290" stroke="#2DB3A6" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="4,3" marker-end="url(#arrow-teal)" />
+        <text x="710" y="282" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#2DB3A6" letter-spacing="0.5">SENDS LINK</text>
+
+        <!-- LP → Audit -->
+        <path d="M 365 320 L 365 360" stroke="#1B2B3A" stroke-width="1.5" fill="none" opacity="0.4" marker-end="url(#arrow)" />
+
+        <!-- ====== ROW 3: AUDIT ====== -->
+        <g filter="url(#cardShadow)">
+          <rect x="200" y="360" width="335" height="76" rx="12" fill="url(#creamGrad)" stroke="rgba(27,43,58,0.16)" />
+          <rect x="200" y="360" width="4" height="76" rx="2" fill="#D4A017" />
+          <text x="220" y="385" font-family="Outfit, sans-serif" font-weight="700" font-size="14" fill="#1B2B3A">Alignment Audit</text>
+          <text x="220" y="405" font-family="DM Sans, sans-serif" font-size="11.5" fill="#4A4A4A">4 questions · branches per persona · ~4 min</text>
+          <text x="220" y="423" font-family="JetBrains Mono, monospace" font-size="9" fill="#D4A017" letter-spacing="0.5">CAPTURES NAME · EMAIL · PHONE · CAPITAL</text>
+        </g>
+
+        <!-- Audit → Masterclass -->
+        <path d="M 367 436 L 367 472" stroke="#1B2B3A" stroke-width="1.5" fill="none" opacity="0.4" marker-end="url(#arrow)" />
+
+        <!-- ====== ROW 4: MASTERCLASS ====== -->
+        <g filter="url(#cardShadow)">
+          <rect x="200" y="472" width="335" height="86" rx="12" fill="url(#navyGrad)" />
+          <text x="220" y="498" font-family="Outfit, sans-serif" font-weight="700" font-size="15" fill="#F8F6F0">Masterclass · 22 min</text>
+          <text x="220" y="518" font-family="DM Sans, sans-serif" font-size="11.5" fill="rgba(248,246,240,0.72)">Commitment-gated. Compensation walkthrough.</text>
+          <text x="220" y="534" font-family="DM Sans, sans-serif" font-size="11.5" fill="rgba(248,246,240,0.72)">"Yes, I commit to watching all 22 min" → autoplay.</text>
+          <text x="220" y="552" font-family="JetBrains Mono, monospace" font-size="9" fill="#40E0D0" letter-spacing="0.5">PIXEL TRACKS WATCH PERCENTAGE</text>
+        </g>
+
+        <!-- Masterclass branch labels -->
+        <text x="125" y="592" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#4A4A4A" letter-spacing="1">&lt; 100% WATCHED</text>
+        <text x="610" y="592" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#4A4A4A" letter-spacing="1">FINISHED</text>
+
+        <!-- Branch arrows from masterclass -->
+        <path d="M 290 558 Q 200 575 130 595" stroke="#1B2B3A" stroke-width="1.5" fill="none" opacity="0.35" marker-end="url(#arrow)" />
+        <path d="M 445 558 Q 540 575 615 595" stroke="#1B2B3A" stroke-width="1.5" fill="none" opacity="0.35" marker-end="url(#arrow)" />
+
+        <!-- ====== ROW 5: BRANCH OUTCOMES ====== -->
+        <g filter="url(#cardShadow)">
+          <rect x="60" y="600" width="220" height="78" rx="12" fill="url(#creamGrad)" stroke="rgba(27,43,58,0.16)" />
+          <rect x="60" y="600" width="4" height="78" rx="2" fill="#D4A017" />
+          <text x="80" y="624" font-family="Outfit, sans-serif" font-weight="700" font-size="13" fill="#1B2B3A">Nurture Loop</text>
+          <text x="80" y="644" font-family="DM Sans, sans-serif" font-size="11" fill="#4A4A4A">SMS + Email · magic-link resume</text>
+          <text x="80" y="660" font-family="DM Sans, sans-serif" font-size="11" fill="#4A4A4A">at last-watched timestamp.</text>
+        </g>
+
+        <g filter="url(#cardShadow)">
+          <rect x="540" y="600" width="220" height="78" rx="12" fill="url(#creamGrad)" stroke="rgba(27,43,58,0.16)" />
+          <rect x="540" y="600" width="4" height="78" rx="2" fill="#2DB3A6" />
+          <text x="560" y="624" font-family="Outfit, sans-serif" font-weight="700" font-size="13" fill="#1B2B3A">Calendly Booking</text>
+          <text x="560" y="644" font-family="DM Sans, sans-serif" font-size="11" fill="#4A4A4A">3-day rolling window only.</text>
+          <text x="560" y="660" font-family="DM Sans, sans-serif" font-size="11" fill="#4A4A4A">Pre-call confirmation video.</text>
+        </g>
+
+        <!-- Nurture loops back -->
+        <path d="M 170 600 Q 170 540 200 510" stroke="#D4A017" stroke-width="1.5" fill="none" opacity="0.55" stroke-dasharray="4,3" marker-end="url(#arrow-gold)" />
+        <text x="80" y="556" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#D4A017" letter-spacing="0.5">RECOVER →</text>
+
+        <!-- ====== ROW 6: STRATEGY CALL → ENROLLED ====== -->
+        <g filter="url(#cardShadow)">
+          <rect x="800" y="445" width="240" height="115" rx="14" fill="url(#navyGrad)" />
+          <text x="820" y="475" font-family="Outfit, sans-serif" font-weight="700" font-size="15" fill="#F8F6F0">Strategy Call</text>
+          <text x="820" y="495" font-family="DM Sans, sans-serif" font-size="11" fill="rgba(248,246,240,0.72)">Shane / Vanessa close.</text>
+          <text x="820" y="510" font-family="DM Sans, sans-serif" font-size="11" fill="rgba(248,246,240,0.72)">Pre-qualified by audit + watched the masterclass.</text>
+          <line x1="820" y1="525" x2="1020" y2="525" stroke="rgba(248,246,240,0.18)" stroke-width="1" />
+          <text x="820" y="545" font-family="JetBrains Mono, monospace" font-size="10" fill="#40E0D0" letter-spacing="0.5">CLOSE RATE TARGET: 20–30%</text>
+
+          <rect x="820" y="555" width="200" height="0" rx="0" fill="none" />
+        </g>
+
+        <!-- Calendly → Strategy Call -->
+        <path d="M 760 638 Q 850 610 880 560" stroke="#2DB3A6" stroke-width="1.5" fill="none" opacity="0.6" marker-end="url(#arrow-teal)" />
+
+        <!-- Strategy Call → Enrolled -->
+        <g filter="url(#cardShadow)">
+          <rect x="800" y="600" width="240" height="78" rx="12" fill="url(#goldGrad)" />
+          <text x="820" y="624" font-family="Outfit, sans-serif" font-weight="700" font-size="13" fill="#1B2B3A">Enrolled Distributor</text>
+          <text x="820" y="644" font-family="DM Sans, sans-serif" font-size="11" fill="#1B2B3A">Picks their machine tier.</text>
+          <text x="820" y="662" font-family="JetBrains Mono, monospace" font-size="10" fill="#1B2B3A" letter-spacing="0.5" font-weight="500">4-FIGURE COMMISSION TO US</text>
+        </g>
+
+        <!-- Strategy Call → Enrolled connector -->
+        <path d="M 920 560 L 920 600" stroke="#1B2B3A" stroke-width="1.5" fill="none" opacity="0.45" marker-end="url(#arrow)" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- =================== TIMELINE =================== -->
+  <section class="section">
+    <div class="section-heading">
+      <span class="section-num">02</span>
+      <h2>The Phased Rollout</h2>
+      <span class="meta">90 days · 5 phases</span>
+    </div>
+
+    <div class="timeline">
+      <div class="phase" data-phase="0">
+        <div class="phase-num">Phase 0 · Foundation</div>
+        <div class="phase-name">Plumbing</div>
+        <div class="phase-week">Week 1 · now</div>
+        <ul class="phase-deliverables">
+          <li>Manychat flows × 4 personas</li>
+          <li>GHL Alignment Audit</li>
+          <li>SMS nurture sequences</li>
+          <li>Comment-keyword routing live</li>
+          <li>$50/day Meta pixel seed</li>
+        </ul>
+        <div class="phase-budget"><span class="lbl">Spend</span>$1.5k</div>
+      </div>
+
+      <div class="phase" data-phase="1">
+        <div class="phase-num">Phase 1 · Production</div>
+        <div class="phase-name">Bali shoot</div>
+        <div class="phase-week">Week 2</div>
+        <ul class="phase-deliverables">
+          <li>4 × VSL hooks (30s each)</li>
+          <li>1 × shared 4-min middle</li>
+          <li>1 × 22-min masterclass</li>
+          <li>16 × organic short clips</li>
+          <li>4 × pre-call confirmations</li>
+        </ul>
+        <div class="phase-budget"><span class="lbl">Spend</span>$2–3k production</div>
+      </div>
+
+      <div class="phase" data-phase="2">
+        <div class="phase-num">Phase 2 · Soft launch</div>
+        <div class="phase-name">Funnel goes live</div>
+        <div class="phase-week">Weeks 3–4</div>
+        <ul class="phase-deliverables">
+          <li>Organic posting begins (4/wk)</li>
+          <li>v2 LP live with VSL embed</li>
+          <li>Masterclass page gated</li>
+          <li>Meta DM scales $50→$200/day</li>
+          <li>5–10 calls booked by week 4</li>
+        </ul>
+        <div class="phase-budget"><span class="lbl">Spend</span>$4–6k</div>
+      </div>
+
+      <div class="phase" data-phase="3">
+        <div class="phase-num">Phase 3 · Scale</div>
+        <div class="phase-name">Volume + DSP</div>
+        <div class="phase-week">Weeks 5–8</div>
+        <ul class="phase-deliverables">
+          <li>2 posts/day across platforms</li>
+          <li>YouTube long-form (1/wk)</li>
+          <li>StackAdapt DSP @ $5k/mo</li>
+          <li>Meta retargeting @ $2k/mo</li>
+          <li>3–5 closes/month minimum</li>
+        </ul>
+        <div class="phase-budget"><span class="lbl">Spend</span>$9–11k/mo</div>
+      </div>
+
+      <div class="phase" data-phase="4">
+        <div class="phase-num">Phase 4 · Compound</div>
+        <div class="phase-name">High-trust layers</div>
+        <div class="phase-week">Weeks 9–12</div>
+        <ul class="phase-deliverables">
+          <li>Newsletter launches</li>
+          <li>1 sponsorship test</li>
+          <li>1 podcast drop</li>
+          <li>Path A/B funnel test</li>
+          <li>5–8 closes/month</li>
+        </ul>
+        <div class="phase-budget"><span class="lbl">Spend</span>$10–15k/mo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== MATH =================== -->
+  <section class="section">
+    <div class="section-heading">
+      <span class="section-num">03</span>
+      <h2>The Math</h2>
+      <span class="meta">Why this is worth doing</span>
+    </div>
+
+    <div class="math-grid">
+      <div class="math-card">
+        <div class="math-label">LTV per enrolled</div>
+        <div class="math-value"><span class="accent">$7k</span><span class="small"> – $12k</span></div>
+        <div class="math-detail">Direct commission + team overrides over 12 months.</div>
+      </div>
+      <div class="math-card">
+        <div class="math-label">CAC tolerance (3:1)</div>
+        <div class="math-value">$2.3k<span class="small"> – $4k</span></div>
+        <div class="math-detail">Per closed sale, healthy unit economics.</div>
+      </div>
+      <div class="math-card accent">
+        <div class="math-label">Target CAC at maturity</div>
+        <div class="math-value"><span class="accent">$1.5k</span><span class="small"> – $3.5k</span></div>
+        <div class="math-detail">Early funnel runs higher; tightens as creatives optimize.</div>
+      </div>
+      <div class="math-card">
+        <div class="math-label">Steady-state target</div>
+        <div class="math-value">6 – 10 <span class="small">closes/mo</span></div>
+        <div class="math-detail">$30k–$80k commissions per month, post-validation.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== TWO-COL: Asks + Promises =================== -->
+  <section class="section">
+    <div class="section-heading">
+      <span class="section-num">04</span>
+      <h2>The Division of Labor</h2>
+      <span class="meta">What we each commit to</span>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-icon gold">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>What we need from Shane &amp; Vanessa</h3>
+        <ul>
+          <li><strong>One Bali shoot weekend.</strong> Three days, batched. ~12 hours of filming covers VSLs, masterclass, organic clips, pre-call videos.</li>
+          <li><strong>30 min/day reviewing the bot.</strong> Approve / rewrite the AI's flagged conversations. After 4 weeks, this drops to ~10 min/day.</li>
+          <li><strong>Show up to strategy calls.</strong> 3–8 per week ramping. Every prospect arrives pre-qualified and having already watched the masterclass.</li>
+          <li><strong>1 quarterly batch shoot</strong> for content refresh. AI-cloned voice fills in between live shoots.</li>
+          <li><strong>Stay clear of DSSRC-flagged language</strong> in any personal posts. We'll keep a do/don't reference handy.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>What we're delivering for you</h3>
+        <ul>
+          <li><strong>The full funnel infrastructure.</strong> Manychat, GHL, Calendly, SMS nurture, masterclass page, retargeting pixel — all wired and tested.</li>
+          <li><strong>Avatar landing pages.</strong> v2 redesign live (Sophie, Ava, Tristan, Aaron) with persona-tuned hero copy and the VSL slot ready.</li>
+          <li><strong>Ad creative + media buying.</strong> Meta DM, DSP, retargeting, LinkedIn — managed daily with weekly performance reports.</li>
+          <li><strong>Content production engine.</strong> 16 scripts ready for shoot day, AI-clipping workflow for repurposing, voice-clone backups for gap-fills.</li>
+          <li><strong>AI-powered DM bot.</strong> Trained on your voice. Handles ~95% of conversations. Hands off only when prospects need a human.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== COMPLIANCE =================== -->
+  <section class="section">
+    <div class="section-heading">
+      <span class="section-num">05</span>
+      <h2>Compliance Commitments</h2>
+      <span class="meta">Protecting your accounts and your brand</span>
+    </div>
+
+    <div class="compliance">
+      <div class="compliance-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <h3>The DSSRC ruling against Enagic (Case #216-2025) is fresh — every piece of copy goes through a do / don't filter before it ships.</h3>
+        <p>No specific dollar amounts in cold ads. No health claims, ever. No "Kangen" or "Enagic" in public copy. Earnings disclaimer prominently footed on every page that mentions commissions. Direct Meta-cold-ad → landing page is permanently off-limits — only DSP and DM-link traffic touches the LP.</p>
+        <div class="compliance-tags">
+          <span class="compliance-tag">DSSRC compliant</span>
+          <span class="compliance-tag">Meta Andromeda 2026 safe</span>
+          <span class="compliance-tag">Enagic policy aware</span>
+          <span class="compliance-tag">Earnings disclaimer footed</span>
+          <span class="compliance-tag">No health claims</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== NEXT 7 DAYS =================== -->
+  <section class="section">
+    <div class="section-heading">
+      <span class="section-num">06</span>
+      <h2>The Next 7 Days</h2>
+      <span class="meta">What ships before Bali</span>
+    </div>
+
+    <div class="next-7">
+      <p style="font-size: 13.5px; color: var(--charcoal); max-width: 820px; line-height: 1.6;">
+        These deliverables unblock the Bali shoot. None of them require Shane or Vanessa to do anything except confirm the comment-keyword names and approve the shoot weekend.
+      </p>
+      <div class="next-7-grid">
+        <div class="day-card">
+          <span class="day-num">Day 1</span>
+          <span class="day-task">Manychat flow specs (all 4 avatars)</span>
+          <span class="day-owner">Shaw</span>
+        </div>
+        <div class="day-card">
+          <span class="day-num">Day 2</span>
+          <span class="day-task">GHL Alignment Audit branching logic</span>
+          <span class="day-owner">Shaw</span>
+        </div>
+        <div class="day-card">
+          <span class="day-num">Day 3</span>
+          <span class="day-task">Content script library (16 clips + VSL)</span>
+          <span class="day-owner">Shaw</span>
+        </div>
+        <div class="day-card">
+          <span class="day-num">Day 4</span>
+          <span class="day-task">Ad creative briefs (12 Meta DM concepts)</span>
+          <span class="day-owner">Shaw</span>
+        </div>
+        <div class="day-card">
+          <span class="day-num">Day 5</span>
+          <span class="day-task">Compliance lock document signed</span>
+          <span class="day-owner">Shaw + Carlings</span>
+        </div>
+        <div class="day-card">
+          <span class="day-num">Day 6</span>
+          <span class="day-task">Pixel + comment-growth tool installed</span>
+          <span class="day-owner">Shaw</span>
+        </div>
+        <div class="day-card">
+          <span class="day-num">Day 7</span>
+          <span class="day-task">$50/day Meta DM seed live</span>
+          <span class="day-owner">Shaw</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== FOOTER =================== -->
+  <div class="footer">
+    <div class="left">
+      Elysian Leaders · 90-Day Campaign Rollout · v1.0 · April 2026
+    </div>
+    <div class="right">
+      Prepared by Shaw Cole · Bizyzpro Development Team
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
