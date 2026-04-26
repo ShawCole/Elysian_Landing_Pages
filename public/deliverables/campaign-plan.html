@@ -209,6 +209,170 @@
     display: block;
   }
 
+  /* ===== UNCHARTED ===== */
+  .uncharted {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 1.75rem 2rem;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #FAFAF7 0%, #F0EBE0 100%);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--gold);
+    border-radius: 14px;
+  }
+  .uncharted-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(212, 160, 23, 0.15);
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .uncharted-icon svg { width: 22px; height: 22px; }
+  .uncharted-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .uncharted-title {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--navy);
+    margin-bottom: 0.85rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .uncharted-text {
+    font-size: 13.5px;
+    color: var(--charcoal);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+  }
+  .uncharted-text:last-child { margin-bottom: 0; }
+  .uncharted-text strong { color: var(--navy); font-weight: 600; }
+
+  /* ===== SCORING RUBRIC ===== */
+  .rubric-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .rubric-table th {
+    text-align: left;
+    padding: 0.85rem 1rem;
+    background: var(--cream);
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--charcoal);
+    border-bottom: 1px solid var(--rule-strong);
+    font-weight: 500;
+  }
+  .rubric-table td {
+    padding: 0.85rem 1rem;
+    font-size: 13px;
+    color: var(--navy);
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .rubric-table tr:last-child td { border-bottom: 0; }
+  .rubric-table .channel,
+  .rubric-table .stage {
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--navy);
+    width: 22%;
+  }
+  .rubric-table .budget {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--charcoal);
+    width: 13%;
+    white-space: nowrap;
+  }
+  .signal {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .signal.green { background: rgba(72, 178, 27, 0.14); color: #2D7A12; }
+  .signal.yellow { background: rgba(212, 160, 23, 0.14); color: #8A6A0E; }
+  .signal.red { background: rgba(217, 50, 50, 0.10); color: #B53030; }
+  .rubric-cell-text {
+    font-size: 12.5px;
+    color: var(--charcoal);
+    line-height: 1.45;
+  }
+
+  .rubric-cadence {
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin-top: 1rem;
+  }
+  .rubric-cadence h4 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--cream);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .cadence-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .cadence-item {
+    border-left: 2px solid var(--turquoise);
+    padding-left: 0.85rem;
+  }
+  .cadence-item .when {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--turquoise);
+    margin-bottom: 0.35rem;
+  }
+  .cadence-item .what {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 12.5px;
+    color: var(--cream);
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+  }
+  .cadence-item .why {
+    font-size: 11.5px;
+    color: rgba(248, 246, 240, 0.65);
+    line-height: 1.45;
+  }
+
   /* ===== TIMELINE ===== */
   .timeline {
     display: grid;
@@ -531,6 +695,9 @@
     .math-grid { grid-template-columns: 1fr 1fr; }
     .two-col { grid-template-columns: 1fr; }
     .next-7-grid { grid-template-columns: 1fr 1fr; }
+    .uncharted { grid-template-columns: 1fr; gap: 1rem; }
+    .cadence-grid { grid-template-columns: 1fr 1fr; }
+    .rubric-table { display: block; overflow-x: auto; }
   }
 
   /* ===== PRINT ===== */
@@ -552,7 +719,7 @@
   <header class="header">
     <div class="header-meta">
       <div class="eyebrow"><span class="dot"></span>Strategic Brief — Internal</div>
-      <h1>The 90-Day Rollout. <em>Validating the engine.</em></h1>
+      <h1>The 90-Day Rollout. <em>An experiment, scored honestly.</em></h1>
     </div>
     <div class="header-aside">
       <div class="brand-stamp">Elysian<span>Leaders</span></div>
@@ -578,6 +745,23 @@
       <div class="summary-label">Plan Target Outcome</div>
       <div class="summary-value">4 – 9 <span class="small" style="font-weight: 400; opacity: 0.7;">closes</span></div>
       <div class="summary-detail">$20k–$45k in commissions over the window. Steady-state target: 4–7 closes/month.</div>
+    </div>
+  </div>
+
+  <!-- =================== UNCHARTED TERRITORY =================== -->
+  <div class="uncharted">
+    <div class="uncharted-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    </div>
+    <div class="uncharted-body">
+      <div class="uncharted-eyebrow">No one has done this exact thing publicly</div>
+      <h3 class="uncharted-title">This is uncharted territory. We're going to learn by doing.</h3>
+      <p class="uncharted-text">
+        We searched for case studies of high-ticket Enagic / Amway / network-marketing-adjacent businesses scaled via DSP and programmatic. They effectively don't exist — for three honest reasons: top operators in this niche don't publish playbooks (compliance + competitive), DSPs don't curate MLM-adjacent customers into their public lineup, and the established channels for this category have historically been organic social and team-builds, not programmatic.
+      </p>
+      <p class="uncharted-text">
+        We have plausible reasons to believe DSP transfers from adjacent categories (B2B lead gen, financial services, high-ticket coaching) — but no public confirmation. So this rollout is structured as a series of <strong>small, instrumented experiments</strong> rather than a deployment of a known-winner playbook. Every channel has explicit go/no-go thresholds. We scale what works, kill what doesn't, redirect spend weekly. The architecture is sound; the channel mix is the experiment.
+      </p>
     </div>
   </div>
 
@@ -906,10 +1090,154 @@
     </div>
   </section>
 
-  <!-- =================== TWO-COL: Asks + Promises =================== -->
+  <!-- =================== SCORING RUBRIC =================== -->
   <section class="section">
     <div class="section-heading">
       <span class="section-num">04</span>
+      <h2>How we know if it's working</h2>
+      <span class="meta">Explicit thresholds — green / yellow / red</span>
+    </div>
+
+    <h3 style="font-family: var(--display); font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 0.85rem; letter-spacing: -0.005em;">Per-channel kill / scale gates</h3>
+
+    <table class="rubric-table">
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Test budget</th>
+          <th>Green light <span style="font-weight: 400; opacity: 0.7;">(scale)</span></th>
+          <th>Yellow <span style="font-weight: 400; opacity: 0.7;">(optimize)</span></th>
+          <th>Red <span style="font-weight: 400; opacity: 0.7;">(kill / pause)</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="channel">Organic content + DM bot</td>
+          <td class="budget">$0 (creator time)</td>
+          <td><span class="signal green">Scale</span><div class="rubric-cell-text">≥ 5k new followers / mo combined; 1+ post hits 50k+ views by week 8</div></td>
+          <td><span class="signal yellow">Optimize</span><div class="rubric-cell-text">2–5k new followers / mo; reach growing but no virals — iterate hooks</div></td>
+          <td><span class="signal red">Pivot</span><div class="rubric-cell-text">Flat reach after 8 weeks; rework content angles + posting cadence</div></td>
+        </tr>
+        <tr>
+          <td class="channel">StackAdapt DSP <span style="font-weight: 400; color: var(--charcoal); font-size: 11px;">· experimental for this niche</span></td>
+          <td class="budget">$2–3k / mo</td>
+          <td><span class="signal green">Scale to $5–10k</span><div class="rubric-cell-text">CAC &lt; $3k by day 60; cost-per-call &lt; $700; CTR &gt; 0.5%</div></td>
+          <td><span class="signal yellow">Hold + iterate</span><div class="rubric-cell-text">CAC $3–5k; cost-per-call $700–1.5k — refine audience + creative</div></td>
+          <td><span class="signal red">Pause + reinvest</span><div class="rubric-cell-text">CAC &gt; $5k after 60 days; redirect spend to organic + sponsorships</div></td>
+        </tr>
+        <tr>
+          <td class="channel">Email sponsorships <span style="font-weight: 400; color: var(--charcoal); font-size: 11px;">· Morning Brew / Trends</span></td>
+          <td class="budget">$3–5k / blast</td>
+          <td><span class="signal green">Repeat + scale</span><div class="rubric-cell-text">Cost-per-call &lt; $1k on first blast; ROAS &gt; 1.5× within 30 days</div></td>
+          <td><span class="signal yellow">Test second blast</span><div class="rubric-cell-text">Cost-per-call $1–2k; try a different placement / list</div></td>
+          <td><span class="signal red">Stop</span><div class="rubric-cell-text">Cost-per-call &gt; $2k; sponsorships not the right channel for our audience</div></td>
+        </tr>
+        <tr>
+          <td class="channel">Podcast sponsorships <span style="font-weight: 400; color: var(--charcoal); font-size: 11px;">· entrepreneurship pods</span></td>
+          <td class="budget">$2–4k / drop</td>
+          <td><span class="signal green">Repeat + scale</span><div class="rubric-cell-text">Cost-per-call &lt; $800 within 30 days of drop; high engagement on offer code</div></td>
+          <td><span class="signal yellow">Test second pod</span><div class="rubric-cell-text">Cost-per-call $800–1.5k; try a different host / niche</div></td>
+          <td><span class="signal red">Stop</span><div class="rubric-cell-text">No tracked conversions within 60 days; podcast audience doesn't convert</div></td>
+        </tr>
+        <tr>
+          <td class="channel">Meta retargeting <span style="font-weight: 400; color: var(--charcoal); font-size: 11px;">· LP visitors only</span></td>
+          <td class="budget">$500–1k / mo</td>
+          <td><span class="signal green">Hold</span><div class="rubric-cell-text">Recovery rate &gt; 8% of LP visitors who didn't opt in; account stays clean</div></td>
+          <td><span class="signal yellow">Watch closely</span><div class="rubric-cell-text">Recovery 3–8%; CPM rising — review creative for compliance signals</div></td>
+          <td><span class="signal red">Kill</span><div class="rubric-cell-text">Account warning, CPM doubles, or LP gets flagged on review</div></td>
+        </tr>
+        <tr>
+          <td class="channel">Meta cold DM <span style="font-weight: 400; color: var(--charcoal); font-size: 11px;">· optional sandbox</span></td>
+          <td class="budget">$50/day, fresh BM</td>
+          <td><span class="signal green">Cautious scale</span><div class="rubric-cell-text">Cost-per-DM &lt; $80; account stable for 30+ days; no review flags</div></td>
+          <td><span class="signal yellow">Hold $50/day</span><div class="rubric-cell-text">Cost-per-DM $80–150; some review activity but ads still serving</div></td>
+          <td><span class="signal red">Kill the BM</span><div class="rubric-cell-text">Cost-per-DM &gt; $150, account restriction, or LP-scrape flag — pull immediately</div></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family: var(--display); font-weight: 700; font-size: 1rem; color: var(--navy); margin: 2rem 0 0.85rem; letter-spacing: -0.005em;">Funnel-stage health thresholds</h3>
+
+    <table class="rubric-table">
+      <thead>
+        <tr>
+          <th>Funnel stage</th>
+          <th>Healthy</th>
+          <th>Concerning</th>
+          <th>Broken (rebuild)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="stage">Ad → click</td>
+          <td><div class="rubric-cell-text">CTR &gt; 1.5% (DSP) · &gt; 2.5% (Meta DM)</div></td>
+          <td><div class="rubric-cell-text">CTR 0.5–1.5% — creative iteration</div></td>
+          <td><div class="rubric-cell-text">CTR &lt; 0.5% — wrong audience or wrong hook</div></td>
+        </tr>
+        <tr>
+          <td class="stage">LP visit → opt-in</td>
+          <td><div class="rubric-cell-text">&gt; 25%</div></td>
+          <td><div class="rubric-cell-text">15–25% — A/B test hero copy</div></td>
+          <td><div class="rubric-cell-text">&lt; 15% — LP rebuild</div></td>
+        </tr>
+        <tr>
+          <td class="stage">Opt-in → masterclass start</td>
+          <td><div class="rubric-cell-text">&gt; 50%</div></td>
+          <td><div class="rubric-cell-text">30–50% — tighten the commitment gate</div></td>
+          <td><div class="rubric-cell-text">&lt; 30% — bot flow / SMS nurture broken</div></td>
+        </tr>
+        <tr>
+          <td class="stage">Masterclass → finished <span style="font-weight: 400; color: var(--charcoal); font-size: 11px;">· at 60 min</span></td>
+          <td><div class="rubric-cell-text">&gt; 35%</div></td>
+          <td><div class="rubric-cell-text">20–35% — strong case to cut to 30–40 min</div></td>
+          <td><div class="rubric-cell-text">&lt; 20% — masterclass is too long, must trim</div></td>
+        </tr>
+        <tr>
+          <td class="stage">Masterclass → call booked</td>
+          <td><div class="rubric-cell-text">&gt; 15% of finishers</div></td>
+          <td><div class="rubric-cell-text">8–15% — strengthen close + scarcity</div></td>
+          <td><div class="rubric-cell-text">&lt; 8% — masterclass isn't selling the next step</div></td>
+        </tr>
+        <tr>
+          <td class="stage">Strategy call → close</td>
+          <td><div class="rubric-cell-text">&gt; 20%</div></td>
+          <td><div class="rubric-cell-text">10–20% — sales process iteration</div></td>
+          <td><div class="rubric-cell-text">&lt; 10% — wrong leads, or call needs restructure</div></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="rubric-cadence">
+      <h4>Decision cadence — when we look, when we decide</h4>
+      <div class="cadence-grid">
+        <div class="cadence-item">
+          <div class="when">Every Friday</div>
+          <div class="what">Channel-level review</div>
+          <div class="why">Ad spend per channel, CAC trending, kill or scale signals. 30-min review.</div>
+        </div>
+        <div class="cadence-item">
+          <div class="when">Every 2 weeks</div>
+          <div class="what">Full funnel diagnosis</div>
+          <div class="why">Identify the weakest stage. Rebuild that one before adding spend.</div>
+        </div>
+        <div class="cadence-item">
+          <div class="when">End of week 4</div>
+          <div class="what">Phase 2 go / no-go</div>
+          <div class="why">If organic + DSP shows life → continue. If not → diagnose before adding spend.</div>
+        </div>
+        <div class="cadence-item">
+          <div class="when">End of week 12</div>
+          <div class="what">Plan retrospective</div>
+          <div class="why">Identify the 1–2 channels that worked. Kill the rest. Lock the steady-state mix.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== TWO-COL: Asks + Promises =================== -->
+  <section class="section">
+    <div class="section-heading">
+      <span class="section-num">05</span>
       <h2>The Division of Labor</h2>
       <span class="meta">What we each commit to</span>
     </div>
@@ -948,7 +1276,7 @@
   <!-- =================== RISK REALITY CHECK =================== -->
   <section class="section">
     <div class="section-heading">
-      <span class="section-num">05</span>
+      <span class="section-num">06</span>
       <h2>What we're not pretending</h2>
       <span class="meta">Honest assessment of the risks</span>
     </div>
@@ -984,7 +1312,7 @@
   <!-- =================== COMPLIANCE =================== -->
   <section class="section">
     <div class="section-heading">
-      <span class="section-num">06</span>
+      <span class="section-num">07</span>
       <h2>Compliance Commitments</h2>
       <span class="meta">Protecting your accounts and your brand</span>
     </div>
@@ -1010,7 +1338,7 @@
   <!-- =================== NEXT 7 DAYS =================== -->
   <section class="section">
     <div class="section-heading">
-      <span class="section-num">07</span>
+      <span class="section-num">08</span>
       <h2>The Next 7 Days</h2>
       <span class="meta">What ships before Bali</span>
     </div>
@@ -1062,7 +1390,7 @@
   <!-- =================== FOOTER =================== -->
   <div class="footer">
     <div class="left">
-      Elysian Leaders · 90-Day Campaign Rollout · v1.1 (revised) · April 2026
+      Elysian Leaders · 90-Day Campaign Rollout · v1.2 (uncharted-honest) · April 2026
     </div>
     <div class="right">
       Prepared by Shaw Cole · Bizyzpro Development Team
